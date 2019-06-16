@@ -5,10 +5,10 @@
         <div class="botLine">
             <div></div>
             <div class="progress" [style.height]="item.style.height"></div></div>
-        <ngx-cosmetics-outline-bar
+        <outline-bar
                 [@openClose]="isOpen"
                 *ngIf="item === selected && item.child_catalog.length"
                 (pointClick)="passSelect($event)"
-                [catalog]="item.child_catalog" ></ngx-cosmetics-outline-bar>
+                [catalog]="item.child_catalog" ></outline-bar>
     </ng-container>
 </ng-container>

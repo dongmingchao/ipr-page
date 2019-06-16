@@ -1,9 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Catalog} from '../_Classes/Catalog.class';
+import {Catalog} from 'src/app/_Classes/Catalog.class';
 import {openClose} from './animations';
 
 @Component({
-    selector: 'ngx-cosmetics-outline-bar',
+    selector: 'outline-bar',
     templateUrl: './cosmetics-outline-bar.component.html',
     styleUrls: ['./cosmetics-outline-bar.component.css'],
     animations: openClose,
@@ -11,7 +11,7 @@ import {openClose} from './animations';
 
 export class CosmeticsOutlineBarComponent implements OnInit {
     @Input() catalog: Catalog[];
-    @Input() open: boolean = true;
+    @Input() open = true;
     @Output() pointClick = new EventEmitter();
 
     selected: Catalog;

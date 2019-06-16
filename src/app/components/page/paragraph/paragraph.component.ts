@@ -1,5 +1,5 @@
 import {Component, ElementRef, Input, OnInit} from '@angular/core';
-import {Catalog} from '../../_Classes/Catalog.class';
+import {Catalog} from 'src/app/_Classes/Catalog.class';
 
 function offset(curEle, parent) {
     let totalLeft = null, totalTop = null, par = curEle.offsetParent;

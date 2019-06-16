@@ -8,12 +8,10 @@
       "camelCase"
     ],
     "component-selector": [
-      true,
-      "element",
-      "app",
-      "kebab-case"
+      false
     ],
     "variable-name": false,
-    "jsdoc-format": false
+    "jsdoc-format": false,
+    "curly": false
   }
 }

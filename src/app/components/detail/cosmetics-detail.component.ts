@@ -57,20 +57,22 @@ export class CosmeticsDetailComponent implements OnInit, OnDestroy, AfterViewIni
 
     alreadyAdded = {};
 
-    currentIndex: number = -1;
+    currentIndex = -1;
 
 
-    change(indexesOfRoot: number[]) {
+    async change(indexesOfRoot: number[]) {
         console.log('change', indexesOfRoot);
         let item: Catalog;
         const index = indexesOfRoot[indexesOfRoot.length - 1];
         let catalog = this.reportsService.root_catalog;
+        if (catalog.length === 0) return ;
         for (const i of indexesOfRoot) {
             if (item) {
                 catalog = item.child_catalog;
             }
             item = catalog[i];
         }
+        console.log('123', item, catalog);
         this.pageId = item.id;
         this.reportsService.selected.catalog = catalog;
         this.reportsService.selected.index = index;
@@ -83,10 +85,9 @@ export class CosmeticsDetailComponent implements OnInit, OnDestroy, AfterViewIni
             this.reportsService.selected.index = 0;
         }
         this.reportsService.section = this.reportsService.selected.catalog[this.reportsService.selected.index];
-        this.reportsService.get_content(this.reportsService.section.id, 'True').subscribe(json => {
-            console.log('section content', json[0]);
-            this.reportsService.section.paragraphs = json[0].paragraphs;
-        });
+        const json = await this.reportsService.get_content(this.reportsService.section.id, 'True');
+        console.log('section content', json[0]);
+        this.reportsService.section.paragraphs = json[0].paragraphs;
         this.outline.expand(item);
     }
 
@@ -128,7 +129,7 @@ export class CosmeticsDetailComponent implements OnInit, OnDestroy, AfterViewIni
         "child_catalog": {}
     }]
      */
-    getCateLog() {
+    async getCateLog() {
         // this.catalog = [
         //     {
         //         "id": 1063,
@@ -152,13 +153,11 @@ export class CosmeticsDetailComponent implements OnInit, OnDestroy, AfterViewIni
         //     {id: 1053, isSmall: false, title: '4.1 漳州日化产业发展路径导航'},
         // ];
         // this.reportsService.selected.catalog = this.catalog;
-        this.reportsService.get_catelog(18, 3)
-            .subscribe(json => {
-                this.reportsService.root_catalog = json;
-                this.reportsService.selected.catalog = this.reportsService.root_catalog;
-                this.page = this.reportsService.selected.catalog;
-                this.change([0]);
-            });
+        const rec = await this.reportsService.get_catelog(18, 3);
+        this.reportsService.root_catalog = rec;
+        this.reportsService.selected.catalog = this.reportsService.root_catalog;
+        this.page = this.reportsService.selected.catalog;
+        this.change([0]);
     }
 
     constructor(
