@@ -12,6 +12,8 @@
       "element",
       "app",
       "kebab-case"
-    ]
+    ],
+    "variable-name": false,
+    "jsdoc-format": false
   }
 }
