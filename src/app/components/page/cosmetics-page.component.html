@@ -42,14 +42,14 @@
           </div>
         </div>
       </div>
-        <ngx-paragraph
+        <ipr-paragraph
                 *ngFor="let two of paragraph.child_catalog;index as second;"
                 [content]="two" [index]="second"
                 #secondary>
-            <ngx-paragraph
+            <ipr-paragraph
                     *ngFor="let three of two.child_catalog;index as third;"
                     [content]="three" [index]="third"
-                    #tertiary></ngx-paragraph></ngx-paragraph>
+                    #tertiary></ipr-paragraph></ipr-paragraph>
     </div>
   </div>
 </div>

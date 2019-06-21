@@ -17,7 +17,7 @@ import {CosmeticsPageComponent} from '../page/cosmetics-page.component';
 import {CosmeticsOutlineBarComponent} from '../outline-bar/cosmetics-outline-bar.component';
 
 @Component({
-    selector: 'app-detail',
+    selector: 'ipr-report-detail',
     templateUrl: './cosmetics-detail.component.html',
     styleUrls: ['./test.css'],
     providers: [ReportsService],
@@ -26,12 +26,12 @@ export class CosmeticsDetailComponent implements OnInit, OnDestroy, AfterViewIni
     message: any;
     subscription: Subscription;
     private pages: any;
-    private page: Catalog[];
+    page: Catalog[];
     private pageId: number;
     isOpen = 'closed';
     height: number;
-    @ViewChild('outline') outline: CosmeticsOutlineBarComponent;
-    @ViewChild('article') article: CosmeticsPageComponent;
+    @ViewChild('outline', {static: false}) outline: CosmeticsOutlineBarComponent;
+    @ViewChild('article', {static: false}) article: CosmeticsPageComponent;
 
 
     @Input('Pages') set Pages(value) {
@@ -57,7 +57,7 @@ export class CosmeticsDetailComponent implements OnInit, OnDestroy, AfterViewIni
 
     alreadyAdded = {};
 
-    currentIndex: number = -1;
+    currentIndex = -1;
 
 
     change(indexesOfRoot: number[]) {
@@ -75,7 +75,7 @@ export class CosmeticsDetailComponent implements OnInit, OnDestroy, AfterViewIni
         this.reportsService.selected.catalog = catalog;
         this.reportsService.selected.index = index;
         this.reportsService.parent.indexesOfRoot = indexesOfRoot;
-        if (item.child_catalog.length) {
+        if (item.child_catalog) {
             item.style.height = '100%';
             this.reportsService.parent.catalog = catalog;
             this.reportsService.parent.indexesOfRoot.push(index);
@@ -83,10 +83,11 @@ export class CosmeticsDetailComponent implements OnInit, OnDestroy, AfterViewIni
             this.reportsService.selected.index = 0;
         }
         this.reportsService.section = this.reportsService.selected.catalog[this.reportsService.selected.index];
-        this.reportsService.get_content(this.reportsService.section.id, 'True').subscribe(json => {
-            console.log('section content', json[0]);
-            this.reportsService.section.paragraphs = json[0].paragraphs;
-        });
+        this.reportsService.get_content(this.reportsService.section.id, 'True')
+            .then(json => {
+                console.log('section content', json[0]);
+                this.reportsService.section.paragraphs = json[0].paragraphs;
+            });
         this.outline.expand(item);
     }
 
@@ -152,11 +153,12 @@ export class CosmeticsDetailComponent implements OnInit, OnDestroy, AfterViewIni
         //     {id: 1053, isSmall: false, title: '4.1 漳州日化产业发展路径导航'},
         // ];
         // this.reportsService.selected.catalog = this.catalog;
-        this.reportsService.get_catelog(18, 3)
-            .subscribe(json => {
+        this.reportsService.get_catelog(4, 3)
+            .then(json => {
                 this.reportsService.root_catalog = json;
                 this.reportsService.selected.catalog = this.reportsService.root_catalog;
                 this.page = this.reportsService.selected.catalog;
+                console.log('page is', json);
                 this.change([0]);
             });
     }

@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Catalog} from '../_Classes/Catalog.class';
+import {Catalog} from 'src/app/_Classes/Catalog.class';
 import {openClose} from './animations';
 
 @Component({
@@ -11,7 +11,7 @@ import {openClose} from './animations';
 
 export class CosmeticsOutlineBarComponent implements OnInit {
     @Input() catalog: Catalog[];
-    @Input() open: boolean = true;
+    @Input() open = true;
     @Output() pointClick = new EventEmitter();
 
     selected: Catalog;
@@ -57,7 +57,9 @@ export class CosmeticsOutlineBarComponent implements OnInit {
     }
 
     ngOnInit() {
-        if (this.open) this.isOpen = 'open';
-        else this.isOpen = 'closed';
+        if (this.open) { this.isOpen = 'open'; } else { this.isOpen = 'closed'; }
+        setTimeout(e => {
+            console.log('catalogs', this.catalog);
+        }, 1000);
     }
 }

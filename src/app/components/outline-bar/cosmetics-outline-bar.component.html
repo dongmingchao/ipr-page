@@ -1,14 +1,15 @@
 <ng-container *ngIf="catalog;">
     <ng-container *ngFor="let item of catalog;index as n">
-        <button (click)="onselect(item)" class="circle spin circle_b"
-                nbTooltip="{{item.title}}" nbTooltipPlacement="right"></button>
+        <button (click)="onselect(item)" class="circle spin circle_b"></button>
         <div class="botLine">
             <div></div>
             <div class="progress" [style.height]="item.style.height"></div></div>
         <ngx-cosmetics-outline-bar
                 [@openClose]="isOpen"
-                *ngIf="item === selected && item.child_catalog.length"
+                *ngIf="item === selected && item.child_catalog"
                 (pointClick)="passSelect($event)"
                 [catalog]="item.child_catalog" ></ngx-cosmetics-outline-bar>
     </ng-container>
 </ng-container>
+
+<!--nbTooltip="{{item.title}}" nbTooltipPlacement="right"-->

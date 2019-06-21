@@ -1,9 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {environment} from 'src/environments/environment';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/throw';
 import {Catalog} from '../_Classes/Catalog.class';
 import {HttpClient} from '@angular/common/http';
 
@@ -67,14 +64,14 @@ export class ReportsService {
         return 0;
     }
 
-    public async get_catelog(id: number, arg2: number): Promise<Catalog[]> {
-        let ret = await this.http.get<Catalog[]>(API_URL + '/get_report_catalog/' + id + '/' + arg2).toPromise();
+    public async get_catelog(id: number, degree: number): Promise<Catalog[]> {
+        let ret = await this.http.get<Catalog[]>(API_URL + `/get_catalogs/${id}/${degree}/`).toPromise();
         ret = ret.map(rollCatalog);
         return ret;
     }
 
     public async get_content(id: number, child_content: string): Promise<Catalog[]> {
-        return await this.http.get<Catalog[]>(API_URL + '/get_content/' + id + '/' + child_content).toPromise();
+        return await this.http.get<Catalog[]>(API_URL + `/get_chapter/${id}/${child_content}/`).toPromise();
     }
 
     // public get_json_data(name: string) {
