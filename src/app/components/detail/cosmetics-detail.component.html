@@ -1,17 +1,18 @@
-<div style="background:white" class="row">
+<div style="background:white" class="row main">
         <ngx-cosmetics-outline-bar
                 #outline
                 class="mid-dots-nav"
                 [catalog]="reportsService.root_catalog"
                 (pointClick)="outlineClick($event)"
         ></ngx-cosmetics-outline-bar>
-    <div style="height:640px;padding-left:50px;overflow: auto;" class="col-lg-12 col-md-12 col-sm-12" (scroll)="scrollPage($event,articleContainer)" #articleContainer>
+    <div>
         <div *ngIf="!page" class="innerSpin">
             <div></div>
         </div>
         <ngx-cosmetics-page *ngIf="page" [Page]="page"
+                            (scrollIn)="outlineClick($event)"
                             (focusContentChange)="onContentChange($event)"
-                            [container]="articleContainer" #article
+                            #article
         ></ngx-cosmetics-page>
     </div>
 </div>

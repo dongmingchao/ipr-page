@@ -12,7 +12,7 @@ import {openClose} from './animations';
 export class CosmeticsOutlineBarComponent implements OnInit {
     @Input() catalog: Catalog[];
     @Input() open = true;
-    @Output() pointClick = new EventEmitter();
+    @Output() pointClick = new EventEmitter<Catalog[]>();
 
     selected: Catalog;
     isOpen: string;
@@ -22,17 +22,18 @@ export class CosmeticsOutlineBarComponent implements OnInit {
         selected: null,
     };
 
-    passSelect(item: Catalog) {
+    passSelect(item: Catalog[]) {
         console.log('next level select', item);
-        this.nextLevel.selected = item;
-        this.pointClick.emit(this.selected);
+        this.nextLevel.selected = item[0];
+        item.push(this.selected);
+        this.pointClick.emit(item);
     }
 
     protected onselect(item: Catalog) {
         // console.log('on select', item);
         this.selected = item;
         this.isOpen = 'open';
-        this.pointClick.emit(item);
+        this.pointClick.emit([item]);
         // const i = this.catalog.indexOf(item);
         // for (let j = 0; j < this.catalog.length; j++) {
         //     const each = this.catalog[j];

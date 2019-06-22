@@ -39,16 +39,25 @@ export class ReportsService {
         el: null,
     };
     alreadyAdd: number[] = [];
-    section: Catalog; // this.reportsService.selected.catalog[this.reportsService.selected.index];
+
     constructor(private http: HttpClient) {
     }
 
-    // readonly get parent_catalog() {
-    //     let now = this.root_catalog;
-    //     for (let i of this.parent.indexesOfRoot) {
-    //         now = now[i].child_catalog;
-    //     }
-    // }
+    get section(): Catalog {
+        return this.selected.catalog[this.selected.index];
+    }
+
+    loadContent(item?: Catalog) {
+        let section = this.section;
+        if (item) {
+            section = item;
+        }
+        this.get_content(section.id, 'True')
+            .then(json => {
+                console.log('section content', json[0]);
+                section.paragraphs = json[0].paragraphs;
+            });
+    }
 
     nextPageId(): number {
         let nextIndex = this.selected.index + 1;

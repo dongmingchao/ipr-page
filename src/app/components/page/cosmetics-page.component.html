@@ -1,55 +1,19 @@
-<div class="row"  *ngFor="let paragraph of page; let j = index" #article>
-  <div [ngClass]="getWidth(12)" >
-    <div [attr.id]="'widget' + paragraph.id" *ngIf="paragraph.catalogType == 'Text'" class="text">
-      <p>
-      {{paragraph.content}}
-      </p>
-    </div>
-
-    <div [attr.id]="'widget' + paragraph.id" *ngIf="paragraph.catalogType == 'Image'" class="image">
-      <img style="width:100%" [src]="paragraph.src"/>
-    </div>
-
-    <div [attr.id]="'widget' + paragraph.id" class="text_1" style="padding-left: 60px;padding-right: 60px">
-      <div class='title_blue'><h3 style="color:#0077b9;margin-bottom: 1rem;font-weight:600;padding-top: 2rem;">{{paragraph.title}}</h3></div>
-      <div [attr.id]="'widget' + pp.id" *ngFor="let pp of paragraph.paragraphs;" >
-        <div>paragraph id{{pp.id}}</div><!--ids-->
-        <div class="row content" *ngIf="pp.hasWidget">
-          <div *ngIf="!pp.widgetVertical" class="col-md-6 col-lg-6 col-sm-6"> <!-- 水平排列 -->
-            <div>widget id{{pp.widgetID.id}}</div><!--ids-->
-            <p>{{pp.content}}</p>
-          </div>
-          <div *ngIf="!pp.widgetVertical" class="col-md-6 col-lg-6 col-sm-6">
-            <img *ngIf="pp.widgetID.widgetType==0" style="width:100%" [src]="pp.widgetID.imageUrl"/>
-
-            <div *ngIf="pp.widgetID.widgetType==1" style="width:100%;height:500px" echarts [theme]="'walden'" [options]="pp.widgetID.options" class="echart"></div>
-
-          </div>
-          <div *ngIf="pp.widgetVertical" class="col-md-12 col-lg-12 col-sm-12">
-            <div>widget id{{pp.widgetID.id}}</div><!--ids-->
-            <p>{{pp.content}}</p>
-          </div>
-          <div *ngIf="pp.widgetVertical" class="col-md-12 col-lg-12 col-sm-12">
-            <img *ngIf="pp.widgetID.widgetType==0" style="width:100%" [src]="pp.widgetID.imageUrl"/>
-
-            <div *ngIf="pp.widgetID.widgetType==1" style="width:100%;height:500px" echarts [theme]="'walden'" [options]="pp.widgetID.options" class="echart"></div>
-
-          </div>
-        </div>
-        <div class="row content" *ngIf="!pp.hasWidget">
-          <div class="col-md-12 col-lg-12 col-sm-12">
-            <p>{{pp.content}}</p>
-          </div>
-        </div>
-      </div>
+<div class="page-container" #scroll_container (scroll)="onscroll()">
+    <ipr-paragraph
+            *ngFor="let one of page;index as first;"
+            [container]="container"
+            [content]="one" [index]="first" (scrollIn)="scrollIntoParagraph([one])"
+            #firstOfAll>{{contentRander(one, first, firstOfAll.el)}}
         <ipr-paragraph
-                *ngFor="let two of paragraph.child_catalog;index as second;"
-                [content]="two" [index]="second"
-                #secondary>
+                *ngFor="let two of one.child_catalog;index as second;"
+                [container]="container"
+                [content]="two" [index]="second" (scrollIn)="scrollIntoParagraph([one,two])"
+                #secondary>{{contentRander(two, second, secondary.el)}}
             <ipr-paragraph
                     *ngFor="let three of two.child_catalog;index as third;"
+                    [container]="container"
                     [content]="three" [index]="third"
-                    #tertiary></ipr-paragraph></ipr-paragraph>
-    </div>
-  </div>
+                    #tertiary>{{contentRander(three, third, tertiary.el)}}</ipr-paragraph>
+        </ipr-paragraph>
+    </ipr-paragraph>
 </div>

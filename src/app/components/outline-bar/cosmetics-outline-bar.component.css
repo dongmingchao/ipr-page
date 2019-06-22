@@ -28,7 +28,7 @@ button.circle {
 }
 
 .botLine div {
-    width: 12px;
+    width: 5px;
     height: calc(100% + 10px);
     position: relative;
     background: #e6e7e8;

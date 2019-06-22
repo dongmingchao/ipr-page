@@ -14,6 +14,10 @@ export class Catalog {
     };
     paragraphs: Paragraph[];
     child_catalog: Catalog[];
+    _render: {
+        ref: Element,
+        index: number,
+    };
     constructor(values: any = {}) {
         Object.assign(this, values);
     }

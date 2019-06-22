@@ -56,3 +56,8 @@
     /*transition: transform 0.4s linear 0s, border-left-width 0s linear 0.35s;*/
     /*!*Solid edge post-rotation*!*/
 /*}*/
+
+.main {
+    display: flex;
+    height: 100%;
+}

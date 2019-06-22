@@ -6,6 +6,7 @@ import {CosmeticsOutlineBarComponent} from './components/outline-bar/cosmetics-o
 import {CosmeticsPageModule} from './components/page/cosmetics-page.module';
 import {CosmeticsDetailComponent} from './components/detail/cosmetics-detail.component';
 import {HttpClientModule} from '@angular/common/http';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
     declarations: [
@@ -15,6 +16,7 @@ import {HttpClientModule} from '@angular/common/http';
     ],
     imports: [
         BrowserModule,
+        BrowserAnimationsModule,
         HttpClientModule,
         CosmeticsPageModule,
     ],
