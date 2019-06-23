@@ -53,7 +53,7 @@ export class ParagraphComponent implements OnInit, AfterViewInit {
                 this.scrollIntoView();
             }
             this.content.style.height = this.percent * 100 + '%';
-            console.log('focus change', this.content, this.percent);
+            // console.log('focus change', this.content, this.percent);
         }
         if (this.percent > 1 && !this.outer_lock) {
             this.scrollOutView('down');

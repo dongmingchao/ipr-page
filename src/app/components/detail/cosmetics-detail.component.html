@@ -10,7 +10,7 @@
             <div></div>
         </div>
         <ngx-cosmetics-page *ngIf="page" [Page]="page"
-                            (scrollIn)="outlineClick($event)"
+                            (scrollIn)="scrollLoad($event)"
                             (focusContentChange)="onContentChange($event)"
                             #article
         ></ngx-cosmetics-page>

@@ -55,7 +55,9 @@ export class ReportsService {
         this.get_content(section.id, 'True')
             .then(json => {
                 console.log('section content', json[0]);
-                section.paragraphs = json[0].paragraphs;
+                if (!section.paragraphs) {
+                    section.paragraphs = json[0].paragraphs;
+                }
             });
     }
 

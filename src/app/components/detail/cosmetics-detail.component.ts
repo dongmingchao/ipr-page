@@ -78,6 +78,9 @@ export class CosmeticsDetailComponent implements OnInit, OnDestroy, AfterViewIni
             }
             item = catalog[i];
         }
+        if (indexesOfRoot.length === 1) {
+            this.outline.selected = item;
+        }
         this.pageId = item.id;
         this.reportsService.selected.catalog = catalog;
         this.reportsService.selected.index = index;
@@ -88,21 +91,26 @@ export class CosmeticsDetailComponent implements OnInit, OnDestroy, AfterViewIni
                 each.style.height = '0';
             }
             this.reportsService.parent.catalog = catalog;
-            this.reportsService.parent.indexesOfRoot.push(index);
+            this.reportsService.parent.indexesOfRoot.push(index); // 这里indexesOfRoot有错
             this.reportsService.selected.catalog = item.child_catalog;
             this.reportsService.selected.index = 0;
         }
         // this.outline.expand(item);
+        // console.log('indexes of root', indexesOfRoot);
     }
 
     onContentChange(indexes) {
         this.change(indexes);
     }
 
-    outlineClick(item: Catalog[]) {
+    outlineClick(item: Catalog[]) { // item是由内到外的数组比如说1.3是[2, 0]
         console.log('out line click', item, this.article.container);
         console.log('article', this.article);
         this.article.scrollTo(item[0]);
+        this.scrollLoad(item);
+    }
+
+    scrollLoad(item: Catalog[]) {
         const indexesOfRoot = [];
         for (const each of item) {
             indexesOfRoot.push(each._render.index);
