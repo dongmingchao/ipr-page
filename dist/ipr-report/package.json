@@ -16,6 +16,8 @@
   "metadata": "ipr-report.metadata.json",
   "sideEffects": false,
   "dependencies": {
-    "tslib": "^1.9.0"
+    "tslib": "^1.9.0",
+    "echarts": "^4.2.1",
+    "ngx-echarts": "^4.2.1"
   }
 }
