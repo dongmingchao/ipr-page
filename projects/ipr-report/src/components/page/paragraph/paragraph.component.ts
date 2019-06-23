@@ -1,5 +1,16 @@
-import {AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Catalog} from 'src/app/_Classes/Catalog.class';
+import {
+    AfterViewInit,
+    Component,
+    ElementRef,
+    EventEmitter,
+    Input,
+    OnChanges,
+    OnInit,
+    Output,
+    SimpleChanges
+} from '@angular/core';
+import {Catalog} from '../../../_Classes/Catalog.class';
+import {ReportsService} from '../../../_Services/reports.service';
 
 function offset(curEle, parent) {
     let totalLeft = null;
@@ -25,7 +36,7 @@ function offset(curEle, parent) {
     templateUrl: './paragraph.component.html',
     styleUrls: ['./paragraph.component.styl'],
 })
-export class ParagraphComponent implements OnInit, AfterViewInit {
+export class ParagraphComponent implements OnInit, AfterViewInit, OnChanges {
     @Input() content: Catalog;
     @Input() index: number;
     @Input() container: HTMLDivElement;
@@ -84,7 +95,10 @@ export class ParagraphComponent implements OnInit, AfterViewInit {
         console.log(this.content, 'scrollOutView');
     }
 
-    constructor(_el: ElementRef) {
+    constructor(
+        _el: ElementRef,
+        private reportsService: ReportsService,
+    ) {
         this.el = _el.nativeElement;
     }
 
@@ -92,7 +106,15 @@ export class ParagraphComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit(): void {
-        this.onscroll();
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes.container.currentValue) {
+            this.onscroll();
+            if (this.outer_lock) {
+                this.reportsService.loadContent(this.content);
+            }
+        }
     }
 
 }

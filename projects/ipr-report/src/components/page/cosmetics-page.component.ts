@@ -1,19 +1,19 @@
 import {
-    Component,
-    OnInit,
-    Input,
-    Output,
-    EventEmitter,
     AfterViewInit,
+    Component,
     ElementRef,
+    EventEmitter,
+    Input,
+    OnInit,
+    Output,
+    QueryList,
     ViewChild,
-    ContentChildren, QueryList, Directive, ViewChildren,
+    ViewChildren,
 } from '@angular/core';
-import {ReportsService} from 'src/app/_Services/reports.service';
-import {Catalog} from 'src/app/_Classes/Catalog.class';
+import {ReportsService} from '../../_Services/reports.service';
+import {Catalog} from '../../_Classes/Catalog.class';
 import {ParagraphComponent} from './paragraph/paragraph.component';
 
-// import {browser} from 'protractor';
 
 @Component({
     selector: 'ngx-cosmetics-page',
@@ -179,7 +179,7 @@ export class CosmeticsPageComponent implements OnInit, AfterViewInit {
     }
 
     constructor(
-        private reportsService: ReportsService,
+        private reportsService: ReportsService
     ) {
 
         // this.reportsService.get_json_data('0')
@@ -189,7 +189,6 @@ export class CosmeticsPageComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit() {
-        this.container = this._scroll_container.nativeElement;
     }
 
     ngAfterViewInit() {
@@ -199,12 +198,13 @@ export class CosmeticsPageComponent implements OnInit, AfterViewInit {
         //     const ret = this.appendPage(this.reportsService.nextPageId());
         //     if (ret) ret.subscribe(c => this.appendPageLock = false);
         // }
-        const firstOfAll = this.firstOfAll.toArray();
-        for (const each of firstOfAll) {
-            if (each.outer_lock) {
-                this.reportsService.loadContent(each.content);
-            }
-        }
+        setTimeout(() => {
+            this.container = this._scroll_container.nativeElement;
+        });
+        // const firstOfAll = this.firstOfAll.toArray();
+        // for (const each of firstOfAll) {
+
+        // }
         this.secondary.changes.subscribe(n => {
             console.log('secondary', n.toArray());
         });

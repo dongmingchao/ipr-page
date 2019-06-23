@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Catalog} from 'src/app/_Classes/Catalog.class';
+import {Catalog} from '../../_Classes/Catalog.class';
 import {openClose} from './animations';
 
 @Component({

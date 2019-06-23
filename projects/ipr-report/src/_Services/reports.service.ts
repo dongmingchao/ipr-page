@@ -1,11 +1,6 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {environment} from 'src/environments/environment';
 import {Catalog} from '../_Classes/Catalog.class';
 import {HttpClient} from '@angular/common/http';
-
-// we can now access environment.apiUrl
-const API_URL = environment.api_url;
 
 function rollCatalog(each) {
     if (each.child_catalog instanceof Array) {
@@ -16,6 +11,7 @@ function rollCatalog(each) {
 
 @Injectable()
 export class ReportsService {
+    host = 'http://47.110.224.71';
     root_catalog: Catalog[];
     parent: {
         catalog: Catalog[],
@@ -76,13 +72,13 @@ export class ReportsService {
     }
 
     public async get_catelog(id: number, degree: number): Promise<Catalog[]> {
-        let ret = await this.http.get<Catalog[]>(API_URL + `/get_catalogs/${id}/${degree}/`).toPromise();
+        let ret = await this.http.get<Catalog[]>(this.host + `/get_catalogs/${id}/${degree}/`).toPromise();
         ret = ret.map(rollCatalog);
         return ret;
     }
 
     public async get_content(id: number, child_content: string): Promise<Catalog[]> {
-        return await this.http.get<Catalog[]>(API_URL + `/get_chapter/${id}/${child_content}/`).toPromise();
+        return await this.http.get<Catalog[]>(this.host + `/get_chapter/${id}/${child_content}/`).toPromise();
     }
 
     // public get_json_data(name: string) {

@@ -11,8 +11,8 @@ import {
     AfterViewInit,
 } from '@angular/core';
 import {Subscription} from 'rxjs';
-import {ReportsService} from 'src/app/_Services/reports.service';
-import {Catalog} from 'src/app/_Classes/Catalog.class';
+import {ReportsService} from '../../_Services/reports.service';
+import {Catalog} from '../../_Classes/Catalog.class';
 import {CosmeticsPageComponent} from '../page/cosmetics-page.component';
 import {CosmeticsOutlineBarComponent} from '../outline-bar/cosmetics-outline-bar.component';
 
@@ -20,7 +20,6 @@ import {CosmeticsOutlineBarComponent} from '../outline-bar/cosmetics-outline-bar
     selector: 'ipr-report-detail',
     templateUrl: './cosmetics-detail.component.html',
     styleUrls: ['./test.css'],
-    providers: [ReportsService],
 })
 export class CosmeticsDetailComponent implements OnInit, OnDestroy, AfterViewInit {
     message: any;
@@ -157,7 +156,7 @@ export class CosmeticsDetailComponent implements OnInit, OnDestroy, AfterViewIni
     }
 
     constructor(
-        protected reportsService: ReportsService,
+        public reportsService: ReportsService,
         public zone: NgZone,
     ) {
 

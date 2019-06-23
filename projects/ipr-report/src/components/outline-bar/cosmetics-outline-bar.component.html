@@ -1,6 +1,6 @@
 <ng-container *ngIf="catalog;">
     <ng-container *ngFor="let item of catalog;index as n">
-        <button (click)="onselect(item)" class="circle spin circle_b"></button>
+        <button (click)="expand(item)" class="circle spin circle_b"></button>
         <div class="botLine">
             <div></div>
             <div class="progress" [style.height]="item.style.height"></div></div>
