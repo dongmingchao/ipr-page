@@ -4,5 +4,9 @@
   "peerDependencies": {
     "@angular/common": "^7.2.0",
     "@angular/core": "^7.2.0"
+  },
+  "dependencies": {
+    "echarts": "^4.2.1",
+    "ngx-echarts": "^4.2.1"
   }
 }

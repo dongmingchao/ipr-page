@@ -3,5 +3,9 @@
   "dest": "../../dist/ipr-report",
   "lib": {
     "entryFile": "src/public-api.ts"
-  }
+  },
+  "whitelistedNonPeerDependencies": [
+    "echarts",
+    "ngx-echarts"
+  ]
 }

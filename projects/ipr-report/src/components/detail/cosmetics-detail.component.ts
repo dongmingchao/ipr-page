@@ -22,41 +22,12 @@ import {CosmeticsOutlineBarComponent} from '../outline-bar/cosmetics-outline-bar
     styleUrls: ['./test.css'],
 })
 export class CosmeticsDetailComponent implements OnInit, OnDestroy, AfterViewInit {
-    message: any;
     subscription: Subscription;
-    private pages: any;
     page: Catalog[];
     private pageId: number;
-    isOpen = 'closed';
     height: number;
     @ViewChild('outline', {static: false}) outline: CosmeticsOutlineBarComponent;
     @ViewChild('article', {static: false}) article: CosmeticsPageComponent;
-
-
-    @Input('Pages') set Pages(value) {
-        this.pages = value;
-    }
-
-    @Input() set swithchTo(value) {
-        if (value !== undefined && value != null) {
-            this.currentIndex = value;
-
-        }
-    }
-
-
-    @Output() get M_Pages() {
-        return this.pages;
-    }
-
-    // @Output() get Catelog(){
-    //   this.height = 100/this.pages.length;
-    //   return this.catelog;
-    // }
-
-    alreadyAdded = {};
-
-    currentIndex = -1;
 
 
     change(indexesOfRoot: number[]) {
@@ -130,21 +101,6 @@ export class CosmeticsDetailComponent implements OnInit, OnDestroy, AfterViewIni
         return item.style.height;
     }
 
-    /**
-     * API: http://47.110.224.71:9100/get_report_catalog/18/3/
-     * like: [{
-        "id": 1063,
-        "catalogType": 0,
-        "title": "引言",
-        "order": 0,
-        "styleID": null,
-        "content": "",
-        "src": null,
-        "reportID": 18,
-        "parentID": null,
-        "child_catalog": {}
-    }]
-     */
     getCateLog() {
         this.reportsService.get_catelog(4, 3)
             .then(json => {

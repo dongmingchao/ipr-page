@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {Catalog} from '../_Classes/Catalog.class';
-import {HttpClient} from '@angular/common/http';
+import {BackendService, IprReportBackend} from '../_Interface/backend.service';
 
 function rollCatalog(each) {
     if (each.child_catalog instanceof Array) {
@@ -11,7 +11,6 @@ function rollCatalog(each) {
 
 @Injectable()
 export class ReportsService {
-    host = 'http://47.110.224.71';
     root_catalog: Catalog[];
     parent: {
         catalog: Catalog[],
@@ -36,7 +35,7 @@ export class ReportsService {
     };
     alreadyAdd: number[] = [];
 
-    constructor(private http: HttpClient) {
+    constructor(@Inject(IprReportBackend) private bes: BackendService) {
     }
 
     get section(): Catalog {
@@ -50,49 +49,20 @@ export class ReportsService {
         }
         this.get_content(section.id, 'True')
             .then(json => {
-                console.log('section content', json[0]);
+                console.log('section content', json);
                 if (!section.paragraphs) {
-                    section.paragraphs = json[0].paragraphs;
+                    section.paragraphs = json.paragraphs;
                 }
             });
     }
 
-    nextPageId(): number {
-        let nextIndex = this.selected.index + 1;
-        if (nextIndex >= this.selected.catalog.length) {
-            this.selected.catalog = this.parent.catalog;
-            nextIndex = this.parent.indexesOfRoot.pop() + 1;
-        }
-        console.log('next index', nextIndex, this.selected.catalog);
-        return this.selected.catalog[nextIndex].id;
-    }
-
-    nextContentId(): number {
-        return 0;
-    }
-
     public async get_catelog(id: number, degree: number): Promise<Catalog[]> {
-        let ret = await this.http.get<Catalog[]>(this.host + `/get_catalogs/${id}/${degree}/`).toPromise();
+        let ret = await this.bes.get_catelog(id, degree);
         ret = ret.map(rollCatalog);
         return ret;
     }
 
-    public async get_content(id: number, child_content: string): Promise<Catalog[]> {
-        return await this.http.get<Catalog[]>(this.host + `/get_chapter/${id}/${child_content}/`).toPromise();
+    public async get_content(id: number, child_content: string): Promise<Catalog> {
+        return this.bes.get_content(id, child_content);
     }
-
-    // public get_json_data(name: string) {
-    //     return this.http
-    //         .get('assets/data/' + name + '.json')
-    //         .map(response => {
-    //             const catelogs = response.json();
-    //             return catelogs;
-    //         })
-    //         .catch(this.handleError);
-    // }
-    //
-    // private handleError(error: Response | any) {
-    //     console.error('ApiService::handleError', error);
-    //     return Observable.throw(error);
-    // }
 }
