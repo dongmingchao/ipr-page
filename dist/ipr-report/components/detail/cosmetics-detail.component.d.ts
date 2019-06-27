@@ -8,6 +8,7 @@ export declare class CosmeticsDetailComponent implements OnInit, OnDestroy, Afte
     reportsService: ReportsService;
     zone: NgZone;
     subscription: Subscription;
+    pages: Catalog[];
     page: Catalog[];
     private pageId;
     height: number;

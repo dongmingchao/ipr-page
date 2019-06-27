@@ -649,6 +649,24 @@ var CosmeticsDetailComponent = /** @class */ (function () {
         this.reportsService = reportsService;
         this.zone = zone;
     }
+    Object.defineProperty(CosmeticsDetailComponent.prototype, "pages", {
+        set: /**
+         * @param {?} val
+         * @return {?}
+         */
+        function (val) {
+            if (!val) {
+                return;
+            }
+            this.reportsService.root_catalog = val;
+            console.log('root_catalog', val);
+            this.reportsService.selected.catalog = this.reportsService.root_catalog;
+            this.page = this.reportsService.selected.catalog;
+            this.change([0]);
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * @param {?} indexesOfRoot
      * @return {?}
@@ -812,10 +830,7 @@ var CosmeticsDetailComponent = /** @class */ (function () {
          * @return {?}
          */
         function (json) {
-            _this.reportsService.root_catalog = json;
-            _this.reportsService.selected.catalog = _this.reportsService.root_catalog;
-            _this.page = _this.reportsService.selected.catalog;
-            _this.change([0]);
+            _this.pages = json;
         }));
     };
     /**
@@ -843,7 +858,6 @@ var CosmeticsDetailComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        this.getCateLog();
     };
     CosmeticsDetailComponent.decorators = [
         { type: Component, args: [{
@@ -858,6 +872,7 @@ var CosmeticsDetailComponent = /** @class */ (function () {
         { type: NgZone }
     ]; };
     CosmeticsDetailComponent.propDecorators = {
+        pages: [{ type: Input }],
         outline: [{ type: ViewChild, args: ['outline', { static: false },] }],
         article: [{ type: ViewChild, args: ['article', { static: false },] }]
     };

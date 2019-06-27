@@ -535,6 +535,20 @@ class CosmeticsDetailComponent {
         this.zone = zone;
     }
     /**
+     * @param {?} val
+     * @return {?}
+     */
+    set pages(val) {
+        if (!val) {
+            return;
+        }
+        this.reportsService.root_catalog = val;
+        console.log('root_catalog', val);
+        this.reportsService.selected.catalog = this.reportsService.root_catalog;
+        this.page = this.reportsService.selected.catalog;
+        this.change([0]);
+    }
+    /**
      * @param {?} indexesOfRoot
      * @return {?}
      */
@@ -638,10 +652,7 @@ class CosmeticsDetailComponent {
          * @return {?}
          */
         json => {
-            this.reportsService.root_catalog = json;
-            this.reportsService.selected.catalog = this.reportsService.root_catalog;
-            this.page = this.reportsService.selected.catalog;
-            this.change([0]);
+            this.pages = json;
         }));
     }
     /**
@@ -660,7 +671,6 @@ class CosmeticsDetailComponent {
      * @return {?}
      */
     ngAfterViewInit() {
-        this.getCateLog();
     }
 }
 CosmeticsDetailComponent.decorators = [
@@ -676,6 +686,7 @@ CosmeticsDetailComponent.ctorParameters = () => [
     { type: NgZone }
 ];
 CosmeticsDetailComponent.propDecorators = {
+    pages: [{ type: Input }],
     outline: [{ type: ViewChild, args: ['outline', { static: false },] }],
     article: [{ type: ViewChild, args: ['article', { static: false },] }]
 };
