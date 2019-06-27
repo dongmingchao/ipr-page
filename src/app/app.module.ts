@@ -3,9 +3,8 @@ import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {IprReportModule} from '../../projects/ipr-report/src/lib/ipr-report.module';
 import {HttpClientModule} from '@angular/common/http';
-import {IprReportBackend} from '../../projects/ipr-report/src/_Interface/backend.service';
+import {IprReportBackend, IprReportModule} from 'ipr-report';
 import {ReportsService} from './usage/services';
 
 @NgModule({
