@@ -1,14 +1,18 @@
 <ng-container *ngIf="catalog;">
     <ng-container *ngFor="let item of catalog;index as n">
-        <button (click)="expand(item)" class="circle spin circle_b"></button>
+        <button (click)="expand(item)"
+                [ngClass]="getLevelCss()"
+                class="circle spin circle_b"></button>
         <div class="botLine">
             <div></div>
-            <div class="progress" [style.height]="item.style.height"></div></div>
+            <div class="progress" [style.height]="item.style.height"></div>
+        </div>
         <ngx-cosmetics-outline-bar
                 [@openClose]="isOpen"
+                [level]="level+1"
                 *ngIf="item === selected && item.child_catalog"
                 (pointClick)="passSelect($event)"
-                [catalog]="item.child_catalog" ></ngx-cosmetics-outline-bar>
+                [catalog]="item.child_catalog"></ngx-cosmetics-outline-bar>
     </ng-container>
 </ng-container>
 

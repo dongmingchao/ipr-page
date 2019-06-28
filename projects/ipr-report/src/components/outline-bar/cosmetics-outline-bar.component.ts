@@ -12,6 +12,7 @@ import {openClose} from './animations';
 export class CosmeticsOutlineBarComponent implements OnInit {
     @Input() catalog: Catalog[];
     @Input() open = true;
+    @Input() level = 0;
     @Output() pointClick = new EventEmitter<Catalog[]>();
 
     selected: Catalog;
@@ -27,6 +28,10 @@ export class CosmeticsOutlineBarComponent implements OnInit {
         this.nextLevel.selected = item[0];
         item.push(this.selected);
         this.pointClick.emit(item);
+    }
+
+    getLevelCss() {
+        return `level-${this.level}`;
     }
 
     protected onselect(item: Catalog) {

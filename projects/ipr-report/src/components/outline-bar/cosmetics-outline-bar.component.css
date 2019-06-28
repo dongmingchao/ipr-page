@@ -28,7 +28,7 @@ button.circle {
 }
 
 .botLine div {
-    width: 5px;
+    width: 0.9rem;
     height: calc(100% + 10px);
     position: relative;
     background: #e6e7e8;
@@ -47,13 +47,13 @@ button.circle {
     align-self: start;
 }
 
-:host(ngx-cosmetics-outline-bar ngx-cosmetics-outline-bar) button.circle.spin {
+:host button.circle.spin.level-1{
     background-color: #00d77f;
     width: 15px;
     height: 18px;
     border: 3px solid #acacac;
 }
-:host(ngx-cosmetics-outline-bar ngx-cosmetics-outline-bar ngx-cosmetics-outline-bar) button.circle.spin {
+:host button.circle.spin.level-2{
     background-color: #a1a1e5;
     width: 12px;
     height: 16px;
