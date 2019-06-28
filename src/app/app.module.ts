@@ -4,7 +4,7 @@ import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HttpClientModule} from '@angular/common/http';
-import {IprReportBackend, IprReportModule} from 'ipr-report';
+import {IprReportBackend, IprReportModule} from './usage/mock';
 import {ReportsService} from './usage/services';
 
 @NgModule({

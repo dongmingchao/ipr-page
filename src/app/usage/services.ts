@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Catalog, BackendService} from 'ipr-report';
+import {Catalog, BackendService} from './mock';
 
 @Injectable()
 export class ReportsService implements BackendService {
