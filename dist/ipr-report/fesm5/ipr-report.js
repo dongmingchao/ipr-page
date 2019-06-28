@@ -795,61 +795,10 @@ var CosmeticsDetailComponent = /** @class */ (function () {
     /**
      * @return {?}
      */
-    CosmeticsDetailComponent.prototype.clearToolTip = /**
-     * @return {?}
-     */
-    function () {
-        /** @type {?} */
-        var tooltipContainer = document.getElementsByClassName('cdk-overlay-container')[0];
-        for (var i = 1; i < tooltipContainer.childNodes.length; i++) {
-            tooltipContainer.removeChild(tooltipContainer.childNodes[i]);
-        }
-    };
-    /**
-     * @param {?} item
-     * @return {?}
-     */
-    CosmeticsDetailComponent.prototype.progressHeight = /**
-     * @param {?} item
-     * @return {?}
-     */
-    function (item) {
-        return item.style.height;
-    };
-    /**
-     * @return {?}
-     */
-    CosmeticsDetailComponent.prototype.getCateLog = /**
-     * @return {?}
-     */
-    function () {
-        var _this = this;
-        this.reportsService.get_catelog(4, 3)
-            .then((/**
-         * @param {?} json
-         * @return {?}
-         */
-        function (json) {
-            _this.pages = json;
-        }));
-    };
-    /**
-     * @return {?}
-     */
     CosmeticsDetailComponent.prototype.ngOnInit = /**
      * @return {?}
      */
     function () {
-    };
-    /**
-     * @return {?}
-     */
-    CosmeticsDetailComponent.prototype.ngOnDestroy = /**
-     * @return {?}
-     */
-    function () {
-        // unsubscribe to ensure no memory leaks
-        this.subscription.unsubscribe();
     };
     /**
      * @return {?}

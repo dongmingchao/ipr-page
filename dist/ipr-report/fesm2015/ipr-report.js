@@ -628,44 +628,7 @@ class CosmeticsDetailComponent {
     /**
      * @return {?}
      */
-    clearToolTip() {
-        /** @type {?} */
-        const tooltipContainer = document.getElementsByClassName('cdk-overlay-container')[0];
-        for (let i = 1; i < tooltipContainer.childNodes.length; i++) {
-            tooltipContainer.removeChild(tooltipContainer.childNodes[i]);
-        }
-    }
-    /**
-     * @param {?} item
-     * @return {?}
-     */
-    progressHeight(item) {
-        return item.style.height;
-    }
-    /**
-     * @return {?}
-     */
-    getCateLog() {
-        this.reportsService.get_catelog(4, 3)
-            .then((/**
-         * @param {?} json
-         * @return {?}
-         */
-        json => {
-            this.pages = json;
-        }));
-    }
-    /**
-     * @return {?}
-     */
     ngOnInit() {
-    }
-    /**
-     * @return {?}
-     */
-    ngOnDestroy() {
-        // unsubscribe to ensure no memory leaks
-        this.subscription.unsubscribe();
     }
     /**
      * @return {?}
