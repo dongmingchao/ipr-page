@@ -1,0 +1,29 @@
+:host
+
+	.header
+		display: flex
+
+		.left
+			margin-right 1rem
+			margin-top 19px
+
+			.avatar
+				width 20rem
+
+		.right
+			flex-grow 1
+
+			.title
+				font-size: 19px;
+				color: rgba(42, 130, 228, 1);
+
+			.introduce
+				display grid
+
+				@media (min-width 550px)
+					grid-template-columns: repeat(1, 10rem 1fr);
+				@media (min-width 1050px)
+					grid-template-columns: repeat(2, 10rem 1fr);
+
+	.body
+		border-top: 1px solid rgba(153, 153, 153, 1);

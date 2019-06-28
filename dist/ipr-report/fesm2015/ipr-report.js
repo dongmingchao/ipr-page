@@ -1,139 +1,8 @@
-import { __awaiter } from 'tslib';
-import { Injectable, EventEmitter, Component, Input, Output, ViewChildren, ViewChild, NgZone, ElementRef, NgModule } from '@angular/core';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { EventEmitter, Component, Input, Output, InjectionToken, Injectable, Inject, ViewChildren, ViewChild, NgZone, ElementRef, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
+import { __awaiter } from 'tslib';
 import { NgxEchartsModule } from 'ngx-echarts';
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class Catalog {
-    /**
-     * @param {?=} values
-     */
-    constructor(values = {}) {
-        this.style = {
-            height: '0',
-        };
-        Object.assign(this, values);
-    }
-}
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} each
- * @return {?}
- */
-function rollCatalog(each) {
-    if (each.child_catalog instanceof Array) {
-        each.child_catalog = each.child_catalog.map(rollCatalog);
-    }
-    return new Catalog(each);
-}
-class ReportsService {
-    /**
-     * @param {?} http
-     */
-    constructor(http) {
-        this.http = http;
-        this.host = 'http://47.110.224.71';
-        this.parent = {
-            catalog: [],
-            indexesOfRoot: [0],
-        };
-        this.selected = {
-            catalog: [],
-            index: 0,
-        };
-        this.focusContent = {
-            index: 0,
-            el: null,
-        };
-        this.alreadyAdd = [];
-    }
-    /**
-     * @return {?}
-     */
-    get section() {
-        return this.selected.catalog[this.selected.index];
-    }
-    /**
-     * @param {?=} item
-     * @return {?}
-     */
-    loadContent(item) {
-        /** @type {?} */
-        let section = this.section;
-        if (item) {
-            section = item;
-        }
-        this.get_content(section.id, 'True')
-            .then((/**
-         * @param {?} json
-         * @return {?}
-         */
-        json => {
-            console.log('section content', json[0]);
-            if (!section.paragraphs) {
-                section.paragraphs = json[0].paragraphs;
-            }
-        }));
-    }
-    /**
-     * @return {?}
-     */
-    nextPageId() {
-        /** @type {?} */
-        let nextIndex = this.selected.index + 1;
-        if (nextIndex >= this.selected.catalog.length) {
-            this.selected.catalog = this.parent.catalog;
-            nextIndex = this.parent.indexesOfRoot.pop() + 1;
-        }
-        console.log('next index', nextIndex, this.selected.catalog);
-        return this.selected.catalog[nextIndex].id;
-    }
-    /**
-     * @return {?}
-     */
-    nextContentId() {
-        return 0;
-    }
-    /**
-     * @param {?} id
-     * @param {?} degree
-     * @return {?}
-     */
-    get_catelog(id, degree) {
-        return __awaiter(this, void 0, void 0, function* () {
-            /** @type {?} */
-            let ret = yield this.http.get(this.host + `/get_catalogs/${id}/${degree}/`).toPromise();
-            ret = ret.map(rollCatalog);
-            return ret;
-        });
-    }
-    /**
-     * @param {?} id
-     * @param {?} child_content
-     * @return {?}
-     */
-    get_content(id, child_content) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return yield this.http.get(this.host + `/get_chapter/${id}/${child_content}/`).toPromise();
-        });
-    }
-}
-ReportsService.decorators = [
-    { type: Injectable }
-];
-/** @nocollapse */
-ReportsService.ctorParameters = () => [
-    { type: HttpClient }
-];
 
 /**
  * @fileoverview added by tsickle
@@ -281,6 +150,123 @@ CosmeticsOutlineBarComponent.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+class Catalog {
+    /**
+     * @param {?=} values
+     */
+    constructor(values = {}) {
+        this.style = {
+            height: '0',
+        };
+        Object.assign(this, values);
+    }
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const IprReportBackend = new InjectionToken('backend api');
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} each
+ * @return {?}
+ */
+function rollCatalog(each) {
+    if (each.child_catalog instanceof Array) {
+        each.child_catalog = each.child_catalog.map(rollCatalog);
+    }
+    return new Catalog(each);
+}
+class ReportsService {
+    /**
+     * @param {?} bes
+     */
+    constructor(bes) {
+        this.bes = bes;
+        this.parent = {
+            catalog: [],
+            indexesOfRoot: [0],
+        };
+        this.selected = {
+            catalog: [],
+            index: 0,
+        };
+        this.focusContent = {
+            index: 0,
+            el: null,
+        };
+        this.alreadyAdd = [];
+    }
+    /**
+     * @return {?}
+     */
+    get section() {
+        return this.selected.catalog[this.selected.index];
+    }
+    /**
+     * @param {?=} item
+     * @return {?}
+     */
+    loadContent(item) {
+        /** @type {?} */
+        let section = this.section;
+        if (item) {
+            section = item;
+        }
+        this.get_content(section.id, 'True')
+            .then((/**
+         * @param {?} json
+         * @return {?}
+         */
+        json => {
+            console.log('section content', json);
+            if (!section.paragraphs) {
+                section.paragraphs = json.paragraphs;
+            }
+        }));
+    }
+    /**
+     * @param {?} id
+     * @param {?} degree
+     * @return {?}
+     */
+    get_catelog(id, degree) {
+        return __awaiter(this, void 0, void 0, function* () {
+            /** @type {?} */
+            let ret = yield this.bes.get_catelog(id, degree);
+            ret = ret.map(rollCatalog);
+            return ret;
+        });
+    }
+    /**
+     * @param {?} id
+     * @param {?} child_content
+     * @return {?}
+     */
+    get_content(id, child_content) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.bes.get_content(id, child_content);
+        });
+    }
+}
+ReportsService.decorators = [
+    { type: Injectable }
+];
+/** @nocollapse */
+ReportsService.ctorParameters = () => [
+    { type: undefined, decorators: [{ type: Inject, args: [IprReportBackend,] }] }
+];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 class CosmeticsPageComponent {
     /**
      * @param {?} reportsService
@@ -335,41 +321,29 @@ class CosmeticsPageComponent {
     getWidth(width) {
         return 'col-lg-' + width + ' col-md-' + width + ' col-sm-' + width;
     }
-    /**
-     * @param {?} pageId
-     * @return {?}
-     */
-    appendPage(pageId) {
-        return this.appendTo(pageId, this.page);
-    }
-    /**
-     * @param {?} id
-     * @return {?}
-     */
-    appendParagraph(id) {
-        return this.appendTo(id, this.page);
-    }
-    /**
-     * @param {?} id
-     * @param {?} content
-     * @return {?}
-     */
-    appendTo(id, content) {
-        if (id === -1) {
-            return;
-        }
-        this.appendPageLock = true;
-        /** @type {?} */
-        const rec = this.reportsService.get_content(id, 'True');
-        console.log('append', id, content);
-        // rec.then(json => {
-        //     for (const each of json) {
-        //         content.push(each);
-        //     }
-        //     this.reportsService.alreadyAdd.push(id);
-        // });
-        return rec;
-    }
+    // appendPage(pageId: number): Promise<Catalog[]> {
+    //     return this.appendTo(pageId, this.page);
+    // }
+    //
+    // appendParagraph(id: number): Promise<Catalog[]> {
+    //     return this.appendTo(id, this.page);
+    // }
+    //
+    // appendTo(id: number, content: Catalog[]): Promise<Catalog[]> {
+    //     if (id === -1) {
+    //         return;
+    //     }
+    //     this.appendPageLock = true;
+    //     const rec = this.reportsService.get_content(id, 'True');
+    //     console.log('append', id, content);
+    //     // rec.then(json => {
+    //     //     for (const each of json) {
+    //     //         content.push(each);
+    //     //     }
+    //     //     this.reportsService.alreadyAdd.push(id);
+    //     // });
+    //     return rec;
+    // }
     // set focusContentIndex(val) {
     //     console.log('val is', val, this.contents.toArray());
     //     this.reportsService.focusContent.index = val;
@@ -559,35 +533,20 @@ class CosmeticsDetailComponent {
     constructor(reportsService, zone) {
         this.reportsService = reportsService;
         this.zone = zone;
-        this.isOpen = 'closed';
-        // @Output() get Catelog(){
-        //   this.height = 100/this.pages.length;
-        //   return this.catelog;
-        // }
-        this.alreadyAdded = {};
-        this.currentIndex = -1;
     }
     /**
-     * @param {?} value
+     * @param {?} val
      * @return {?}
      */
-    set Pages(value) {
-        this.pages = value;
-    }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set swithchTo(value) {
-        if (value !== undefined && value != null) {
-            this.currentIndex = value;
+    set pages(val) {
+        if (!val) {
+            return;
         }
-    }
-    /**
-     * @return {?}
-     */
-    get M_Pages() {
-        return this.pages;
+        this.reportsService.root_catalog = val;
+        console.log('root_catalog', val);
+        this.reportsService.selected.catalog = this.reportsService.root_catalog;
+        this.page = this.reportsService.selected.catalog;
+        this.change([0]);
     }
     /**
      * @param {?} indexesOfRoot
@@ -669,66 +628,12 @@ class CosmeticsDetailComponent {
     /**
      * @return {?}
      */
-    clearToolTip() {
-        /** @type {?} */
-        const tooltipContainer = document.getElementsByClassName('cdk-overlay-container')[0];
-        for (let i = 1; i < tooltipContainer.childNodes.length; i++) {
-            tooltipContainer.removeChild(tooltipContainer.childNodes[i]);
-        }
-    }
-    /**
-     * @param {?} item
-     * @return {?}
-     */
-    progressHeight(item) {
-        return item.style.height;
-    }
-    /**
-     * API: http://47.110.224.71:9100/get_report_catalog/18/3/
-     * like: [{
-     * "id": 1063,
-     * "catalogType": 0,
-     * "title": "引言",
-     * "order": 0,
-     * "styleID": null,
-     * "content": "",
-     * "src": null,
-     * "reportID": 18,
-     * "parentID": null,
-     * "child_catalog": {}
-     * }]
-     * @return {?}
-     */
-    getCateLog() {
-        this.reportsService.get_catelog(4, 3)
-            .then((/**
-         * @param {?} json
-         * @return {?}
-         */
-        json => {
-            this.reportsService.root_catalog = json;
-            this.reportsService.selected.catalog = this.reportsService.root_catalog;
-            this.page = this.reportsService.selected.catalog;
-            this.change([0]);
-        }));
-    }
-    /**
-     * @return {?}
-     */
     ngOnInit() {
     }
     /**
      * @return {?}
      */
-    ngOnDestroy() {
-        // unsubscribe to ensure no memory leaks
-        this.subscription.unsubscribe();
-    }
-    /**
-     * @return {?}
-     */
     ngAfterViewInit() {
-        this.getCateLog();
     }
 }
 CosmeticsDetailComponent.decorators = [
@@ -744,11 +649,9 @@ CosmeticsDetailComponent.ctorParameters = () => [
     { type: NgZone }
 ];
 CosmeticsDetailComponent.propDecorators = {
+    pages: [{ type: Input }],
     outline: [{ type: ViewChild, args: ['outline', { static: false },] }],
-    article: [{ type: ViewChild, args: ['article', { static: false },] }],
-    Pages: [{ type: Input, args: ['Pages',] }],
-    swithchTo: [{ type: Input }],
-    M_Pages: [{ type: Output }]
+    article: [{ type: ViewChild, args: ['article', { static: false },] }]
 };
 
 /**
@@ -929,12 +832,18 @@ IprReportModule.decorators = [
                 imports: [
                     CommonModule,
                     CosmeticsPageModule,
-                    HttpClientModule,
                 ],
                 providers: [ReportsService],
                 exports: [CosmeticsDetailComponent]
             },] }
 ];
 
-export { IprReportModule, ReportsService, CosmeticsOutlineBarComponent as ɵa, openClose as ɵb, CosmeticsDetailComponent as ɵc, CosmeticsPageModule as ɵd, ParagraphComponent as ɵe, CosmeticsPageComponent as ɵf };
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class Paragraph {
+}
+
+export { Catalog, IprReportBackend, IprReportModule, Paragraph, ReportsService, CosmeticsOutlineBarComponent as ɵa, openClose as ɵb, CosmeticsDetailComponent as ɵc, CosmeticsPageModule as ɵd, ParagraphComponent as ɵe, CosmeticsPageComponent as ɵf };
 //# sourceMappingURL=ipr-report.js.map

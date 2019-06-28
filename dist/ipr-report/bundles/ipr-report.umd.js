@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common/http'), require('@angular/common'), require('@angular/animations'), require('ngx-echarts')) :
-    typeof define === 'function' && define.amd ? define('ipr-report', ['exports', '@angular/core', '@angular/common/http', '@angular/common', '@angular/animations', 'ngx-echarts'], factory) :
-    (global = global || self, factory(global['ipr-report'] = {}, global.ng.core, global.ng.common.http, global.ng.common, global.ng.animations, global.ngxEcharts));
-}(this, function (exports, core, http, common, animations, ngxEcharts) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/animations'), require('ngx-echarts')) :
+    typeof define === 'function' && define.amd ? define('ipr-report', ['exports', '@angular/core', '@angular/common', '@angular/animations', 'ngx-echarts'], factory) :
+    (global = global || self, factory(global['ipr-report'] = {}, global.ng.core, global.ng.common, global.ng.animations, global.ngxEcharts));
+}(this, function (exports, core, common, animations, ngxEcharts) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -66,168 +66,6 @@
             }
         };
     }
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    var Catalog = /** @class */ (function () {
-        function Catalog(values) {
-            if (values === void 0) { values = {}; }
-            this.style = {
-                height: '0',
-            };
-            Object.assign(this, values);
-        }
-        return Catalog;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    /**
-     * @param {?} each
-     * @return {?}
-     */
-    function rollCatalog(each) {
-        if (each.child_catalog instanceof Array) {
-            each.child_catalog = each.child_catalog.map(rollCatalog);
-        }
-        return new Catalog(each);
-    }
-    var ReportsService = /** @class */ (function () {
-        function ReportsService(http) {
-            this.http = http;
-            this.host = 'http://47.110.224.71';
-            this.parent = {
-                catalog: [],
-                indexesOfRoot: [0],
-            };
-            this.selected = {
-                catalog: [],
-                index: 0,
-            };
-            this.focusContent = {
-                index: 0,
-                el: null,
-            };
-            this.alreadyAdd = [];
-        }
-        Object.defineProperty(ReportsService.prototype, "section", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return this.selected.catalog[this.selected.index];
-            },
-            enumerable: true,
-            configurable: true
-        });
-        /**
-         * @param {?=} item
-         * @return {?}
-         */
-        ReportsService.prototype.loadContent = /**
-         * @param {?=} item
-         * @return {?}
-         */
-        function (item) {
-            /** @type {?} */
-            var section = this.section;
-            if (item) {
-                section = item;
-            }
-            this.get_content(section.id, 'True')
-                .then((/**
-             * @param {?} json
-             * @return {?}
-             */
-            function (json) {
-                console.log('section content', json[0]);
-                if (!section.paragraphs) {
-                    section.paragraphs = json[0].paragraphs;
-                }
-            }));
-        };
-        /**
-         * @return {?}
-         */
-        ReportsService.prototype.nextPageId = /**
-         * @return {?}
-         */
-        function () {
-            /** @type {?} */
-            var nextIndex = this.selected.index + 1;
-            if (nextIndex >= this.selected.catalog.length) {
-                this.selected.catalog = this.parent.catalog;
-                nextIndex = this.parent.indexesOfRoot.pop() + 1;
-            }
-            console.log('next index', nextIndex, this.selected.catalog);
-            return this.selected.catalog[nextIndex].id;
-        };
-        /**
-         * @return {?}
-         */
-        ReportsService.prototype.nextContentId = /**
-         * @return {?}
-         */
-        function () {
-            return 0;
-        };
-        /**
-         * @param {?} id
-         * @param {?} degree
-         * @return {?}
-         */
-        ReportsService.prototype.get_catelog = /**
-         * @param {?} id
-         * @param {?} degree
-         * @return {?}
-         */
-        function (id, degree) {
-            return __awaiter(this, void 0, void 0, function () {
-                var ret;
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this.http.get(this.host + ("/get_catalogs/" + id + "/" + degree + "/")).toPromise()];
-                        case 1:
-                            ret = _a.sent();
-                            ret = ret.map(rollCatalog);
-                            return [2 /*return*/, ret];
-                    }
-                });
-            });
-        };
-        /**
-         * @param {?} id
-         * @param {?} child_content
-         * @return {?}
-         */
-        ReportsService.prototype.get_content = /**
-         * @param {?} id
-         * @param {?} child_content
-         * @return {?}
-         */
-        function (id, child_content) {
-            return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this.http.get(this.host + ("/get_chapter/" + id + "/" + child_content + "/")).toPromise()];
-                        case 1: return [2 /*return*/, _a.sent()];
-                    }
-                });
-            });
-        };
-        ReportsService.decorators = [
-            { type: core.Injectable }
-        ];
-        /** @nocollapse */
-        ReportsService.ctorParameters = function () { return [
-            { type: http.HttpClient }
-        ]; };
-        return ReportsService;
-    }());
 
     /**
      * @fileoverview added by tsickle
@@ -408,6 +246,146 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
+    var Catalog = /** @class */ (function () {
+        function Catalog(values) {
+            if (values === void 0) { values = {}; }
+            this.style = {
+                height: '0',
+            };
+            Object.assign(this, values);
+        }
+        return Catalog;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    /** @type {?} */
+    var IprReportBackend = new core.InjectionToken('backend api');
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    /**
+     * @param {?} each
+     * @return {?}
+     */
+    function rollCatalog(each) {
+        if (each.child_catalog instanceof Array) {
+            each.child_catalog = each.child_catalog.map(rollCatalog);
+        }
+        return new Catalog(each);
+    }
+    var ReportsService = /** @class */ (function () {
+        function ReportsService(bes) {
+            this.bes = bes;
+            this.parent = {
+                catalog: [],
+                indexesOfRoot: [0],
+            };
+            this.selected = {
+                catalog: [],
+                index: 0,
+            };
+            this.focusContent = {
+                index: 0,
+                el: null,
+            };
+            this.alreadyAdd = [];
+        }
+        Object.defineProperty(ReportsService.prototype, "section", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return this.selected.catalog[this.selected.index];
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /**
+         * @param {?=} item
+         * @return {?}
+         */
+        ReportsService.prototype.loadContent = /**
+         * @param {?=} item
+         * @return {?}
+         */
+        function (item) {
+            /** @type {?} */
+            var section = this.section;
+            if (item) {
+                section = item;
+            }
+            this.get_content(section.id, 'True')
+                .then((/**
+             * @param {?} json
+             * @return {?}
+             */
+            function (json) {
+                console.log('section content', json);
+                if (!section.paragraphs) {
+                    section.paragraphs = json.paragraphs;
+                }
+            }));
+        };
+        /**
+         * @param {?} id
+         * @param {?} degree
+         * @return {?}
+         */
+        ReportsService.prototype.get_catelog = /**
+         * @param {?} id
+         * @param {?} degree
+         * @return {?}
+         */
+        function (id, degree) {
+            return __awaiter(this, void 0, void 0, function () {
+                var ret;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.bes.get_catelog(id, degree)];
+                        case 1:
+                            ret = _a.sent();
+                            ret = ret.map(rollCatalog);
+                            return [2 /*return*/, ret];
+                    }
+                });
+            });
+        };
+        /**
+         * @param {?} id
+         * @param {?} child_content
+         * @return {?}
+         */
+        ReportsService.prototype.get_content = /**
+         * @param {?} id
+         * @param {?} child_content
+         * @return {?}
+         */
+        function (id, child_content) {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    return [2 /*return*/, this.bes.get_content(id, child_content)];
+                });
+            });
+        };
+        ReportsService.decorators = [
+            { type: core.Injectable }
+        ];
+        /** @nocollapse */
+        ReportsService.ctorParameters = function () { return [
+            { type: undefined, decorators: [{ type: core.Inject, args: [IprReportBackend,] }] }
+        ]; };
+        return ReportsService;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
     var CosmeticsPageComponent = /** @class */ (function () {
         function CosmeticsPageComponent(reportsService) {
             this.reportsService = reportsService;
@@ -479,55 +457,30 @@
         function (width) {
             return 'col-lg-' + width + ' col-md-' + width + ' col-sm-' + width;
         };
-        /**
-         * @param {?} pageId
-         * @return {?}
-         */
-        CosmeticsPageComponent.prototype.appendPage = /**
-         * @param {?} pageId
-         * @return {?}
-         */
-        function (pageId) {
-            return this.appendTo(pageId, this.page);
-        };
-        /**
-         * @param {?} id
-         * @return {?}
-         */
-        CosmeticsPageComponent.prototype.appendParagraph = /**
-         * @param {?} id
-         * @return {?}
-         */
-        function (id) {
-            return this.appendTo(id, this.page);
-        };
-        /**
-         * @param {?} id
-         * @param {?} content
-         * @return {?}
-         */
-        CosmeticsPageComponent.prototype.appendTo = /**
-         * @param {?} id
-         * @param {?} content
-         * @return {?}
-         */
-        function (id, content) {
-            if (id === -1) {
-                return;
-            }
-            this.appendPageLock = true;
-            /** @type {?} */
-            var rec = this.reportsService.get_content(id, 'True');
-            console.log('append', id, content);
-            // rec.then(json => {
-            //     for (const each of json) {
-            //         content.push(each);
-            //     }
-            //     this.reportsService.alreadyAdd.push(id);
-            // });
-            return rec;
-        };
         Object.defineProperty(CosmeticsPageComponent.prototype, "focusContentIndex", {
+            // appendPage(pageId: number): Promise<Catalog[]> {
+            //     return this.appendTo(pageId, this.page);
+            // }
+            //
+            // appendParagraph(id: number): Promise<Catalog[]> {
+            //     return this.appendTo(id, this.page);
+            // }
+            //
+            // appendTo(id: number, content: Catalog[]): Promise<Catalog[]> {
+            //     if (id === -1) {
+            //         return;
+            //     }
+            //     this.appendPageLock = true;
+            //     const rec = this.reportsService.get_content(id, 'True');
+            //     console.log('append', id, content);
+            //     // rec.then(json => {
+            //     //     for (const each of json) {
+            //     //         content.push(each);
+            //     //     }
+            //     //     this.reportsService.alreadyAdd.push(id);
+            //     // });
+            //     return rec;
+            // }
             // set focusContentIndex(val) {
             //     console.log('val is', val, this.contents.toArray());
             //     this.reportsService.focusContent.index = val;
@@ -535,6 +488,29 @@
             //     console.log('focus content', this.reportsService.focusContent.el);
             // }
             get: 
+            // appendPage(pageId: number): Promise<Catalog[]> {
+            //     return this.appendTo(pageId, this.page);
+            // }
+            //
+            // appendParagraph(id: number): Promise<Catalog[]> {
+            //     return this.appendTo(id, this.page);
+            // }
+            //
+            // appendTo(id: number, content: Catalog[]): Promise<Catalog[]> {
+            //     if (id === -1) {
+            //         return;
+            //     }
+            //     this.appendPageLock = true;
+            //     const rec = this.reportsService.get_content(id, 'True');
+            //     console.log('append', id, content);
+            //     // rec.then(json => {
+            //     //     for (const each of json) {
+            //     //         content.push(each);
+            //     //     }
+            //     //     this.reportsService.alreadyAdd.push(id);
+            //     // });
+            //     return rec;
+            // }
             // set focusContentIndex(val) {
             //     console.log('val is', val, this.contents.toArray());
             //     this.reportsService.focusContent.index = val;
@@ -735,44 +711,21 @@
         function CosmeticsDetailComponent(reportsService, zone) {
             this.reportsService = reportsService;
             this.zone = zone;
-            this.isOpen = 'closed';
-            // @Output() get Catelog(){
-            //   this.height = 100/this.pages.length;
-            //   return this.catelog;
-            // }
-            this.alreadyAdded = {};
-            this.currentIndex = -1;
         }
-        Object.defineProperty(CosmeticsDetailComponent.prototype, "Pages", {
+        Object.defineProperty(CosmeticsDetailComponent.prototype, "pages", {
             set: /**
-             * @param {?} value
+             * @param {?} val
              * @return {?}
              */
-            function (value) {
-                this.pages = value;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(CosmeticsDetailComponent.prototype, "swithchTo", {
-            set: /**
-             * @param {?} value
-             * @return {?}
-             */
-            function (value) {
-                if (value !== undefined && value != null) {
-                    this.currentIndex = value;
+            function (val) {
+                if (!val) {
+                    return;
                 }
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(CosmeticsDetailComponent.prototype, "M_Pages", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return this.pages;
+                this.reportsService.root_catalog = val;
+                console.log('root_catalog', val);
+                this.reportsService.selected.catalog = this.reportsService.root_catalog;
+                this.page = this.reportsService.selected.catalog;
+                this.change([0]);
             },
             enumerable: true,
             configurable: true
@@ -905,91 +858,6 @@
         /**
          * @return {?}
          */
-        CosmeticsDetailComponent.prototype.clearToolTip = /**
-         * @return {?}
-         */
-        function () {
-            /** @type {?} */
-            var tooltipContainer = document.getElementsByClassName('cdk-overlay-container')[0];
-            for (var i = 1; i < tooltipContainer.childNodes.length; i++) {
-                tooltipContainer.removeChild(tooltipContainer.childNodes[i]);
-            }
-        };
-        /**
-         * @param {?} item
-         * @return {?}
-         */
-        CosmeticsDetailComponent.prototype.progressHeight = /**
-         * @param {?} item
-         * @return {?}
-         */
-        function (item) {
-            return item.style.height;
-        };
-        /**
-         * API: http://47.110.224.71:9100/get_report_catalog/18/3/
-         * like: [{
-            "id": 1063,
-            "catalogType": 0,
-            "title": "引言",
-            "order": 0,
-            "styleID": null,
-            "content": "",
-            "src": null,
-            "reportID": 18,
-            "parentID": null,
-            "child_catalog": {}
-        }]
-         */
-        /**
-         * API: http://47.110.224.71:9100/get_report_catalog/18/3/
-         * like: [{
-         * "id": 1063,
-         * "catalogType": 0,
-         * "title": "引言",
-         * "order": 0,
-         * "styleID": null,
-         * "content": "",
-         * "src": null,
-         * "reportID": 18,
-         * "parentID": null,
-         * "child_catalog": {}
-         * }]
-         * @return {?}
-         */
-        CosmeticsDetailComponent.prototype.getCateLog = /**
-         * API: http://47.110.224.71:9100/get_report_catalog/18/3/
-         * like: [{
-         * "id": 1063,
-         * "catalogType": 0,
-         * "title": "引言",
-         * "order": 0,
-         * "styleID": null,
-         * "content": "",
-         * "src": null,
-         * "reportID": 18,
-         * "parentID": null,
-         * "child_catalog": {}
-         * }]
-         * @return {?}
-         */
-        function () {
-            var _this = this;
-            this.reportsService.get_catelog(4, 3)
-                .then((/**
-             * @param {?} json
-             * @return {?}
-             */
-            function (json) {
-                _this.reportsService.root_catalog = json;
-                _this.reportsService.selected.catalog = _this.reportsService.root_catalog;
-                _this.page = _this.reportsService.selected.catalog;
-                _this.change([0]);
-            }));
-        };
-        /**
-         * @return {?}
-         */
         CosmeticsDetailComponent.prototype.ngOnInit = /**
          * @return {?}
          */
@@ -998,21 +866,10 @@
         /**
          * @return {?}
          */
-        CosmeticsDetailComponent.prototype.ngOnDestroy = /**
-         * @return {?}
-         */
-        function () {
-            // unsubscribe to ensure no memory leaks
-            this.subscription.unsubscribe();
-        };
-        /**
-         * @return {?}
-         */
         CosmeticsDetailComponent.prototype.ngAfterViewInit = /**
          * @return {?}
          */
         function () {
-            this.getCateLog();
         };
         CosmeticsDetailComponent.decorators = [
             { type: core.Component, args: [{
@@ -1027,11 +884,9 @@
             { type: core.NgZone }
         ]; };
         CosmeticsDetailComponent.propDecorators = {
+            pages: [{ type: core.Input }],
             outline: [{ type: core.ViewChild, args: ['outline', { static: false },] }],
-            article: [{ type: core.ViewChild, args: ['article', { static: false },] }],
-            Pages: [{ type: core.Input, args: ['Pages',] }],
-            swithchTo: [{ type: core.Input }],
-            M_Pages: [{ type: core.Output }]
+            article: [{ type: core.ViewChild, args: ['article', { static: false },] }]
         };
         return CosmeticsDetailComponent;
     }());
@@ -1238,7 +1093,6 @@
                         imports: [
                             common.CommonModule,
                             CosmeticsPageModule,
-                            http.HttpClientModule,
                         ],
                         providers: [ReportsService],
                         exports: [CosmeticsDetailComponent]
@@ -1247,7 +1101,20 @@
         return IprReportModule;
     }());
 
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var Paragraph = /** @class */ (function () {
+        function Paragraph() {
+        }
+        return Paragraph;
+    }());
+
+    exports.Catalog = Catalog;
+    exports.IprReportBackend = IprReportBackend;
     exports.IprReportModule = IprReportModule;
+    exports.Paragraph = Paragraph;
     exports.ReportsService = ReportsService;
     exports.ɵa = CosmeticsOutlineBarComponent;
     exports.ɵb = openClose;

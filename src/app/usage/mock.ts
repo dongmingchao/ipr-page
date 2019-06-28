@@ -1,1 +1,1 @@
-export * from 'ipr-report';
+export * from '../../../projects/ipr-report/src/public-api';

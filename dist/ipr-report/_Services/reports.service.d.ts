@@ -1,8 +1,7 @@
 import { Catalog } from '../_Classes/Catalog.class';
-import { HttpClient } from '@angular/common/http';
+import { BackendService } from '../_Interface/backend.service';
 export declare class ReportsService {
-    private http;
-    host: string;
+    private bes;
     root_catalog: Catalog[];
     parent: {
         catalog: Catalog[];
@@ -17,11 +16,9 @@ export declare class ReportsService {
         el: HTMLDivElement;
     };
     alreadyAdd: number[];
-    constructor(http: HttpClient);
+    constructor(bes: BackendService);
     readonly section: Catalog;
     loadContent(item?: Catalog): void;
-    nextPageId(): number;
-    nextContentId(): number;
     get_catelog(id: number, degree: number): Promise<Catalog[]>;
-    get_content(id: number, child_content: string): Promise<Catalog[]>;
+    get_content(id: number, child_content: string): Promise<Catalog>;
 }

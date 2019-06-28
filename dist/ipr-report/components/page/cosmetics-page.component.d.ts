@@ -22,9 +22,6 @@ export declare class CosmeticsPageComponent implements OnInit, AfterViewInit {
     _scroll_container: ElementRef;
     change(i: number): void;
     getWidth(width: number): string;
-    appendPage(pageId: number): Promise<Catalog[]>;
-    appendParagraph(id: number): Promise<Catalog[]>;
-    appendTo(id: number, content: Catalog[]): Promise<Catalog[]>;
     readonly focusContentIndex: number;
     private offsetContainer;
     scrollTo(content: Catalog): void;

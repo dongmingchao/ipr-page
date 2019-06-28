@@ -6,6 +6,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HttpClientModule} from '@angular/common/http';
 import {IprReportBackend, IprReportModule} from './usage/mock';
 import {ReportsService} from './usage/services';
+import { NbThemeModule, NbLayoutModule } from '@nebular/theme';
+import { NbEvaIconsModule } from '@nebular/eva-icons';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
     declarations: [
@@ -16,6 +19,10 @@ import {ReportsService} from './usage/services';
         HttpClientModule,
         BrowserAnimationsModule,
         IprReportModule,
+        NbThemeModule.forRoot({ name: 'default' }),
+        NbLayoutModule,
+        NbEvaIconsModule,
+        AppRoutingModule,
     ],
     providers: [
         {provide: IprReportBackend, useClass: ReportsService}
