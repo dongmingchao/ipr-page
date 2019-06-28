@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 import {Catalog} from '../../../_Classes/Catalog.class';
 import {ReportsService} from '../../../_Services/reports.service';
+import {IprCharts} from '../echarts/ipr-charts';
 
 function offset(curEle, parent) {
     let totalLeft = null;
@@ -100,6 +101,12 @@ export class ParagraphComponent implements OnInit, AfterViewInit, OnChanges {
         private reportsService: ReportsService,
     ) {
         this.el = _el.nativeElement;
+    }
+
+    generateEcharts(widget) {
+        if (widget.template === 'trend') {
+            return new IprCharts('trend', widget.rawData.day);
+        }
     }
 
     ngOnInit() {

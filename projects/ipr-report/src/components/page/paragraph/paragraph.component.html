@@ -4,10 +4,9 @@
             <h5>{{content.title}}</h5>
         </div>
         <div [attr.id]="'widget' + ppp.id" *ngFor="let ppp of content.paragraphs;">
-            <!--<div>paragraph id{{ppp.id}}</div>-->
             <div class="row content" *ngIf="ppp.hasWidget">
                 <div *ngIf="!ppp.widgetVertical" class="col-md-6 col-lg-6 col-sm-6"> <!-- 水平排列 -->
-                    <div>widget id{{ppp.widgetID.id}}</div>
+<!--                    <div>widget id{{ppp.widgetID.id}}</div>-->
                     <p>{{ppp.content}}</p>
                 </div>
                 <div *ngIf="!ppp.widgetVertical" class="col-md-6 col-lg-6 col-sm-6">
@@ -18,6 +17,13 @@
                          echarts
                          [theme]="'walden'"
                          [options]="ppp.widgetID.options"
+                    ></div>
+                    <div *ngIf="ppp.widgetID.widgetType==4"
+                         style="width:100%;height:500px"
+                         class="echart"
+                         echarts
+                         [theme]="'walden'"
+                         [options]="generateEcharts(ppp.widgetID)"
                     ></div>
                 </div>
                 <div *ngIf="ppp.widgetVertical" class="col-md-12 col-lg-12 col-sm-12">

@@ -1,6 +1,10 @@
 export class Paragraph {
     id: number;
-    widgetID: object;
+    widgetID: {
+        template: string;
+        widgetType: number;
+        rawData: object;
+    };
     content: string;
     order: number;
     styleID: number;
