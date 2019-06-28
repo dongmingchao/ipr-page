@@ -3,8 +3,9 @@ import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {IprReportModule} from '../../projects/ipr-report/src/lib/ipr-report.module';
 import {HttpClientModule} from '@angular/common/http';
+import {IprReportBackend, IprReportModule} from './usage/mock';
+import {ReportsService} from './usage/services';
 
 @NgModule({
     declarations: [
@@ -12,10 +13,13 @@ import {HttpClientModule} from '@angular/common/http';
     ],
     imports: [
         BrowserModule,
+        HttpClientModule,
         BrowserAnimationsModule,
         IprReportModule,
     ],
-    providers: [],
+    providers: [
+        {provide: IprReportBackend, useClass: ReportsService}
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {

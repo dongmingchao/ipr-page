@@ -60,29 +60,29 @@ export class CosmeticsPageComponent implements OnInit, AfterViewInit {
         return 'col-lg-' + width + ' col-md-' + width + ' col-sm-' + width;
     }
 
-    appendPage(pageId: number): Promise<Catalog[]> {
-        return this.appendTo(pageId, this.page);
-    }
-
-    appendParagraph(id: number): Promise<Catalog[]> {
-        return this.appendTo(id, this.page);
-    }
-
-    appendTo(id: number, content: Catalog[]): Promise<Catalog[]> {
-        if (id === -1) {
-            return;
-        }
-        this.appendPageLock = true;
-        const rec = this.reportsService.get_content(id, 'True');
-        console.log('append', id, content);
-        // rec.then(json => {
-        //     for (const each of json) {
-        //         content.push(each);
-        //     }
-        //     this.reportsService.alreadyAdd.push(id);
-        // });
-        return rec;
-    }
+    // appendPage(pageId: number): Promise<Catalog[]> {
+    //     return this.appendTo(pageId, this.page);
+    // }
+    //
+    // appendParagraph(id: number): Promise<Catalog[]> {
+    //     return this.appendTo(id, this.page);
+    // }
+    //
+    // appendTo(id: number, content: Catalog[]): Promise<Catalog[]> {
+    //     if (id === -1) {
+    //         return;
+    //     }
+    //     this.appendPageLock = true;
+    //     const rec = this.reportsService.get_content(id, 'True');
+    //     console.log('append', id, content);
+    //     // rec.then(json => {
+    //     //     for (const each of json) {
+    //     //         content.push(each);
+    //     //     }
+    //     //     this.reportsService.alreadyAdd.push(id);
+    //     // });
+    //     return rec;
+    // }
 
     // set focusContentIndex(val) {
     //     console.log('val is', val, this.contents.toArray());

@@ -10,7 +10,6 @@ import {
     ElementRef,
     AfterViewInit,
 } from '@angular/core';
-import {Subscription} from 'rxjs';
 import {ReportsService} from '../../_Services/reports.service';
 import {Catalog} from '../../_Classes/Catalog.class';
 import {CosmeticsPageComponent} from '../page/cosmetics-page.component';
@@ -21,42 +20,22 @@ import {CosmeticsOutlineBarComponent} from '../outline-bar/cosmetics-outline-bar
     templateUrl: './cosmetics-detail.component.html',
     styleUrls: ['./test.css'],
 })
-export class CosmeticsDetailComponent implements OnInit, OnDestroy, AfterViewInit {
-    message: any;
-    subscription: Subscription;
-    private pages: any;
+export class CosmeticsDetailComponent implements OnInit, AfterViewInit {
+
+    @Input() set pages(val: Catalog[]) {
+        if (!val) { return; }
+        this.reportsService.root_catalog = val;
+        console.log('root_catalog', val);
+        this.reportsService.selected.catalog = this.reportsService.root_catalog;
+        this.page = this.reportsService.selected.catalog;
+        this.change([0]);
+    }
+
     page: Catalog[];
     private pageId: number;
-    isOpen = 'closed';
     height: number;
     @ViewChild('outline', {static: false}) outline: CosmeticsOutlineBarComponent;
     @ViewChild('article', {static: false}) article: CosmeticsPageComponent;
-
-
-    @Input('Pages') set Pages(value) {
-        this.pages = value;
-    }
-
-    @Input() set swithchTo(value) {
-        if (value !== undefined && value != null) {
-            this.currentIndex = value;
-
-        }
-    }
-
-
-    @Output() get M_Pages() {
-        return this.pages;
-    }
-
-    // @Output() get Catelog(){
-    //   this.height = 100/this.pages.length;
-    //   return this.catelog;
-    // }
-
-    alreadyAdded = {};
-
-    currentIndex = -1;
 
 
     change(indexesOfRoot: number[]) {
@@ -119,42 +98,6 @@ export class CosmeticsDetailComponent implements OnInit, OnDestroy, AfterViewIni
         this.reportsService.loadContent();
     }
 
-    clearToolTip() {
-        const tooltipContainer = document.getElementsByClassName('cdk-overlay-container')[0];
-        for (let i = 1; i < tooltipContainer.childNodes.length; i++) {
-            tooltipContainer.removeChild(tooltipContainer.childNodes[i]);
-        }
-    }
-
-    progressHeight(item: Catalog) {
-        return item.style.height;
-    }
-
-    /**
-     * API: http://47.110.224.71:9100/get_report_catalog/18/3/
-     * like: [{
-        "id": 1063,
-        "catalogType": 0,
-        "title": "引言",
-        "order": 0,
-        "styleID": null,
-        "content": "",
-        "src": null,
-        "reportID": 18,
-        "parentID": null,
-        "child_catalog": {}
-    }]
-     */
-    getCateLog() {
-        this.reportsService.get_catelog(4, 3)
-            .then(json => {
-                this.reportsService.root_catalog = json;
-                this.reportsService.selected.catalog = this.reportsService.root_catalog;
-                this.page = this.reportsService.selected.catalog;
-                this.change([0]);
-            });
-    }
-
     constructor(
         public reportsService: ReportsService,
         public zone: NgZone,
@@ -165,12 +108,6 @@ export class CosmeticsDetailComponent implements OnInit, OnDestroy, AfterViewIni
     ngOnInit() {
     }
 
-    ngOnDestroy() {
-        // unsubscribe to ensure no memory leaks
-        this.subscription.unsubscribe();
-    }
-
     ngAfterViewInit(): void {
-        this.getCateLog();
     }
 }
