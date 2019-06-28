@@ -124,6 +124,7 @@
     var CosmeticsOutlineBarComponent = /** @class */ (function () {
         function CosmeticsOutlineBarComponent() {
             this.open = true;
+            this.level = 0;
             this.pointClick = new core.EventEmitter();
             this.nextLevel = {
                 selected: null,
@@ -142,6 +143,15 @@
             this.nextLevel.selected = item[0];
             item.push(this.selected);
             this.pointClick.emit(item);
+        };
+        /**
+         * @return {?}
+         */
+        CosmeticsOutlineBarComponent.prototype.getLevelCss = /**
+         * @return {?}
+         */
+        function () {
+            return "level-" + this.level;
         };
         /**
          * @protected
@@ -227,9 +237,9 @@
         CosmeticsOutlineBarComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ngx-cosmetics-outline-bar',
-                        template: "<ng-container *ngIf=\"catalog;\">\r\n    <ng-container *ngFor=\"let item of catalog;index as n\">\r\n        <button (click)=\"expand(item)\" class=\"circle spin circle_b\"></button>\r\n        <div class=\"botLine\">\r\n            <div></div>\r\n            <div class=\"progress\" [style.height]=\"item.style.height\"></div></div>\r\n        <ngx-cosmetics-outline-bar\r\n                [@openClose]=\"isOpen\"\r\n                *ngIf=\"item === selected && item.child_catalog\"\r\n                (pointClick)=\"passSelect($event)\"\r\n                [catalog]=\"item.child_catalog\" ></ngx-cosmetics-outline-bar>\r\n    </ng-container>\r\n</ng-container>\r\n\r\n<!--nbTooltip=\"{{item.title}}\" nbTooltipPlacement=\"right\"-->\r\n",
+                        template: "<ng-container *ngIf=\"catalog;\">\r\n    <ng-container *ngFor=\"let item of catalog;index as n\">\r\n        <button (click)=\"expand(item)\"\r\n                [ngClass]=\"getLevelCss()\"\r\n                class=\"circle spin circle_b\"></button>\r\n        <div class=\"botLine\">\r\n            <div></div>\r\n            <div class=\"progress\" [style.height]=\"item.style.height\"></div>\r\n        </div>\r\n        <ngx-cosmetics-outline-bar\r\n                [@openClose]=\"isOpen\"\r\n                [level]=\"level+1\"\r\n                *ngIf=\"item === selected && item.child_catalog\"\r\n                (pointClick)=\"passSelect($event)\"\r\n                [catalog]=\"item.child_catalog\"></ngx-cosmetics-outline-bar>\r\n    </ng-container>\r\n</ng-container>\r\n\r\n<!--nbTooltip=\"{{item.title}}\" nbTooltipPlacement=\"right\"-->\r\n",
                         animations: openClose,
-                        styles: [":host{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;-webkit-box-pack:justify;justify-content:space-between}button.circle{background-color:#0077b9;border:3px solid #acacac;border-radius:100%;width:24px;height:24px;margin:auto;z-index:1}.botLine{-webkit-box-flex:1;flex-grow:1;position:relative;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center}.botLine div{width:5px;height:calc(100% + 10px);position:relative;background:#e6e7e8;border-left:3.5px solid #acacac;border-right:3.5px solid #acacac}.botLine.active div{background:#0077b9}.botLine .progress{position:absolute;background-color:red;-ms-grid-row-align:start;align-self:start}:host(ngx-cosmetics-outline-barngx-cosmetics-outline-bar) button.circle.spin{background-color:#00d77f;width:15px;height:18px;border:3px solid #acacac}:host(ngx-cosmetics-outline-barngx-cosmetics-outline-barngx-cosmetics-outline-bar) button.circle.spin{background-color:#a1a1e5;width:12px;height:16px;border:2px solid #acacac}"]
+                        styles: [":host{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;-webkit-box-pack:justify;justify-content:space-between}button.circle{background-color:#0077b9;border:3px solid #acacac;border-radius:100%;width:24px;height:24px;margin:auto;z-index:1}.botLine{-webkit-box-flex:1;flex-grow:1;position:relative;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center}.botLine div{width:.9rem;height:calc(100% + 10px);position:relative;background:#e6e7e8;border-left:3.5px solid #acacac;border-right:3.5px solid #acacac}.botLine.active div{background:#0077b9}.botLine .progress{position:absolute;background-color:red;-ms-grid-row-align:start;align-self:start}:host button.circle.spin.level-1{background-color:#00d77f;width:15px;height:18px;border:3px solid #acacac}:host button.circle.spin.level-2{background-color:#a1a1e5;width:12px;height:16px;border:2px solid #acacac}"]
                     }] }
         ];
         /** @nocollapse */
@@ -237,6 +247,7 @@
         CosmeticsOutlineBarComponent.propDecorators = {
             catalog: [{ type: core.Input }],
             open: [{ type: core.Input }],
+            level: [{ type: core.Input }],
             pointClick: [{ type: core.Output }]
         };
         return CosmeticsOutlineBarComponent;
