@@ -1,0 +1,9 @@
+/*
+ * Public API Surface of ipr-report
+ */
+export * from './lib/ipr-report.module';
+export * from './_Classes/Catalog.class';
+export * from './_Classes/Paragraph.class';
+export * from './_Services/reports.service';
+export * from './_Interface/backend.service';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHVibGljLWFwaS5qcyIsInNvdXJjZVJvb3QiOiJuZzovL2lwci1yZXBvcnQvIiwic291cmNlcyI6WyJwdWJsaWMtYXBpLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBOztHQUVHO0FBRUgsY0FBYyx5QkFBeUIsQ0FBQztBQUN4QyxjQUFjLDBCQUEwQixDQUFDO0FBQ3pDLGNBQWMsNEJBQTRCLENBQUM7QUFDM0MsY0FBYyw2QkFBNkIsQ0FBQztBQUM1QyxjQUFjLDhCQUE4QixDQUFDIiwic291cmNlc0NvbnRlbnQiOlsiLypcclxuICogUHVibGljIEFQSSBTdXJmYWNlIG9mIGlwci1yZXBvcnRcclxuICovXHJcblxyXG5leHBvcnQgKiBmcm9tICcuL2xpYi9pcHItcmVwb3J0Lm1vZHVsZSc7XHJcbmV4cG9ydCAqIGZyb20gJy4vX0NsYXNzZXMvQ2F0YWxvZy5jbGFzcyc7XHJcbmV4cG9ydCAqIGZyb20gJy4vX0NsYXNzZXMvUGFyYWdyYXBoLmNsYXNzJztcclxuZXhwb3J0ICogZnJvbSAnLi9fU2VydmljZXMvcmVwb3J0cy5zZXJ2aWNlJztcclxuZXhwb3J0ICogZnJvbSAnLi9fSW50ZXJmYWNlL2JhY2tlbmQuc2VydmljZSc7XHJcbiJdfQ==
