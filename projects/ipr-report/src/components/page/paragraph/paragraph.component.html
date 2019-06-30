@@ -10,7 +10,7 @@
                     <p>{{ppp.content}}</p>
                 </div>
                 <div *ngIf="!ppp.widgetVertical" class="col-md-6 col-lg-6 col-sm-6">
-                    <img *ngIf="ppp.widgetID.widgetType==0" style="width:100%" [src]="ppp.widgetID.imageUrl"/>
+                    <img *ngIf="ppp.widgetID.widgetType===0" style="width:100%" [src]="ppp.widgetID.imageUrl"/>
                     <div *ngIf="ppp.widgetID.widgetType==1"
                          style="width:100%;height:500px"
                          class="echart"
@@ -18,13 +18,14 @@
                          [theme]="'walden'"
                          [options]="ppp.widgetID.options"
                     ></div>
-                    <div *ngIf="ppp.widgetID.widgetType==4"
+                    <div *ngIf="ppp.widgetID.widgetType===4"
                          style="width:100%;height:500px"
                          class="echart"
                          echarts
                          [theme]="'walden'"
                          [options]="generateEcharts(ppp.widgetID)"
                     ></div>
+                    <ipr-table *ngIf="ppp.widgetID.widgetType===5" [data]="ppp.widgetID.rawData"></ipr-table>
                 </div>
                 <div *ngIf="ppp.widgetVertical" class="col-md-12 col-lg-12 col-sm-12">
                     <!--<div>widget id {{ppp.widgetID.id}}</div>-->

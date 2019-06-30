@@ -1,15 +1,14 @@
-.mid-dots-nav {
-    height: 640px;
-    width: 34px;
-    position: absolute;
-    left: 34px;
-    margin-left: -27px;
-    overflow: hidden;
-    z-index: 20;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
+/*.mid-dots-nav {*/
+    /*width: 34px;*/
+    /*position: absolute;*/
+    /*left: 34px;*/
+    /*margin-left: -27px;*/
+    /*overflow: hidden;*/
+    /*z-index: 20;*/
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*justify-content: space-between;*/
+/*}*/
 
 /*.spin {*/
     /*width: 20px;*/
@@ -59,5 +58,6 @@
 
 .main {
     display: flex;
+    position: relative;
     height: 100%;
 }

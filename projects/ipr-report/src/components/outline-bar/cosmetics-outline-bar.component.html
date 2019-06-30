@@ -1,4 +1,4 @@
-<ng-container *ngIf="catalog;">
+<div *ngIf="catalog;" class="cover">
     <ng-container *ngFor="let item of catalog;index as n">
         <button (click)="expand(item)"
                 [ngClass]="getLevelCss()"
@@ -14,6 +14,6 @@
                 (pointClick)="passSelect($event)"
                 [catalog]="item.child_catalog"></ngx-cosmetics-outline-bar>
     </ng-container>
-</ng-container>
+</div>
 
 <!--nbTooltip="{{item.title}}" nbTooltipPlacement="right"-->

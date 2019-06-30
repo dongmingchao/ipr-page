@@ -104,8 +104,15 @@ export class ParagraphComponent implements OnInit, AfterViewInit, OnChanges {
     }
 
     generateEcharts(widget) {
-        if (widget.template === 'trend') {
-            return new IprCharts('trend', widget.rawData.day);
+        switch (widget.template) {
+            case 'trend':
+                return new IprCharts('trend', widget.rawData);
+            case 'geo':
+                return new IprCharts('geo', widget.rawData);
+            case 'rank':
+                return new IprCharts('rank', widget.rawData);
+            case 'techdivision':
+                return new IprCharts('tech_division', widget.rawData);
         }
     }
 
