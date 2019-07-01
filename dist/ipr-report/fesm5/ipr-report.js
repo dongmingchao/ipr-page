@@ -112554,11 +112554,11 @@ var TableComponent = /** @class */ (function () {
         this.tableMap = {
             publication_number: '专利号',
             title: '专利名',
-            applicant_str: '申请人',
+            standard_applicant_str: '申请人',
             application_date: '申请日期',
             status: '状态'
         };
-        this.allColumns = ['publication_number', 'title', 'applicant_str', 'application_date', 'status'];
+        this.allColumns = ['publication_number', 'title', 'standard_applicant_str', 'application_date', 'status'];
         this.sortDirection = NbSortDirection.NONE;
     }
     Object.defineProperty(TableComponent.prototype, "data", {

@@ -5,7 +5,7 @@ export declare class TableComponent {
     tableMap: {
         publication_number: string;
         title: string;
-        applicant_str: string;
+        standard_applicant_str: string;
         application_date: string;
         status: string;
     };
