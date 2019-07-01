@@ -61,3 +61,9 @@
     position: relative;
     height: 100%;
 }
+
+:host .page {
+    position: relative;
+    height: 100%;
+    flex-grow: 1;
+}
