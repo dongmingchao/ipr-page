@@ -25,7 +25,7 @@ export class AppComponent {
     };
 
     constructor(private report: ReportsService) {
-        report.get_catelog(6, 3).then(ret => {
+        report.get_catelog(1, 3).then(ret => {
             this.page = ret;
         });
     }
