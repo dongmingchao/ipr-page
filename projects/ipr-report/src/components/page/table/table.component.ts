@@ -1,5 +1,5 @@
-import {Component, Input} from '@angular/core';
-import {NbSortDirection, NbSortRequest, NbTreeGridDataSource, NbTreeGridDataSourceBuilder} from '@nebular/theme';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {NbSortDirection, NbSortRequest, NbTreeGridDataSource, NbTreeGridDataSourceBuilder, NbTreeGridRowComponent} from '@nebular/theme';
 import {Patent} from '../../../_Classes/Patent/patent';
 
 @Component({
@@ -9,14 +9,22 @@ import {Patent} from '../../../_Classes/Patent/patent';
 })
 
 export class TableComponent {
+    @Output() rowClick = new EventEmitter<NbTreeGridRowComponent>();
     tableMap = {
         publication_number: '专利号',
         title: '专利名',
         standard_applicant_str: '申请人',
         application_date: '申请日期',
-        status: '状态'
+        status: '状态',
+        importance_reason: '重要原因'
     };
-    allColumns = ['publication_number', 'title', 'standard_applicant_str', 'application_date', 'status'];
+    allColumns = [
+        'publication_number',
+        'title', 'standard_applicant_str',
+        'application_date',
+        'status',
+        'importance_reason'
+    ];
 
     dataSource: NbTreeGridDataSource<Patent>;
 

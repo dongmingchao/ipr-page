@@ -1,7 +1,9 @@
 <table [nbTreeGrid]="dataSource" [nbSort]="dataSource" (sort)="updateSort($event)">
 
     <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef="allColumns"></tr>
-    <tr nbTreeGridRow *nbTreeGridRowDef="let row; columns: allColumns" [clickToToggle]="false"></tr>
+    <tr nbTreeGridRow *nbTreeGridRowDef="let row; columns: allColumns"
+        (click)="rowClick.emit(row)"
+        [clickToToggle]="false"></tr>
 
     <ng-container *ngFor="let column of allColumns; let index = index"
                   [nbTreeGridColumnDef]="column"
