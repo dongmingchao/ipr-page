@@ -14,6 +14,7 @@ import {ReportsService} from '../../_Services/reports.service';
 import {Catalog} from '../../_Classes/Catalog.class';
 import {CosmeticsPageComponent} from '../page/cosmetics-page.component';
 import {CosmeticsOutlineBarComponent} from '../outline-bar/cosmetics-outline-bar.component';
+import {WidgetClickEvent} from '../../_Classes/WidgetClickEvent.class';
 
 @Component({
     selector: 'ipr-report-detail',
@@ -30,6 +31,7 @@ export class CosmeticsDetailComponent implements OnInit, AfterViewInit {
         this.page = this.reportsService.selected.catalog;
         this.change([0]);
     }
+    @Output() widgetOnClick = new EventEmitter<WidgetClickEvent>();
 
     page: Catalog[];
     private pageId: number;
@@ -96,6 +98,10 @@ export class CosmeticsDetailComponent implements OnInit, AfterViewInit {
         indexesOfRoot.reverse();
         this.change(indexesOfRoot);
         this.reportsService.loadContent();
+    }
+
+    widgetClick(event: WidgetClickEvent) {
+        this.widgetOnClick.emit(event);
     }
 
     constructor(

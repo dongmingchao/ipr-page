@@ -26,6 +26,7 @@
                          [options]="generateEcharts(ppp.widgetID)"
                     ></div>
                     <ipr-table *ngIf="ppp.widgetID.widgetType===5"
+                               (rowClick)="widgetClick('table-row', $event)"
                                [data]="ppp.widgetID.rawData"></ipr-table>
                 </div>
                 <!--<div *ngIf="ppp.widgetVertical" class="col-md-12 col-lg-12 col-sm-12">-->

@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {Catalog, ReportsService} from './usage/mock';
+import {Catalog, ReportsService, WidgetClickEvent} from './usage/mock';
 
 @Component({
     selector: 'app-root',
@@ -23,6 +23,10 @@ export class AppComponent {
         reading_counts: null,
         image: null
     };
+
+    widgetClick(event: WidgetClickEvent) {
+        console.log('widget be clicked', event);
+    }
 
     constructor(private report: ReportsService) {
         report.get_catelog(1, 3).then(ret => {

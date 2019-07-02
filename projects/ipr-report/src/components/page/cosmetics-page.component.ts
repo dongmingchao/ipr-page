@@ -13,6 +13,7 @@ import {
 import {ReportsService} from '../../_Services/reports.service';
 import {Catalog} from '../../_Classes/Catalog.class';
 import {ParagraphComponent} from './paragraph/paragraph.component';
+import {WidgetClickEvent} from '../../_Classes/WidgetClickEvent.class';
 
 
 @Component({
@@ -35,11 +36,7 @@ export class CosmeticsPageComponent implements OnInit, AfterViewInit {
         }
     }
 
-
-    @Output() get M_Page() {
-        this.height = 100 / this.page.length;
-        return this.page;
-    }
+    @Output() widgetOnClick = new EventEmitter();
 
     currentIndex = 0;
     disableScroll = false;
@@ -176,6 +173,11 @@ export class CosmeticsPageComponent implements OnInit, AfterViewInit {
         // this.disableScroll = true;
         // setTimeout(() => this.disableScroll = false, 1000);
         // }
+    }
+
+    widgetClick(catalogs: Catalog[], event: WidgetClickEvent) {
+        event.catalogs = catalogs;
+        this.widgetOnClick.emit(event);
     }
 
     constructor(

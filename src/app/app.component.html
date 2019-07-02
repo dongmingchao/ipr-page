@@ -29,7 +29,7 @@
         </div>
     </div>
     <div class="body">
-        <ipr-report-detail [pages]="page"></ipr-report-detail>
+        <ipr-report-detail [pages]="page" (widgetOnClick)="widgetClick($event)"></ipr-report-detail>
     </div>
     
   </nb-layout-column>

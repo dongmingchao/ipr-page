@@ -12,6 +12,7 @@
         <ngx-cosmetics-page *ngIf="page" [Page]="page"
                             (scrollIn)="scrollLoad($event)"
                             (focusContentChange)="onContentChange($event)"
+                            (widgetOnClick)="widgetClick($event)"
                             #article
         ></ngx-cosmetics-page>
     </div>

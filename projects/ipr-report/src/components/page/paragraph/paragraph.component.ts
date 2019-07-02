@@ -12,6 +12,7 @@ import {
 import {Catalog} from '../../../_Classes/Catalog.class';
 import {ReportsService} from '../../../_Services/reports.service';
 import {IprCharts} from '../echarts/ipr-charts';
+import {WidgetClickEvent} from '../../../_Classes/WidgetClickEvent.class';
 
 function offset(curEle, parent) {
     let totalLeft = null;
@@ -42,6 +43,7 @@ export class ParagraphComponent implements OnInit, AfterViewInit, OnChanges {
     @Input() index: number;
     @Input() container: HTMLDivElement;
     @Output() scrollIn = new EventEmitter<Catalog>();
+    @Output() widgetOnClick = new EventEmitter<WidgetClickEvent>();
     percent: number;
     enter_lock = false;
     outer_lock = false;
@@ -94,6 +96,13 @@ export class ParagraphComponent implements OnInit, AfterViewInit, OnChanges {
                 break;
         }
         console.log(this.content, 'scrollOutView');
+    }
+
+    widgetClick(widgetName, event) {
+        const pass = new WidgetClickEvent();
+        pass.source_event = event;
+        pass.widget_name = widgetName;
+        this.widgetOnClick.emit(pass);
     }
 
     constructor(

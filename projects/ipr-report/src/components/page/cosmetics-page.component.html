@@ -2,16 +2,19 @@
     <ipr-paragraph
             *ngFor="let one of page;index as first;"
             [container]="container"
+            (widgetOnClick)="widgetClick([one], $event)"
             [content]="one" [index]="first" (scrollIn)="scrollIntoParagraph([one])"
             #firstOfAll>{{contentRander(one, first, firstOfAll.el)}}
         <ipr-paragraph
                 *ngFor="let two of one.child_catalog;index as second;"
                 [container]="container"
+                (widgetOnClick)="widgetClick([two,one], $event)"
                 [content]="two" [index]="second" (scrollIn)="scrollIntoParagraph([two,one])"
                 #secondary>{{contentRander(two, second, secondary.el)}}
             <ipr-paragraph
                     *ngFor="let three of two.child_catalog;index as third;"
                     [container]="container"
+                    (widgetOnClick)="widgetClick([three,two,one], $event)"
                     [content]="three" [index]="third"
                     #tertiary>{{contentRander(three, third, tertiary.el)}}</ipr-paragraph>
         </ipr-paragraph>
