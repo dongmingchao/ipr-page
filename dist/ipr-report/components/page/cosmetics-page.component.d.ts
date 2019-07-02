@@ -2,6 +2,7 @@ import { AfterViewInit, ElementRef, EventEmitter, OnInit, QueryList } from '@ang
 import { ReportsService } from '../../_Services/reports.service';
 import { Catalog } from '../../_Classes/Catalog.class';
 import { ParagraphComponent } from './paragraph/paragraph.component';
+import { WidgetClickEvent } from '../../_Classes/WidgetClickEvent.class';
 export declare class CosmeticsPageComponent implements OnInit, AfterViewInit {
     private reportsService;
     page: Catalog[];
@@ -9,7 +10,7 @@ export declare class CosmeticsPageComponent implements OnInit, AfterViewInit {
     container: HTMLDivElement;
     Page: any;
     swithchTo: any;
-    readonly M_Page: Catalog[];
+    widgetOnClick: EventEmitter<{}>;
     currentIndex: number;
     disableScroll: boolean;
     appendPageLock: boolean;
@@ -27,6 +28,7 @@ export declare class CosmeticsPageComponent implements OnInit, AfterViewInit {
     scrollTo(content: Catalog): void;
     scrollIntoParagraph(content: Catalog[]): void;
     onscroll(): Promise<void>;
+    widgetClick(catalogs: Catalog[], event: WidgetClickEvent): void;
     constructor(reportsService: ReportsService);
     ngOnInit(): void;
     ngAfterViewInit(): void;
