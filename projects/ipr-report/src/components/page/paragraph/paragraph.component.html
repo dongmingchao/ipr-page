@@ -23,7 +23,7 @@
                          class="echart"
                          echarts
                          [theme]="'walden'"
-                         [options]="generateEcharts(ppp.widgetID)"
+                         [options]="ppp.widgetID._render"
                     ></div>
                     <ipr-table *ngIf="ppp.widgetID.widgetType===5"
                                (rowClick)="widgetClick('table-row', $event)"

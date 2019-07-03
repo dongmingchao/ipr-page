@@ -35,7 +35,7 @@ export class WorldChart {
     series = [{
         type: 'map',
         mapType: 'world',
-        roam: true,
+        // roam: true,
         zoom: 1.3,
         nameMap: {
             China: 'CN',

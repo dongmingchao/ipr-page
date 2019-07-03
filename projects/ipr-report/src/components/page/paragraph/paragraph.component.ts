@@ -1,9 +1,9 @@
 import {
     AfterViewInit,
-    Component,
+    Component, DoCheck,
     ElementRef,
     EventEmitter,
-    Input,
+    Input, KeyValueDiffer, KeyValueDiffers,
     OnChanges,
     OnInit,
     Output,
@@ -33,12 +33,25 @@ function offset(curEle, parent) {
     };
 }
 
+function generateEcharts(widget): IprCharts {
+    switch (widget.template) {
+        case 'trend':
+            return new IprCharts('trend', widget.rawData);
+        case 'geo':
+            return new IprCharts('geo', widget.rawData);
+        case 'rank':
+            return new IprCharts('rank', widget.rawData);
+        case 'techdivision':
+            return new IprCharts('tech_division', widget.rawData);
+    }
+}
+
 @Component({
     selector: 'ipr-paragraph',
     templateUrl: './paragraph.component.html',
     styleUrls: ['./paragraph.component.styl'],
 })
-export class ParagraphComponent implements OnInit, AfterViewInit, OnChanges {
+export class ParagraphComponent implements OnInit, AfterViewInit, OnChanges, DoCheck {
     @Input() content: Catalog;
     @Input() index: number;
     @Input() container: HTMLDivElement;
@@ -47,6 +60,7 @@ export class ParagraphComponent implements OnInit, AfterViewInit, OnChanges {
     percent: number;
     enter_lock = false;
     outer_lock = false;
+    private customerDiffer: KeyValueDiffer<string, any>;
 
     public el: Element;
 
@@ -108,24 +122,13 @@ export class ParagraphComponent implements OnInit, AfterViewInit, OnChanges {
     constructor(
         _el: ElementRef,
         private reportsService: ReportsService,
+        private differs: KeyValueDiffers,
     ) {
         this.el = _el.nativeElement;
     }
 
-    generateEcharts(widget) {
-        switch (widget.template) {
-            case 'trend':
-                return new IprCharts('trend', widget.rawData);
-            case 'geo':
-                return new IprCharts('geo', widget.rawData);
-            case 'rank':
-                return new IprCharts('rank', widget.rawData);
-            case 'techdivision':
-                return new IprCharts('tech_division', widget.rawData);
-        }
-    }
-
     ngOnInit() {
+        this.customerDiffer = this.differs.find(this.content).create();
     }
 
     ngAfterViewInit(): void {
@@ -139,6 +142,28 @@ export class ParagraphComponent implements OnInit, AfterViewInit, OnChanges {
         //         this.reportsService.loadContent(this.content);
         //     }
         // }
+
+        // if (changes.content.currentValue) {
+        //     console.log('current value', changes.content.currentValue);
+        //     if (changes.content.currentValue.paragraphs) {
+
+        //     }
+        // }
+    }
+
+    ngDoCheck(): void {
+        const contentDiffer = this.customerDiffer.diff(this.content);
+        if (contentDiffer) {
+            contentDiffer.forEachAddedItem(r => {
+                if (r.key === 'paragraphs') {
+                    for (const ppp of this.content.paragraphs) {
+                        if (ppp.hasWidget && ppp.widgetID.widgetType === 4) {
+                            ppp.widgetID._render = generateEcharts(ppp.widgetID);
+                        }
+                    }
+                }
+            });
+        }
     }
 
 }

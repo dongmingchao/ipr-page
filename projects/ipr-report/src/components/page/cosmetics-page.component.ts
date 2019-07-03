@@ -131,7 +131,7 @@ export class CosmeticsPageComponent implements OnInit, AfterViewInit, OnChanges 
         this.scrollIn.emit(content);
     }
 
-    async onscroll() {
+    onscroll() {
         if (this.disableScroll) {
             return;
         }
@@ -216,10 +216,8 @@ export class CosmeticsPageComponent implements OnInit, AfterViewInit, OnChanges 
         //     const ret = this.appendPage(this.reportsService.nextPageId());
         //     if (ret) ret.subscribe(c => this.appendPageLock = false);
         // }
-        setTimeout(() => {
-            this.container = this._scroll_container.nativeElement;
-            this.containerReady.emit(this.container);
-        });
+        this.container = this._scroll_container.nativeElement;
+        this.containerReady.emit(this.container);
         // const firstOfAll = this.firstOfAll.toArray();
         // for (const each of firstOfAll) {
 
