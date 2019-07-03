@@ -24,7 +24,6 @@ export declare class WorldChart {
     series: {
         type: string;
         mapType: string;
-        roam: boolean;
         zoom: number;
         nameMap: {
             China: string;

@@ -33,7 +33,7 @@ export declare class CosmeticsPageComponent implements OnInit, AfterViewInit, On
     private offsetContainer;
     scrollTo(content: Catalog): void;
     scrollIntoParagraph(content: Catalog[]): void;
-    onscroll(): Promise<void>;
+    onscroll(): void;
     widgetClick(catalogs: Catalog[], event: WidgetClickEvent): void;
     contentRander(page: Catalog, index: number, ref: any): void;
     constructor(reportsService: ReportsService);

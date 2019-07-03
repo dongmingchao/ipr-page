@@ -205,7 +205,7 @@
         CosmeticsOutlineBarComponent = __decorate([
             core.Component({
                 selector: 'ngx-cosmetics-outline-bar',
-                template: "<div *ngIf=\"catalog;\" class=\"cover\">\r\n    <ng-container *ngFor=\"let item of catalog;index as n\">\r\n        <button (click)=\"expand(item)\"\r\n                [ngClass]=\"getLevelCss()\"\r\n                class=\"circle spin circle_b\"></button>\r\n        <div class=\"botLine\">\r\n            <div></div>\r\n            <div class=\"progress\" [style.height]=\"item.style.height\"></div>\r\n        </div>\r\n        <ngx-cosmetics-outline-bar\r\n                [@openClose]=\"isOpen\"\r\n                [level]=\"level+1\"\r\n                *ngIf=\"item === selected && item.child_catalog\"\r\n                (pointClick)=\"passSelect($event)\"\r\n                [catalog]=\"item.child_catalog\"></ngx-cosmetics-outline-bar>\r\n    </ng-container>\r\n</div>\r\n\r\n<!--nbTooltip=\"{{item.title}}\" nbTooltipPlacement=\"right\"-->\r\n",
+                template: "<div *ngIf=\"catalog;\" class=\"cover\">\r\n    <ng-container *ngFor=\"let item of catalog;index as n\">\r\n        <button (click)=\"expand(item)\"\r\n                [ngClass]=\"getLevelCss()\"\r\n                class=\"circle spin circle_b\"></button>\r\n        <div class=\"botLine\">\r\n            <div></div>\r\n            <div class=\"progress\" [style.height]=\"item.style.height\"></div>\r\n        </div>\r\n        <ngx-cosmetics-outline-bar\r\n                [@openClose]=\"isOpen\"\r\n                [level]=\"level+1\"\r\n                *ngIf=\"item === selected && !!item.child_catalog\"\r\n                (pointClick)=\"passSelect($event)\"\r\n                [catalog]=\"item.child_catalog\"></ngx-cosmetics-outline-bar>\r\n    </ng-container>\r\n</div>\r\n\r\n<!--nbTooltip=\"{{item.title}}\" nbTooltipPlacement=\"right\"-->\r\n",
                 animations: openClose,
                 styles: [":host{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;justify-content:space-around;height:100%;margin:0 .5rem}.cover{-webkit-box-flex:.5;flex-grow:.5;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column}button.circle{background-color:#0077b9;border:3px solid #acacac;border-radius:100%;width:24px;height:24px;margin:auto;z-index:1}.botLine{-webkit-box-flex:1;flex-grow:1;position:relative;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center}.botLine div{width:.9rem;height:calc(100% + 10px);position:relative;background:#e6e7e8;border-left:3.5px solid #acacac;border-right:3.5px solid #acacac}.botLine.active div{background:#0077b9}.botLine .progress{position:absolute;background-color:red;-ms-grid-row-align:start;align-self:start}:host button.circle.spin.level-1{background-color:#00d77f;width:15px;height:18px;border:3px solid #acacac}:host button.circle.spin.level-2{background-color:#a1a1e5;width:12px;height:16px;border:2px solid #acacac}"]
             }),
@@ -406,41 +406,78 @@
             this.scrollIn.emit(content);
         };
         CosmeticsPageComponent.prototype.onscroll = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                var e_2, _a, e_3, _b, _c, _d, each, _e, _f, each;
-                return __generator(this, function (_g) {
-                    if (this.disableScroll) {
-                        return [2 /*return*/];
-                    }
-                    try {
-                        for (_c = __values(this.secondary.toArray()), _d = _c.next(); !_d.done; _d = _c.next()) {
-                            each = _d.value;
-                            each.onscroll();
-                        }
-                    }
-                    catch (e_2_1) { e_2 = { error: e_2_1 }; }
-                    finally {
-                        try {
-                            if (_d && !_d.done && (_a = _c.return)) _a.call(_c);
-                        }
-                        finally { if (e_2) throw e_2.error; }
-                    }
-                    try {
-                        for (_e = __values(this.firstOfAll.toArray()), _f = _e.next(); !_f.done; _f = _e.next()) {
-                            each = _f.value;
-                            each.onscroll();
-                        }
-                    }
-                    catch (e_3_1) { e_3 = { error: e_3_1 }; }
-                    finally {
-                        try {
-                            if (_f && !_f.done && (_b = _e.return)) _b.call(_e);
-                        }
-                        finally { if (e_3) throw e_3.error; }
-                    }
-                    return [2 /*return*/];
-                });
-            });
+            var e_2, _a, e_3, _b;
+            if (this.disableScroll) {
+                return;
+            }
+            try {
+                for (var _c = __values(this.secondary.toArray()), _d = _c.next(); !_d.done; _d = _c.next()) {
+                    var each = _d.value;
+                    each.onscroll();
+                }
+            }
+            catch (e_2_1) { e_2 = { error: e_2_1 }; }
+            finally {
+                try {
+                    if (_d && !_d.done && (_a = _c.return)) _a.call(_c);
+                }
+                finally { if (e_2) throw e_2.error; }
+            }
+            try {
+                for (var _e = __values(this.firstOfAll.toArray()), _f = _e.next(); !_f.done; _f = _e.next()) {
+                    var each = _f.value;
+                    each.onscroll();
+                }
+            }
+            catch (e_3_1) { e_3 = { error: e_3_1 }; }
+            finally {
+                try {
+                    if (_f && !_f.done && (_b = _e.return)) _b.call(_e);
+                }
+                finally { if (e_3) throw e_3.error; }
+            }
+            // let percent = this.container.clientHeight + this.container.scrollTop - this.beyondOverWindow;
+            // percent /= this.reportsService.focusContent.el.scrollHeight;
+            // console.log('focusContent', this.reportsService.focusContent.el, this.container);
+            // if (this.reportsService.selected.catalog.length) {
+            //     section.style.height = '100%';
+            //     section = this.reportsService.selected.catalog[0];
+            // }
+            // this.reportsService.section.style.height = percent * 100 + '%';
+            // console.log('percent', percent, this.reportsService.selected.index);
+            // if (percent > 0.8) {
+            // if (!this.appendPageLock) {
+            //     const nextPageId = this.reportsService.nextPageId();
+            //     if (this.reportsService.alreadyAdd.includes(nextPageId)) {
+            //         // this.appendPageLock = false;
+            //     } else {
+            //         this.appendPage(nextPageId);
+            //         this.contents.changes.subscribe(a => {
+            //             this.appendPageLock = false;
+            //         });
+            //     }
+            // }
+            // }
+            // if (percent > 1) {
+            // const nextPageId = this.reportsService.nextPageId();
+            // if (this.reportsService.alreadyAdd.includes(nextPageId)) {
+            //     if (this.reportsService.focusContent.el) {
+            //         this.beyondOverWindow += this.reportsService.focusContent.el.scrollHeight;
+            //     }
+            //     this.focusContentIndex++;
+            //     this.focusContentChange.emit([this.reportsService.focusContent.index]);
+            // }
+            // }
+            // if (percent < 0) {
+            // if (this.reportsService.focusContent.el) {
+            //     this.beyondOverWindow -= this.contents.toArray()[this.reportsService.focusContent.index - 1]
+            //         .nativeElement.scrollHeight;
+            // }
+            // this.focusContentIndex--;
+            // this.focusContentChange.emit([this.reportsService.focusContent.index]);
+            // this.disableScroll = true;
+            // setTimeout(() => this.disableScroll = false, 1000);
+            // }
         };
         CosmeticsPageComponent.prototype.widgetClick = function (catalogs, event) {
             event.catalogs = catalogs;
@@ -459,17 +496,14 @@
         CosmeticsPageComponent.prototype.ngOnInit = function () {
         };
         CosmeticsPageComponent.prototype.ngAfterViewInit = function () {
-            var _this = this;
             // 如果第一章节不足以滚动，则再添加一章节
             // this.focusContentIndex = 0;
             // if (this.container.scrollHeight > this.contents.first.nativeElement.scrollHeight) {
             //     const ret = this.appendPage(this.reportsService.nextPageId());
             //     if (ret) ret.subscribe(c => this.appendPageLock = false);
             // }
-            setTimeout(function () {
-                _this.container = _this._scroll_container.nativeElement;
-                _this.containerReady.emit(_this.container);
-            });
+            this.container = this._scroll_container.nativeElement;
+            this.containerReady.emit(this.container);
             // const firstOfAll = this.firstOfAll.toArray();
             // for (const each of firstOfAll) {
             // }
@@ -112382,7 +112416,7 @@
             this.series = [{
                     type: 'map',
                     mapType: 'world',
-                    roam: true,
+                    // roam: true,
                     zoom: 1.3,
                     nameMap: {
                         China: 'CN',
@@ -112555,9 +112589,22 @@
             top: totalTop,
         };
     }
+    function generateEcharts(widget) {
+        switch (widget.template) {
+            case 'trend':
+                return new IprCharts('trend', widget.rawData);
+            case 'geo':
+                return new IprCharts('geo', widget.rawData);
+            case 'rank':
+                return new IprCharts('rank', widget.rawData);
+            case 'techdivision':
+                return new IprCharts('tech_division', widget.rawData);
+        }
+    }
     var ParagraphComponent = /** @class */ (function () {
-        function ParagraphComponent(_el, reportsService) {
+        function ParagraphComponent(_el, reportsService, differs) {
             this.reportsService = reportsService;
+            this.differs = differs;
             this.scrollIn = new core.EventEmitter();
             this.widgetOnClick = new core.EventEmitter();
             this.enter_lock = false;
@@ -112614,19 +112661,8 @@
             pass.widget_name = widgetName;
             this.widgetOnClick.emit(pass);
         };
-        ParagraphComponent.prototype.generateEcharts = function (widget) {
-            switch (widget.template) {
-                case 'trend':
-                    return new IprCharts('trend', widget.rawData);
-                case 'geo':
-                    return new IprCharts('geo', widget.rawData);
-                case 'rank':
-                    return new IprCharts('rank', widget.rawData);
-                case 'techdivision':
-                    return new IprCharts('tech_division', widget.rawData);
-            }
-        };
         ParagraphComponent.prototype.ngOnInit = function () {
+            this.customerDiffer = this.differs.find(this.content).create();
         };
         ParagraphComponent.prototype.ngAfterViewInit = function () {
         };
@@ -112638,6 +112674,37 @@
             //         this.reportsService.loadContent(this.content);
             //     }
             // }
+            // if (changes.content.currentValue) {
+            //     console.log('current value', changes.content.currentValue);
+            //     if (changes.content.currentValue.paragraphs) {
+            //     }
+            // }
+        };
+        ParagraphComponent.prototype.ngDoCheck = function () {
+            var _this = this;
+            var contentDiffer = this.customerDiffer.diff(this.content);
+            if (contentDiffer) {
+                contentDiffer.forEachAddedItem(function (r) {
+                    var e_1, _a;
+                    if (r.key === 'paragraphs') {
+                        try {
+                            for (var _b = __values(_this.content.paragraphs), _c = _b.next(); !_c.done; _c = _b.next()) {
+                                var ppp = _c.value;
+                                if (ppp.hasWidget && ppp.widgetID.widgetType === 4) {
+                                    ppp.widgetID._render = generateEcharts(ppp.widgetID);
+                                }
+                            }
+                        }
+                        catch (e_1_1) { e_1 = { error: e_1_1 }; }
+                        finally {
+                            try {
+                                if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+                            }
+                            finally { if (e_1) throw e_1.error; }
+                        }
+                    }
+                });
+            }
         };
         __decorate([
             core.Input(),
@@ -112662,11 +112729,12 @@
         ParagraphComponent = __decorate([
             core.Component({
                 selector: 'ipr-paragraph',
-                template: "<div>\r\n    <div [attr.id]=\"'widget' + content.id\" class=\"paragraph\">\r\n        <div class=\"subtitle\">\r\n            <h5>{{content.title}}</h5>\r\n        </div>\r\n        <div [attr.id]=\"'widget' + ppp.id\" *ngFor=\"let ppp of content.paragraphs;\">\r\n            <div class=\"content\" [ngClass]=\"{row: !ppp.widgetVertical}\" *ngIf=\"ppp.hasWidget\">\r\n                <div class=\"col-md-6 col-lg-6 col-sm-6\"> <!-- \u6C34\u5E73\u6392\u5217 -->\r\n<!--                    <div>widget id{{ppp.widgetID.id}}</div>-->\r\n                    <p>{{ppp.content}}</p>\r\n                </div>\r\n                <div class=\"col-md-6 col-lg-6 col-sm-6\">\r\n                    <img *ngIf=\"ppp.widgetID.widgetType===0\" style=\"width:100%\" [src]=\"ppp.widgetID.imageUrl\"/>\r\n                    <div *ngIf=\"ppp.widgetID.widgetType==1\"\r\n                         style=\"width:100%;height:500px\"\r\n                         class=\"echart\"\r\n                         echarts\r\n                         [theme]=\"'walden'\"\r\n                         [options]=\"ppp.widgetID.options\"\r\n                    ></div>\r\n                    <div *ngIf=\"ppp.widgetID.widgetType===4\"\r\n                         style=\"width:100%;height:500px\"\r\n                         class=\"echart\"\r\n                         echarts\r\n                         [theme]=\"'walden'\"\r\n                         [options]=\"generateEcharts(ppp.widgetID)\"\r\n                    ></div>\r\n                    <ipr-table *ngIf=\"ppp.widgetID.widgetType===5\"\r\n                               (rowClick)=\"widgetClick('table-row', $event)\"\r\n                               [data]=\"ppp.widgetID.rawData\"></ipr-table>\r\n                </div>\r\n                <!--<div *ngIf=\"ppp.widgetVertical\" class=\"col-md-12 col-lg-12 col-sm-12\">-->\r\n                    <!--&lt;!&ndash;<div>widget id {{ppp.widgetID.id}}</div>&ndash;&gt;-->\r\n                    <!--<p>{{ppp.content}}</p>-->\r\n                <!--</div>-->\r\n                <!--<div *ngIf=\"ppp.widgetVertical\" class=\"col-md-12 col-lg-12 col-sm-12\">-->\r\n                    <!--<img *ngIf=\"ppp.widgetID.widgetType==0\" style=\"width:100%\" [src]=\"ppp.widgetID.imageUrl\"/>-->\r\n\r\n                    <!--<div *ngIf=\"ppp.widgetID.widgetType==1\" style=\"width:100%;height:500px\" echarts [theme]=\"'walden'\"-->\r\n                         <!--[options]=\"ppp.widgetID.options\" class=\"echart\"></div>-->\r\n                <!--</div>-->\r\n            </div>\r\n            <div class=\"row content\" *ngIf=\"!ppp.hasWidget\">\r\n                <div class=\"col-md-12 col-lg-12 col-sm-12\">\r\n                    <p>{{ppp.content}}</p>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <ng-content></ng-content>\r\n</div>\r\n",
+                template: "<div>\r\n    <div [attr.id]=\"'widget' + content.id\" class=\"paragraph\">\r\n        <div class=\"subtitle\">\r\n            <h5>{{content.title}}</h5>\r\n        </div>\r\n        <div [attr.id]=\"'widget' + ppp.id\" *ngFor=\"let ppp of content.paragraphs;\">\r\n            <div class=\"content\" [ngClass]=\"{row: !ppp.widgetVertical}\" *ngIf=\"ppp.hasWidget\">\r\n                <div class=\"col-md-6 col-lg-6 col-sm-6\"> <!-- \u6C34\u5E73\u6392\u5217 -->\r\n<!--                    <div>widget id{{ppp.widgetID.id}}</div>-->\r\n                    <p>{{ppp.content}}</p>\r\n                </div>\r\n                <div class=\"col-md-6 col-lg-6 col-sm-6\">\r\n                    <img *ngIf=\"ppp.widgetID.widgetType===0\" style=\"width:100%\" [src]=\"ppp.widgetID.imageUrl\"/>\r\n                    <div *ngIf=\"ppp.widgetID.widgetType==1\"\r\n                         style=\"width:100%;height:500px\"\r\n                         class=\"echart\"\r\n                         echarts\r\n                         [theme]=\"'walden'\"\r\n                         [options]=\"ppp.widgetID.options\"\r\n                    ></div>\r\n                    <div *ngIf=\"ppp.widgetID.widgetType===4\"\r\n                         style=\"width:100%;height:500px\"\r\n                         class=\"echart\"\r\n                         echarts\r\n                         [theme]=\"'walden'\"\r\n                         [options]=\"ppp.widgetID._render\"\r\n                    ></div>\r\n                    <ipr-table *ngIf=\"ppp.widgetID.widgetType===5\"\r\n                               (rowClick)=\"widgetClick('table-row', $event)\"\r\n                               [data]=\"ppp.widgetID.rawData\"></ipr-table>\r\n                </div>\r\n                <!--<div *ngIf=\"ppp.widgetVertical\" class=\"col-md-12 col-lg-12 col-sm-12\">-->\r\n                    <!--&lt;!&ndash;<div>widget id {{ppp.widgetID.id}}</div>&ndash;&gt;-->\r\n                    <!--<p>{{ppp.content}}</p>-->\r\n                <!--</div>-->\r\n                <!--<div *ngIf=\"ppp.widgetVertical\" class=\"col-md-12 col-lg-12 col-sm-12\">-->\r\n                    <!--<img *ngIf=\"ppp.widgetID.widgetType==0\" style=\"width:100%\" [src]=\"ppp.widgetID.imageUrl\"/>-->\r\n\r\n                    <!--<div *ngIf=\"ppp.widgetID.widgetType==1\" style=\"width:100%;height:500px\" echarts [theme]=\"'walden'\"-->\r\n                         <!--[options]=\"ppp.widgetID.options\" class=\"echart\"></div>-->\r\n                <!--</div>-->\r\n            </div>\r\n            <div class=\"row content\" *ngIf=\"!ppp.hasWidget\">\r\n                <div class=\"col-md-12 col-lg-12 col-sm-12\">\r\n                    <p>{{ppp.content}}</p>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <ng-content></ng-content>\r\n</div>\r\n",
                 styles: [".subtitle{margin-bottom:1rem;font-weight:600;font-family:noto sans-serif;padding-top:1rem}:host(ipr-paragraph) .paragraph{margin-left:2rem;overflow-wrap:break-word}:host(ipr-paragraph) .paragraph .row{display:-webkit-box;display:flex;flex-wrap:wrap;margin-right:-15px;margin-left:-15px}:host(ipr-paragraph) .subtitle h5{font-size:1.5rem;color:#0077b9;font-weight:600}:host(ipr-paragraph) :host-context(ngx-cosmetics-pageipr-paragraph) .subtitle{margin-bottom:0;font-weight:400}:host(ipr-paragraph) :host-context(ngx-cosmetics-pageipr-paragraph) .subtitle h5{font-size:1rem}"]
             }),
             __metadata("design:paramtypes", [core.ElementRef,
-                ReportsService])
+                ReportsService,
+                core.KeyValueDiffers])
         ], ParagraphComponent);
         return ParagraphComponent;
     }());
