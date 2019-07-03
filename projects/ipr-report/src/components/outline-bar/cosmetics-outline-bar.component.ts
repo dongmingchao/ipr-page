@@ -64,8 +64,5 @@ export class CosmeticsOutlineBarComponent implements OnInit {
 
     ngOnInit() {
         if (this.open) { this.isOpen = 'open'; } else { this.isOpen = 'closed'; }
-        setTimeout(e => {
-            console.log('catalogs', this.catalog);
-        }, 1000);
     }
 }

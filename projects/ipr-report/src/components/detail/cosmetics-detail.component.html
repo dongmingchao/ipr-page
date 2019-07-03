@@ -9,10 +9,11 @@
         <div *ngIf="!page" class="innerSpin">
             <div></div>
         </div>
-        <ngx-cosmetics-page *ngIf="page" [Page]="page"
+        <ngx-cosmetics-page [page]="page"
                             (scrollIn)="scrollLoad($event)"
                             (focusContentChange)="onContentChange($event)"
                             (widgetOnClick)="widgetClick($event)"
+                            (loadingParagraph)="onLoading($event)"
                             #article
         ></ngx-cosmetics-page>
     </div>

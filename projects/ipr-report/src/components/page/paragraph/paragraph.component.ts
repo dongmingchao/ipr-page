@@ -132,12 +132,13 @@ export class ParagraphComponent implements OnInit, AfterViewInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if (changes.container.currentValue) {
-            this.onscroll();
-            if (this.outer_lock) {
-                this.reportsService.loadContent(this.content);
-            }
-        }
+        // if (changes.container.currentValue) {
+        //     // this.onscroll();
+        //     if (this.outer_lock) {
+        //         console.log('content change 123', changes, this.content);
+        //         this.reportsService.loadContent(this.content);
+        //     }
+        // }
     }
 
 }

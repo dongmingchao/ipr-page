@@ -8,7 +8,7 @@ import {
     NgZone,
     ViewChild,
     ElementRef,
-    AfterViewInit,
+    AfterViewInit, AfterViewChecked,
 } from '@angular/core';
 import {ReportsService} from '../../_Services/reports.service';
 import {Catalog} from '../../_Classes/Catalog.class';
@@ -21,16 +21,17 @@ import {WidgetClickEvent} from '../../_Classes/WidgetClickEvent.class';
     templateUrl: './cosmetics-detail.component.html',
     styleUrls: ['./test.css'],
 })
-export class CosmeticsDetailComponent implements OnInit, AfterViewInit {
+export class CosmeticsDetailComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
     @Input() set pages(val: Catalog[]) {
-        if (!val) { return; }
+        if (!val) {
+            return;
+        }
         this.reportsService.root_catalog = val;
-        console.log('root_catalog', val);
         this.reportsService.selected.catalog = this.reportsService.root_catalog;
         this.page = this.reportsService.selected.catalog;
-        this.change([0]);
     }
+
     @Output() widgetOnClick = new EventEmitter<WidgetClickEvent>();
 
     page: Catalog[];
@@ -104,6 +105,16 @@ export class CosmeticsDetailComponent implements OnInit, AfterViewInit {
         this.widgetOnClick.emit(event);
     }
 
+    appendChapterFullScreen() {
+        this.outlineClick([this.page[0]]);
+    }
+
+    onLoading({process}) {
+        if (process.now === 1) {
+            this.appendChapterFullScreen();
+        }
+    }
+
     constructor(
         public reportsService: ReportsService,
         public zone: NgZone,
@@ -115,5 +126,9 @@ export class CosmeticsDetailComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit(): void {
+
+    }
+
+    ngAfterViewChecked(): void {
     }
 }

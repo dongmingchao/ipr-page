@@ -3,10 +3,10 @@ import {
     Component,
     ElementRef,
     EventEmitter,
-    Input,
+    Input, OnChanges,
     OnInit,
     Output,
-    QueryList,
+    QueryList, SimpleChanges,
     ViewChild,
     ViewChildren,
 } from '@angular/core';
@@ -16,25 +16,26 @@ import {ParagraphComponent} from './paragraph/paragraph.component';
 import {WidgetClickEvent} from '../../_Classes/WidgetClickEvent.class';
 
 
+function calcParagraphSum(t: Catalog[]): number {
+    let ret = t.length;
+    for (const each of t) {
+        if (each.child_catalog) {
+            ret += calcParagraphSum(each.child_catalog);
+        }
+    }
+    return ret;
+}
+
 @Component({
     selector: 'ngx-cosmetics-page',
     templateUrl: './cosmetics-page.component.html',
     styleUrls: ['./cosmetics-page.component.styl'],
 })
-export class CosmeticsPageComponent implements OnInit, AfterViewInit {
-    page: Catalog[];
+export class CosmeticsPageComponent implements OnInit, AfterViewInit, OnChanges {
     height: number;
     container: HTMLDivElement;
 
-    @Input('Page') set Page(value) {
-        this.page = value;
-    }
-
-    @Input() set swithchTo(value) {
-        if (value !== undefined && value != null) {
-            this.currentIndex = value;
-        }
-    }
+    @Input() page: Catalog[];
 
     @Output() widgetOnClick = new EventEmitter();
 
@@ -44,10 +45,19 @@ export class CosmeticsPageComponent implements OnInit, AfterViewInit {
     beyondOverWindow = 0;
     @Output() focusContentChange = new EventEmitter();
     @Output() scrollIn = new EventEmitter<Catalog[]>();
+    @Output() containerReady = new EventEmitter<Element>();
+    @Output() loadingParagraph = new EventEmitter();
     @ViewChildren('firstOfAll') firstOfAll: QueryList<ParagraphComponent>;
     @ViewChildren('secondary') secondary: QueryList<ParagraphComponent>;
     @ViewChildren('tertiary') tertiary: QueryList<ParagraphComponent>;
     @ViewChild('scroll_container', {static: false}) _scroll_container: ElementRef;
+
+    process = {
+        render: {
+            total: 0,
+            now: 0,
+        }
+    };
 
     change(i: number) {
         this.currentIndex = i;
@@ -180,14 +190,20 @@ export class CosmeticsPageComponent implements OnInit, AfterViewInit {
         this.widgetOnClick.emit(event);
     }
 
+    contentRander(page: Catalog, index: number, ref) {
+        if (page._render) {
+            return;
+        }
+        page._render = {ref, index};
+        this.process.render.now += 1;
+        this.loadingParagraph.emit({
+            process: this.process.render
+        });
+    }
+
     constructor(
         private reportsService: ReportsService
     ) {
-
-        // this.reportsService.get_json_data('0')
-        //   .subscribe(json => {
-        //     this.page = json;
-        //   });
     }
 
     ngOnInit() {
@@ -202,17 +218,17 @@ export class CosmeticsPageComponent implements OnInit, AfterViewInit {
         // }
         setTimeout(() => {
             this.container = this._scroll_container.nativeElement;
+            this.containerReady.emit(this.container);
         });
         // const firstOfAll = this.firstOfAll.toArray();
         // for (const each of firstOfAll) {
 
         // }
-        this.secondary.changes.subscribe(n => {
-            console.log('secondary', n.toArray());
-        });
     }
 
-    contentRander(page: Catalog, index: number, ref) {
-        page._render = {ref, index};
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes.page.currentValue) {
+            this.process.render.total = calcParagraphSum(this.page);
+        }
     }
 }
