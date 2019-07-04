@@ -112559,6 +112559,7 @@ let TableComponent = class TableComponent {
         return minWithForMultipleColumns + (nextColumnStep * index);
     }
     ngOnInit() {
+        console.log('table init', this.dataSource);
         this.init.emit(this.dataSource);
     }
 };
