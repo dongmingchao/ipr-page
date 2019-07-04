@@ -15,6 +15,14 @@ export declare class ParagraphComponent implements OnInit, AfterViewInit, OnChan
     outer_lock: boolean;
     private customerDiffer;
     el: Element;
+    tableMap: {
+        publication_number: string;
+        title: string;
+        standard_applicant_str: string;
+        application_date: string;
+        status: string;
+        importance_reason: string;
+    };
     updatePercent(): void;
     onscroll(): void;
     scrollIntoView(): void;

@@ -1,16 +1,14 @@
-import { EventEmitter } from '@angular/core';
+import { AfterViewInit, EventEmitter, OnInit } from '@angular/core';
 import { NbSortDirection, NbSortRequest, NbTreeGridDataSource, NbTreeGridDataSourceBuilder, NbTreeGridRowComponent } from '@nebular/theme';
 import { Patent } from '../../../_Classes/Patent/patent';
-export declare class TableComponent {
+export declare class TableComponent implements OnInit, AfterViewInit {
     private dataSourceBuilder;
     rowClick: EventEmitter<NbTreeGridRowComponent>;
+    tableHeaderMap: {
+        [key: string]: string;
+    };
     tableMap: {
-        publication_number: string;
-        title: string;
-        standard_applicant_str: string;
-        application_date: string;
-        status: string;
-        importance_reason: string;
+        [key: string]: string;
     };
     allColumns: string[];
     dataSource: NbTreeGridDataSource<Patent>;
@@ -21,4 +19,6 @@ export declare class TableComponent {
     getSortDirection(column: string): NbSortDirection;
     getShowOn(index: number): number;
     constructor(dataSourceBuilder: NbTreeGridDataSourceBuilder<Patent>);
+    ngAfterViewInit(): void;
+    ngOnInit(): void;
 }
