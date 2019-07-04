@@ -112532,7 +112532,6 @@ let TableComponent = class TableComponent {
         this.sortDirection = NbSortDirection.NONE;
     }
     set tableHeaderMap(val) {
-        console.log('setter');
         this.tableMap = val;
         this.allColumns = Object.keys(val);
     }
@@ -112554,12 +112553,6 @@ let TableComponent = class TableComponent {
         const minWithForMultipleColumns = 400;
         const nextColumnStep = 100;
         return minWithForMultipleColumns + (nextColumnStep * index);
-    }
-    ngAfterViewInit() {
-        console.log('after init');
-    }
-    ngOnInit() {
-        console.log('init');
     }
 };
 __decorate([

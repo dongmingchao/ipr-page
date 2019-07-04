@@ -1,7 +1,7 @@
-import { AfterViewInit, EventEmitter, OnInit } from '@angular/core';
+import { EventEmitter } from '@angular/core';
 import { NbSortDirection, NbSortRequest, NbTreeGridDataSource, NbTreeGridDataSourceBuilder, NbTreeGridRowComponent } from '@nebular/theme';
 import { Patent } from '../../../_Classes/Patent/patent';
-export declare class TableComponent implements OnInit, AfterViewInit {
+export declare class TableComponent {
     private dataSourceBuilder;
     rowClick: EventEmitter<NbTreeGridRowComponent>;
     tableHeaderMap: {
@@ -19,6 +19,4 @@ export declare class TableComponent implements OnInit, AfterViewInit {
     getSortDirection(column: string): NbSortDirection;
     getShowOn(index: number): number;
     constructor(dataSourceBuilder: NbTreeGridDataSourceBuilder<Patent>);
-    ngAfterViewInit(): void;
-    ngOnInit(): void;
 }

@@ -112679,7 +112679,6 @@ var TableComponent = /** @class */ (function () {
     }
     Object.defineProperty(TableComponent.prototype, "tableHeaderMap", {
         set: function (val) {
-            console.log('setter');
             this.tableMap = val;
             this.allColumns = Object.keys(val);
         },
@@ -112708,12 +112707,6 @@ var TableComponent = /** @class */ (function () {
         var minWithForMultipleColumns = 400;
         var nextColumnStep = 100;
         return minWithForMultipleColumns + (nextColumnStep * index);
-    };
-    TableComponent.prototype.ngAfterViewInit = function () {
-        console.log('after init');
-    };
-    TableComponent.prototype.ngOnInit = function () {
-        console.log('init');
     };
     __decorate([
         Output(),
