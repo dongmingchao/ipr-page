@@ -112824,7 +112824,10 @@
                     ngxEcharts.NgxEchartsModule,
                     theme.NbTreeGridModule,
                 ],
-                exports: [CosmeticsPageComponent]
+                exports: [
+                    CosmeticsPageComponent,
+                    TableComponent,
+                ]
             })
         ], CosmeticsPageModule);
         return CosmeticsPageModule;
@@ -112868,7 +112871,6 @@
     exports.IprReportModule = IprReportModule;
     exports.Paragraph = Paragraph;
     exports.ReportsService = ReportsService;
-    exports.TableComponent = TableComponent;
     exports.WidgetClickEvent = WidgetClickEvent;
     exports.ɵa = CosmeticsOutlineBarComponent;
     exports.ɵb = openClose;
@@ -112876,7 +112878,8 @@
     exports.ɵd = CosmeticsPageModule;
     exports.ɵe = ParagraphComponent;
     exports.ɵf = CosmeticsPageComponent;
-    exports.ɵg = Patent;
+    exports.ɵg = TableComponent;
+    exports.ɵh = Patent;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

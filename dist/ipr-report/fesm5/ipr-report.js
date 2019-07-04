@@ -112748,7 +112748,10 @@ var CosmeticsPageModule = /** @class */ (function () {
                 NgxEchartsModule,
                 NbTreeGridModule,
             ],
-            exports: [CosmeticsPageComponent]
+            exports: [
+                CosmeticsPageComponent,
+                TableComponent,
+            ]
         })
     ], CosmeticsPageModule);
     return CosmeticsPageModule;
@@ -112787,5 +112790,5 @@ var Patent = /** @class */ (function () {
     return Patent;
 }());
 
-export { Catalog, IprReportBackend, IprReportModule, Paragraph, ReportsService, TableComponent, WidgetClickEvent, CosmeticsOutlineBarComponent as ɵa, openClose as ɵb, CosmeticsDetailComponent as ɵc, CosmeticsPageModule as ɵd, ParagraphComponent as ɵe, CosmeticsPageComponent as ɵf, Patent as ɵg };
+export { Catalog, IprReportBackend, IprReportModule, Paragraph, ReportsService, WidgetClickEvent, CosmeticsOutlineBarComponent as ɵa, openClose as ɵb, CosmeticsDetailComponent as ɵc, CosmeticsPageModule as ɵd, ParagraphComponent as ɵe, CosmeticsPageComponent as ɵf, TableComponent as ɵg, Patent as ɵh };
 //# sourceMappingURL=ipr-report.js.map
