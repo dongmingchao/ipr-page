@@ -64,6 +64,15 @@ export class ParagraphComponent implements OnInit, AfterViewInit, OnChanges, DoC
 
     public el: Element;
 
+    tableMap = {
+        publication_number: '专利号',
+        title: '专利名',
+        standard_applicant_str: '申请人',
+        application_date: '申请日期',
+        status: '状态',
+        importance_reason: '重要原因'
+    };
+
     updatePercent() {
         const focus = this.el.firstElementChild;
         const innocentOffset = offset(focus, this.container).top;

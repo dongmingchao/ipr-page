@@ -4,6 +4,7 @@ import {CosmeticsOutlineBarComponent} from '../components/outline-bar/cosmetics-
 import {CosmeticsDetailComponent} from '../components/detail/cosmetics-detail.component';
 import {CosmeticsPageModule} from '../components/page/cosmetics-page.module';
 import {ReportsService} from '../_Services/reports.service';
+import {TableComponent} from '../components/page/table/table.component';
 
 @NgModule({
     declarations: [
@@ -15,6 +16,9 @@ import {ReportsService} from '../_Services/reports.service';
         CosmeticsPageModule,
     ],
     providers: [ReportsService],
-    exports: [CosmeticsDetailComponent]
+    exports: [
+        CosmeticsDetailComponent,
+        TableComponent,
+    ]
 })
 export class IprReportModule { }

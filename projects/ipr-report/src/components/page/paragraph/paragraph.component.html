@@ -26,6 +26,7 @@
                          [options]="ppp.widgetID._render"
                     ></div>
                     <ipr-table *ngIf="ppp.widgetID.widgetType===5"
+                               [tableHeaderMap]="tableMap"
                                (rowClick)="widgetClick('table-row', $event)"
                                [data]="ppp.widgetID.rawData"></ipr-table>
                 </div>

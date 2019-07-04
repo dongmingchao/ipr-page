@@ -17,7 +17,10 @@ import {TableComponent} from './table/table.component';
         NgxEchartsModule,
         NbTreeGridModule,
     ],
-    exports: [CosmeticsPageComponent]
+    exports: [
+        CosmeticsPageComponent,
+        TableComponent,
+    ]
 })
 export class CosmeticsPageModule {
 }

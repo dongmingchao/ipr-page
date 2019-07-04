@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {NbSortDirection, NbSortRequest, NbTreeGridDataSource, NbTreeGridDataSourceBuilder, NbTreeGridRowComponent} from '@nebular/theme';
 import {Patent} from '../../../_Classes/Patent/patent';
 
@@ -10,21 +10,13 @@ import {Patent} from '../../../_Classes/Patent/patent';
 
 export class TableComponent {
     @Output() rowClick = new EventEmitter<NbTreeGridRowComponent>();
-    tableMap = {
-        publication_number: '专利号',
-        title: '专利名',
-        standard_applicant_str: '申请人',
-        application_date: '申请日期',
-        status: '状态',
-        importance_reason: '重要原因'
-    };
-    allColumns = [
-        'publication_number',
-        'title', 'standard_applicant_str',
-        'application_date',
-        'status',
-        'importance_reason'
-    ];
+    @Output() afterSetData = new EventEmitter<NbTreeGridDataSource<Patent>>();
+    @Input() set tableHeaderMap(val: { [key: string]: string; })  {
+        this.tableMap = val;
+        this.allColumns = Object.keys(val);
+    }
+    tableMap: { [key: string]: string; };
+    allColumns: string[];
 
     dataSource: NbTreeGridDataSource<Patent>;
 
@@ -32,8 +24,10 @@ export class TableComponent {
     sortDirection: NbSortDirection = NbSortDirection.NONE;
 
     @Input() set data(val) {
+        if (!val) { return; }
         this.dataSource = this.dataSourceBuilder
             .create(val.patent_list.map(e => ({data: e})));
+        this.afterSetData.emit(this.dataSource);
     }
 
     updateSort(sortRequest: NbSortRequest): void {
