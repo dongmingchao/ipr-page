@@ -112713,6 +112713,7 @@ var TableComponent = /** @class */ (function () {
         return minWithForMultipleColumns + (nextColumnStep * index);
     };
     TableComponent.prototype.ngOnInit = function () {
+        console.log('table init', this.dataSource);
         this.init.emit(this.dataSource);
     };
     __decorate([
