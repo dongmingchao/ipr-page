@@ -112751,6 +112751,7 @@
         function TableComponent(dataSourceBuilder) {
             this.dataSourceBuilder = dataSourceBuilder;
             this.rowClick = new core.EventEmitter();
+            this.init = new core.EventEmitter();
             this.sortDirection = theme.NbSortDirection.NONE;
         }
         Object.defineProperty(TableComponent.prototype, "tableHeaderMap", {
@@ -112763,6 +112764,9 @@
         });
         Object.defineProperty(TableComponent.prototype, "data", {
             set: function (val) {
+                if (!val) {
+                    return;
+                }
                 this.dataSource = this.dataSourceBuilder
                     .create(val.patent_list.map(function (e) { return ({ data: e }); }));
             },
@@ -112784,10 +112788,17 @@
             var nextColumnStep = 100;
             return minWithForMultipleColumns + (nextColumnStep * index);
         };
+        TableComponent.prototype.ngOnInit = function () {
+            this.init.emit(this.dataSource);
+        };
         __decorate([
             core.Output(),
             __metadata("design:type", Object)
         ], TableComponent.prototype, "rowClick", void 0);
+        __decorate([
+            core.Output(),
+            __metadata("design:type", Object)
+        ], TableComponent.prototype, "init", void 0);
         __decorate([
             core.Input(),
             __metadata("design:type", Object),

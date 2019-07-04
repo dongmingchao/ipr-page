@@ -112529,6 +112529,7 @@ let TableComponent = class TableComponent {
     constructor(dataSourceBuilder) {
         this.dataSourceBuilder = dataSourceBuilder;
         this.rowClick = new EventEmitter();
+        this.init = new EventEmitter();
         this.sortDirection = NbSortDirection.NONE;
     }
     set tableHeaderMap(val) {
@@ -112536,6 +112537,9 @@ let TableComponent = class TableComponent {
         this.allColumns = Object.keys(val);
     }
     set data(val) {
+        if (!val) {
+            return;
+        }
         this.dataSource = this.dataSourceBuilder
             .create(val.patent_list.map(e => ({ data: e })));
     }
@@ -112554,11 +112558,18 @@ let TableComponent = class TableComponent {
         const nextColumnStep = 100;
         return minWithForMultipleColumns + (nextColumnStep * index);
     }
+    ngOnInit() {
+        this.init.emit(this.dataSource);
+    }
 };
 __decorate([
     Output(),
     __metadata("design:type", Object)
 ], TableComponent.prototype, "rowClick", void 0);
+__decorate([
+    Output(),
+    __metadata("design:type", Object)
+], TableComponent.prototype, "init", void 0);
 __decorate([
     Input(),
     __metadata("design:type", Object),
