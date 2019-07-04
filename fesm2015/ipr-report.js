@@ -112529,7 +112529,7 @@ let TableComponent = class TableComponent {
     constructor(dataSourceBuilder) {
         this.dataSourceBuilder = dataSourceBuilder;
         this.rowClick = new EventEmitter();
-        this.init = new EventEmitter();
+        this.afterSetData = new EventEmitter();
         this.sortDirection = NbSortDirection.NONE;
     }
     set tableHeaderMap(val) {
@@ -112542,6 +112542,7 @@ let TableComponent = class TableComponent {
         }
         this.dataSource = this.dataSourceBuilder
             .create(val.patent_list.map(e => ({ data: e })));
+        this.afterSetData.emit(this.dataSource);
     }
     updateSort(sortRequest) {
         this.sortColumn = sortRequest.column;
@@ -112558,10 +112559,6 @@ let TableComponent = class TableComponent {
         const nextColumnStep = 100;
         return minWithForMultipleColumns + (nextColumnStep * index);
     }
-    ngOnInit() {
-        console.log('table init', this.dataSource);
-        this.init.emit(this.dataSource);
-    }
 };
 __decorate([
     Output(),
@@ -112570,7 +112567,7 @@ __decorate([
 __decorate([
     Output(),
     __metadata("design:type", Object)
-], TableComponent.prototype, "init", void 0);
+], TableComponent.prototype, "afterSetData", void 0);
 __decorate([
     Input(),
     __metadata("design:type", Object),
