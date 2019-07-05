@@ -3,6 +3,7 @@
         <div class="subtitle">
             <h5>{{content.title}}</h5>
         </div>
+        <ipr-paragraph-placeholder *ngIf="!content.paragraphs"></ipr-paragraph-placeholder>
         <div [attr.id]="'widget' + ppp.id" *ngFor="let ppp of content.paragraphs;">
             <div class="content" [ngClass]="{row: !ppp.widgetVertical}" *ngIf="ppp.hasWidget">
                 <div class="col-md-6 col-lg-6 col-sm-6"> <!-- 水平排列 -->

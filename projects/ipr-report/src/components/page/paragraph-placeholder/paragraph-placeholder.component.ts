@@ -1,12 +1,10 @@
 import { Component, HostBinding } from '@angular/core';
 
 @Component({
-  selector: 'ngx-news-post-placeholder',
+  selector: 'ipr-paragraph-placeholder',
   templateUrl: 'paragraph-placeholder.component.html',
-  styleUrls: ['news-post-placeholder.component.scss'],
+  styleUrls: ['paragraph-placeholder.component.styl'],
 })
-export class NewsPostPlaceholderComponent {
+export class ParagraphPlaceholderComponent {
 
-  @HostBinding('attr.aria-label')
-  label = 'Loading';
 }

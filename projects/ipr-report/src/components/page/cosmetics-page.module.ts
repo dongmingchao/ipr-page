@@ -5,10 +5,12 @@ import {ParagraphComponent} from './paragraph/paragraph.component';
 import {NgxEchartsModule} from 'ngx-echarts';
 import {NbTreeGridModule} from '@nebular/theme';
 import {TableComponent} from './table/table.component';
+import {ParagraphPlaceholderComponent} from './paragraph-placeholder/paragraph-placeholder.component';
 
 @NgModule({
     declarations: [
         ParagraphComponent,
+        ParagraphPlaceholderComponent,
         CosmeticsPageComponent,
         TableComponent,
     ],

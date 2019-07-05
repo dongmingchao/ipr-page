@@ -1,25 +1,16 @@
-@import '../../../../@theme/styles/themes';
+:host
+	.title-placeholder
+		height: 1.8rem;
+		margin-bottom: 0.5rem;
+		width: 20%;
 
-@include nb-install-component() {
-  display: block;
+	.text-placeholder
+		height: 4rem;
+		margin-bottom: 1rem;
 
-  .title-placeholder {
-    height: 1.8rem;
-    margin-bottom: 0.5rem;
-    width: 80%;
-  }
+	.link-placeholder
+		height: 1.25rem;
+		width: 5rem;
 
-  .text-placeholder {
-    height: 4rem;
-    margin-bottom: 1rem;
-  }
-
-  .link-placeholder {
-    height: 1.25rem;
-    width: 5rem;
-  }
-
-  [class$='placeholder'] {
-    background: rgba(nb-theme(layout-bg), 0.6);
-  }
-}
+	[class$='placeholder']
+		background: #e4e9f2;
