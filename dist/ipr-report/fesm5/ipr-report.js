@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
 import { registerMap } from 'echarts';
 import { NgxEchartsModule } from 'ngx-echarts';
-import { NbSortDirection, NbTreeGridDataSourceBuilder, NbTreeGridModule } from '@nebular/theme';
+import { NbSortDirection, NbTreeGridDataSourceBuilder, NbTreeGridModule, NbButtonModule } from '@nebular/theme';
 
 var openClose = [
     trigger('openClose', [
@@ -112593,6 +112593,13 @@ var ParagraphComponent = /** @class */ (function () {
         pass.widget_name = widgetName;
         this.widgetOnClick.emit(pass);
     };
+    ParagraphComponent.prototype.tableFinalPage = function () {
+        // console.log('表格到了最后一页！！');
+    };
+    ParagraphComponent.prototype.tableSwitchPage = function () {
+        var os = offset(this.content._render.ref, this.container);
+        this.container.scrollTo(os.left, os.top);
+    };
     ParagraphComponent.prototype.ngOnInit = function () {
         this.customerDiffer = this.differs.find(this.content).create();
     };
@@ -112661,7 +112668,7 @@ var ParagraphComponent = /** @class */ (function () {
     ParagraphComponent = __decorate([
         Component({
             selector: 'ipr-paragraph',
-            template: "<div>\r\n    <div [attr.id]=\"'widget' + content.id\" class=\"paragraph\">\r\n        <div class=\"subtitle\">\r\n            <h5>{{content.title}}</h5>\r\n        </div>\r\n        <ipr-paragraph-placeholder *ngIf=\"!content.paragraphs\"></ipr-paragraph-placeholder>\r\n        <div [attr.id]=\"'widget' + ppp.id\" *ngFor=\"let ppp of content.paragraphs;\">\r\n            <div class=\"content\" [ngClass]=\"{row: !ppp.widgetVertical}\" *ngIf=\"ppp.hasWidget\">\r\n                <div class=\"col-md-6 col-lg-6 col-sm-6\"> <!-- \u6C34\u5E73\u6392\u5217 -->\r\n<!--                    <div>widget id{{ppp.widgetID.id}}</div>-->\r\n                    <p>{{ppp.content}}</p>\r\n                </div>\r\n                <div class=\"col-md-6 col-lg-6 col-sm-6\">\r\n                    <img *ngIf=\"ppp.widgetID.widgetType===0\" style=\"width:100%\" [src]=\"ppp.widgetID.imageUrl\"/>\r\n                    <div *ngIf=\"ppp.widgetID.widgetType==1\"\r\n                         style=\"width:100%;height:500px\"\r\n                         class=\"echart\"\r\n                         echarts\r\n                         [theme]=\"'walden'\"\r\n                         [options]=\"ppp.widgetID.options\"\r\n                    ></div>\r\n                    <div *ngIf=\"ppp.widgetID.widgetType===4\"\r\n                         style=\"width:100%;height:500px\"\r\n                         class=\"echart\"\r\n                         echarts\r\n                         [theme]=\"'walden'\"\r\n                         [options]=\"ppp.widgetID._render\"\r\n                    ></div>\r\n                    <ipr-table *ngIf=\"ppp.widgetID.widgetType===5\"\r\n                               [tableHeaderMap]=\"tableMap\"\r\n                               (rowClick)=\"widgetClick('table-row', $event)\"\r\n                               [data]=\"ppp.widgetID.rawData\"></ipr-table>\r\n                </div>\r\n                <!--<div *ngIf=\"ppp.widgetVertical\" class=\"col-md-12 col-lg-12 col-sm-12\">-->\r\n                    <!--&lt;!&ndash;<div>widget id {{ppp.widgetID.id}}</div>&ndash;&gt;-->\r\n                    <!--<p>{{ppp.content}}</p>-->\r\n                <!--</div>-->\r\n                <!--<div *ngIf=\"ppp.widgetVertical\" class=\"col-md-12 col-lg-12 col-sm-12\">-->\r\n                    <!--<img *ngIf=\"ppp.widgetID.widgetType==0\" style=\"width:100%\" [src]=\"ppp.widgetID.imageUrl\"/>-->\r\n\r\n                    <!--<div *ngIf=\"ppp.widgetID.widgetType==1\" style=\"width:100%;height:500px\" echarts [theme]=\"'walden'\"-->\r\n                         <!--[options]=\"ppp.widgetID.options\" class=\"echart\"></div>-->\r\n                <!--</div>-->\r\n            </div>\r\n            <div class=\"row content\" *ngIf=\"!ppp.hasWidget\">\r\n                <div class=\"col-md-12 col-lg-12 col-sm-12\">\r\n                    <p>{{ppp.content}}</p>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <ng-content></ng-content>\r\n</div>\r\n",
+            template: "<div style=\"width: 95%\">\r\n    <div [attr.id]=\"'widget' + content.id\" class=\"paragraph\">\r\n        <div class=\"subtitle\">\r\n            <h5>{{content.title}}</h5>\r\n        </div>\r\n        <ipr-paragraph-placeholder *ngIf=\"!content.paragraphs\"></ipr-paragraph-placeholder>\r\n        <div [attr.id]=\"'widget' + ppp.id\" *ngFor=\"let ppp of content.paragraphs;\">\r\n            <div class=\"content\" [ngClass]=\"{row: !ppp.widgetVertical}\" *ngIf=\"ppp.hasWidget\">\r\n                <div class=\"col-md-6 col-lg-6 col-sm-6\"> <!-- \u6C34\u5E73\u6392\u5217 -->\r\n<!--                    <div>widget id{{ppp.widgetID.id}}</div>-->\r\n                    <p>{{ppp.content}}</p>\r\n                </div>\r\n                <div class=\"col-md-6 col-lg-6 col-sm-6\">\r\n                    <img *ngIf=\"ppp.widgetID.widgetType===0\" style=\"width:100%\" [src]=\"ppp.widgetID.imageUrl\"/>\r\n                    <div *ngIf=\"ppp.widgetID.widgetType==1\"\r\n                         style=\"width:100%;height:500px\"\r\n                         class=\"echart\"\r\n                         echarts\r\n                         [theme]=\"'walden'\"\r\n                         [options]=\"ppp.widgetID.options\"\r\n                    ></div>\r\n                    <div *ngIf=\"ppp.widgetID.widgetType===4\"\r\n                         style=\"width:100%;height:500px\"\r\n                         class=\"echart\"\r\n                         echarts\r\n                         [theme]=\"'walden'\"\r\n                         [options]=\"ppp.widgetID._render\"\r\n                    ></div>\r\n                    <div *ngIf=\"ppp.widgetID.widgetType===5\">\r\n                        <ipr-table\r\n                                [tableHeaderMap]=\"tableMap\"\r\n                                (rowClick)=\"widgetClick('table-row', $event)\"\r\n                                (whenFinalPage)=\"tableFinalPage()\"\r\n                                (whenSwitchPage)=\"tableSwitchPage()\"\r\n                                [data]=\"ppp.widgetID.rawData\"></ipr-table>\r\n                    </div>\r\n                </div>\r\n                <!--<div *ngIf=\"ppp.widgetVertical\" class=\"col-md-12 col-lg-12 col-sm-12\">-->\r\n                    <!--&lt;!&ndash;<div>widget id {{ppp.widgetID.id}}</div>&ndash;&gt;-->\r\n                    <!--<p>{{ppp.content}}</p>-->\r\n                <!--</div>-->\r\n                <!--<div *ngIf=\"ppp.widgetVertical\" class=\"col-md-12 col-lg-12 col-sm-12\">-->\r\n                    <!--<img *ngIf=\"ppp.widgetID.widgetType==0\" style=\"width:100%\" [src]=\"ppp.widgetID.imageUrl\"/>-->\r\n\r\n                    <!--<div *ngIf=\"ppp.widgetID.widgetType==1\" style=\"width:100%;height:500px\" echarts [theme]=\"'walden'\"-->\r\n                         <!--[options]=\"ppp.widgetID.options\" class=\"echart\"></div>-->\r\n                <!--</div>-->\r\n            </div>\r\n            <div class=\"row content\" *ngIf=\"!ppp.hasWidget\">\r\n                <div class=\"col-md-12 col-lg-12 col-sm-12\">\r\n                    <p>{{ppp.content}}</p>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <ng-content></ng-content>\r\n</div>\r\n",
             styles: [".subtitle{margin-bottom:1rem;font-weight:600;font-family:noto sans-serif;padding-top:1rem}:host(ipr-paragraph) .paragraph{margin-left:2rem;overflow-wrap:break-word}:host(ipr-paragraph) .paragraph .row{display:-webkit-box;display:flex;flex-wrap:wrap;margin-right:-15px;margin-left:-15px}:host(ipr-paragraph) .subtitle h5{font-size:1.5rem;color:#0077b9;font-weight:600}:host(ipr-paragraph) :host-context(ngx-cosmetics-pageipr-paragraph) .subtitle{margin-bottom:0;font-weight:400}:host(ipr-paragraph) :host-context(ngx-cosmetics-pageipr-paragraph) .subtitle h5{font-size:1rem}"]
         }),
         __metadata("design:paramtypes", [ElementRef,
@@ -112671,12 +112678,25 @@ var ParagraphComponent = /** @class */ (function () {
     return ParagraphComponent;
 }());
 
+var Response = /** @class */ (function () {
+    function Response() {
+    }
+    return Response;
+}());
 var TableComponent = /** @class */ (function () {
-    function TableComponent(dataSourceBuilder) {
+    function TableComponent(dataSourceBuilder, differs) {
         this.dataSourceBuilder = dataSourceBuilder;
+        this.differs = differs;
         this.rowClick = new EventEmitter();
         this.afterSetData = new EventEmitter();
+        this.whenFinalPage = new EventEmitter();
+        this.whenSwitchPage = new EventEmitter();
         this.sortDirection = NbSortDirection.NONE;
+        this.page = {
+            num: 0,
+            step: 10,
+            now_number: 0,
+        };
     }
     Object.defineProperty(TableComponent.prototype, "tableHeaderMap", {
         set: function (val) {
@@ -112691,13 +112711,38 @@ var TableComponent = /** @class */ (function () {
             if (!val) {
                 return;
             }
+            this.dataList = val.patent_list;
             this.dataSource = this.dataSourceBuilder
-                .create(val.patent_list.map(function (e) { return ({ data: e }); }));
+                .create(this.dataList.map(function (e) { return ({ data: e }); }));
+            this.refreshPage(0);
             this.afterSetData.emit(this.dataSource);
         },
         enumerable: true,
         configurable: true
     });
+    TableComponent.prototype.nextPage = function () {
+        this.refreshPage(this.page.now_number + 1);
+    };
+    TableComponent.prototype.lastPage = function () {
+        this.refreshPage(this.page.now_number - 1);
+    };
+    TableComponent.prototype.refreshPage = function (now_number) {
+        this.page.num = now_number * this.page.step;
+        var left = this.page.num;
+        if (left < 0) {
+            left = 0;
+        }
+        var right = left + this.page.step;
+        if (right >= this.dataList.length) {
+            right = this.dataList.length;
+            this.whenFinalPage.emit();
+        }
+        this.shownDataSource = this.dataSourceBuilder
+            .create(this.dataList
+            .slice(left, right)
+            .map(function (e) { return ({ data: e }); }));
+        this.page.now_number = now_number;
+    };
     TableComponent.prototype.updateSort = function (sortRequest) {
         this.sortColumn = sortRequest.column;
         this.sortDirection = sortRequest.direction;
@@ -112713,6 +112758,20 @@ var TableComponent = /** @class */ (function () {
         var nextColumnStep = 100;
         return minWithForMultipleColumns + (nextColumnStep * index);
     };
+    TableComponent.prototype.ngOnInit = function () {
+        this.customerDiffer = this.differs.find(this.shownDataSource).create();
+    };
+    TableComponent.prototype.ngDoCheck = function () {
+        var _this = this;
+        var contentDiffer = this.customerDiffer.diff(this.shownDataSource);
+        if (contentDiffer) {
+            contentDiffer.forEachChangedItem(function (r) {
+                if (r.key === 'renderData') {
+                    _this.whenSwitchPage.emit(r);
+                }
+            });
+        }
+    };
     __decorate([
         Output(),
         __metadata("design:type", Object)
@@ -112722,22 +112781,31 @@ var TableComponent = /** @class */ (function () {
         __metadata("design:type", Object)
     ], TableComponent.prototype, "afterSetData", void 0);
     __decorate([
+        Output(),
+        __metadata("design:type", Object)
+    ], TableComponent.prototype, "whenFinalPage", void 0);
+    __decorate([
+        Output(),
+        __metadata("design:type", Object)
+    ], TableComponent.prototype, "whenSwitchPage", void 0);
+    __decorate([
         Input(),
         __metadata("design:type", Object),
         __metadata("design:paramtypes", [Object])
     ], TableComponent.prototype, "tableHeaderMap", null);
     __decorate([
         Input(),
-        __metadata("design:type", Object),
-        __metadata("design:paramtypes", [Object])
+        __metadata("design:type", Response),
+        __metadata("design:paramtypes", [Response])
     ], TableComponent.prototype, "data", null);
     TableComponent = __decorate([
         Component({
             selector: 'ipr-table',
-            template: "<table [nbTreeGrid]=\"dataSource\" [nbSort]=\"dataSource\" (sort)=\"updateSort($event)\">\r\n\r\n    <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef=\"allColumns\"></tr>\r\n    <tr class=\"ipr-row\"\r\n        nbTreeGridRow *nbTreeGridRowDef=\"let row; columns: allColumns\"\r\n        (click)=\"rowClick.emit(row)\"\r\n        [clickToToggle]=\"false\"></tr>\r\n\r\n    <ng-container *ngFor=\"let column of allColumns; let index = index\"\r\n                  [nbTreeGridColumnDef]=\"column\"\r\n                  [showOn]=\"getShowOn(index)\">\r\n        <th nbTreeGridHeaderCell [nbSortHeader]=\"getSortDirection(column)\" *nbTreeGridHeaderCellDef>\r\n            {{tableMap[column]}}\r\n        </th>\r\n        <td nbTreeGridCell *nbTreeGridCellDef=\"let row\" [innerHTML]=\"row.data[column] || '-'\"></td>\r\n    </ng-container>\r\n\r\n</table>\r\n",
-            styles: [":host .ipr-row{-webkit-transition:background-color .3s;transition:background-color .3s}:host .ipr-row:hover{background-color:#edf1f7}"]
+            template: "<table [nbTreeGrid]=\"shownDataSource\" [nbSort]=\"dataSource\" (sort)=\"updateSort($event)\">\r\n\r\n    <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef=\"allColumns\"></tr>\r\n    <tr class=\"ipr-row\"\r\n        nbTreeGridRow *nbTreeGridRowDef=\"let row; columns: allColumns\"\r\n        (click)=\"rowClick.emit(row)\"\r\n        [clickToToggle]=\"false\"></tr>\r\n\r\n    <ng-container *ngFor=\"let column of allColumns; let index = index\"\r\n                  [nbTreeGridColumnDef]=\"column\"\r\n                  [showOn]=\"getShowOn(index)\">\r\n        <th nbTreeGridHeaderCell [nbSortHeader]=\"getSortDirection(column)\" *nbTreeGridHeaderCellDef>\r\n            {{tableMap[column]}}\r\n        </th>\r\n        <td nbTreeGridCell *nbTreeGridCellDef=\"let row\" [innerHTML]=\"row.data[column] || '-'\"></td>\r\n    </ng-container>\r\n\r\n</table>\r\n<div class=\"btn-group\">\r\n    <button nbButton (click)=\"lastPage()\" [disabled]=\"page.now_number === 0\">\u4E0A\u4E00\u9875</button>\r\n    <button nbButton (click)=\"nextPage()\" [disabled]=\"page.num + page.step >= dataList.length\">\u4E0B\u4E00\u9875</button>\r\n</div>\r\n",
+            styles: [":host .ipr-row{-webkit-transition:background-color .3s;transition:background-color .3s}:host .ipr-row:hover{background-color:#edf1f7}:host .btn-group{float:right;margin:1rem}:host .btn-group button{margin-right:1rem}"]
         }),
-        __metadata("design:paramtypes", [NbTreeGridDataSourceBuilder])
+        __metadata("design:paramtypes", [NbTreeGridDataSourceBuilder,
+            KeyValueDiffers])
     ], TableComponent);
     return TableComponent;
 }());
@@ -112770,6 +112838,7 @@ var CosmeticsPageModule = /** @class */ (function () {
                 CommonModule,
                 NgxEchartsModule,
                 NbTreeGridModule,
+                NbButtonModule,
             ],
             exports: [
                 CosmeticsPageComponent,

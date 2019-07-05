@@ -28,6 +28,8 @@ export declare class ParagraphComponent implements OnInit, AfterViewInit, OnChan
     scrollIntoView(): void;
     scrollOutView(direction: string): void;
     widgetClick(widgetName: any, event: any): void;
+    tableFinalPage(): void;
+    tableSwitchPage(): void;
     constructor(_el: ElementRef, reportsService: ReportsService, differs: KeyValueDiffers);
     ngOnInit(): void;
     ngAfterViewInit(): void;
