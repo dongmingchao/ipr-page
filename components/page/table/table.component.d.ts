@@ -1,10 +1,19 @@
-import { EventEmitter } from '@angular/core';
+import { DoCheck, EventEmitter, KeyValueDiffers, OnInit } from '@angular/core';
 import { NbSortDirection, NbSortRequest, NbTreeGridDataSource, NbTreeGridDataSourceBuilder, NbTreeGridRowComponent } from '@nebular/theme';
 import { Patent } from '../../../_Classes/Patent/patent';
-export declare class TableComponent {
+declare class Response {
+    current_page: number;
+    patent_list: Patent[];
+    total_num: number;
+    total_page: number;
+}
+export declare class TableComponent implements DoCheck, OnInit {
     private dataSourceBuilder;
+    private differs;
     rowClick: EventEmitter<NbTreeGridRowComponent>;
     afterSetData: EventEmitter<NbTreeGridDataSource<Patent>>;
+    whenFinalPage: EventEmitter<{}>;
+    whenSwitchPage: EventEmitter<{}>;
     tableHeaderMap: {
         [key: string]: string;
     };
@@ -13,11 +22,25 @@ export declare class TableComponent {
     };
     allColumns: string[];
     dataSource: NbTreeGridDataSource<Patent>;
+    shownDataSource: NbTreeGridDataSource<Patent>;
     sortColumn: string;
     sortDirection: NbSortDirection;
-    data: any;
+    dataList: Patent[];
+    page: {
+        num: number;
+        step: number;
+        now_number: number;
+    };
+    private customerDiffer;
+    data: Response;
+    nextPage(): void;
+    lastPage(): void;
+    refreshPage(now_number: any): void;
     updateSort(sortRequest: NbSortRequest): void;
     getSortDirection(column: string): NbSortDirection;
     getShowOn(index: number): number;
-    constructor(dataSourceBuilder: NbTreeGridDataSourceBuilder<Patent>);
+    constructor(dataSourceBuilder: NbTreeGridDataSourceBuilder<Patent>, differs: KeyValueDiffers);
+    ngOnInit(): void;
+    ngDoCheck(): void;
 }
+export {};
