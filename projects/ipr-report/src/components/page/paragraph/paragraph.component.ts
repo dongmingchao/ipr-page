@@ -128,6 +128,15 @@ export class ParagraphComponent implements OnInit, AfterViewInit, OnChanges, DoC
         this.widgetOnClick.emit(pass);
     }
 
+    tableFinalPage() {
+        // console.log('表格到了最后一页！！');
+    }
+
+    tableSwitchPage() {
+        const os = offset(this.content._render.ref, this.container);
+        this.container.scrollTo(os.left, os.top);
+    }
+
     constructor(
         _el: ElementRef,
         private reportsService: ReportsService,

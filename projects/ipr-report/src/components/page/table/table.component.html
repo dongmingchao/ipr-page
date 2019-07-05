@@ -1,4 +1,4 @@
-<table [nbTreeGrid]="dataSource" [nbSort]="dataSource" (sort)="updateSort($event)">
+<table [nbTreeGrid]="shownDataSource" [nbSort]="dataSource" (sort)="updateSort($event)">
 
     <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef="allColumns"></tr>
     <tr class="ipr-row"
@@ -16,3 +16,7 @@
     </ng-container>
 
 </table>
+<div class="btn-group">
+    <button nbButton (click)="lastPage()" [disabled]="page.now_number === 0">上一页</button>
+    <button nbButton (click)="nextPage()" [disabled]="page.num + page.step >= dataList.length">下一页</button>
+</div>

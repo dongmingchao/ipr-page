@@ -1,4 +1,4 @@
-<div>
+<div style="width: 95%">
     <div [attr.id]="'widget' + content.id" class="paragraph">
         <div class="subtitle">
             <h5>{{content.title}}</h5>
@@ -26,10 +26,14 @@
                          [theme]="'walden'"
                          [options]="ppp.widgetID._render"
                     ></div>
-                    <ipr-table *ngIf="ppp.widgetID.widgetType===5"
-                               [tableHeaderMap]="tableMap"
-                               (rowClick)="widgetClick('table-row', $event)"
-                               [data]="ppp.widgetID.rawData"></ipr-table>
+                    <div *ngIf="ppp.widgetID.widgetType===5">
+                        <ipr-table
+                                [tableHeaderMap]="tableMap"
+                                (rowClick)="widgetClick('table-row', $event)"
+                                (whenFinalPage)="tableFinalPage()"
+                                (whenSwitchPage)="tableSwitchPage()"
+                                [data]="ppp.widgetID.rawData"></ipr-table>
+                    </div>
                 </div>
                 <!--<div *ngIf="ppp.widgetVertical" class="col-md-12 col-lg-12 col-sm-12">-->
                     <!--&lt;!&ndash;<div>widget id {{ppp.widgetID.id}}</div>&ndash;&gt;-->
