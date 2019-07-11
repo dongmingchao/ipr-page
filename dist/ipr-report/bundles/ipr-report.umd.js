@@ -112759,6 +112759,11 @@
         }
         return Response;
     }());
+    var Viewer = /** @class */ (function () {
+        function Viewer() {
+        }
+        return Viewer;
+    }());
     var TableComponent = /** @class */ (function () {
         function TableComponent(dataSourceBuilder, differs) {
             this.dataSourceBuilder = dataSourceBuilder;
@@ -112822,6 +112827,36 @@
         TableComponent.prototype.updateSort = function (sortRequest) {
             this.sortColumn = sortRequest.column;
             this.sortDirection = sortRequest.direction;
+            this.updateShow();
+        };
+        TableComponent.prototype.updateSearch = function (searchQuery) {
+            this.dataSource.filter(searchQuery);
+            this.updateShow();
+        };
+        TableComponent.prototype.updateShow = function () {
+            var v = new Viewer();
+            var data = [];
+            this.dataSource.connect(v).subscribe(function (r) {
+                var e_1, _a;
+                try {
+                    for (var r_1 = __values(r), r_1_1 = r_1.next(); !r_1_1.done; r_1_1 = r_1.next()) {
+                        var each = r_1_1.value;
+                        data.push(each.data);
+                    }
+                }
+                catch (e_1_1) { e_1 = { error: e_1_1 }; }
+                finally {
+                    try {
+                        if (r_1_1 && !r_1_1.done && (_a = r_1.return)) _a.call(r_1);
+                    }
+                    finally { if (e_1) throw e_1.error; }
+                }
+            });
+            this.dataList = data;
+            this.shownDataSource = this.dataSourceBuilder
+                .create(this.dataList
+                .slice(0, this.page.step)
+                .map(function (e) { return ({ data: e }); }));
         };
         TableComponent.prototype.getSortDirection = function (column) {
             if (this.sortColumn === column) {
@@ -112877,7 +112912,7 @@
         TableComponent = __decorate([
             core.Component({
                 selector: 'ipr-table',
-                template: "<table [nbTreeGrid]=\"shownDataSource\" [nbSort]=\"dataSource\" (sort)=\"updateSort($event)\">\r\n\r\n    <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef=\"allColumns\"></tr>\r\n    <tr class=\"ipr-row\"\r\n        nbTreeGridRow *nbTreeGridRowDef=\"let row; columns: allColumns\"\r\n        (click)=\"rowClick.emit(row)\"\r\n        [clickToToggle]=\"false\"></tr>\r\n\r\n    <ng-container *ngFor=\"let column of allColumns; let index = index\"\r\n                  [nbTreeGridColumnDef]=\"column\"\r\n                  [showOn]=\"getShowOn(index)\">\r\n        <th nbTreeGridHeaderCell [nbSortHeader]=\"getSortDirection(column)\" *nbTreeGridHeaderCellDef>\r\n            {{tableMap[column]}}\r\n        </th>\r\n        <td nbTreeGridCell *nbTreeGridCellDef=\"let row\" [innerHTML]=\"row.data[column] || '-'\"></td>\r\n    </ng-container>\r\n\r\n</table>\r\n<div class=\"btn-group\">\r\n    <button nbButton (click)=\"lastPage()\" [disabled]=\"page.now_number === 0\">\u4E0A\u4E00\u9875</button>\r\n    <button nbButton (click)=\"nextPage()\" [disabled]=\"page.num + page.step >= dataList.length\">\u4E0B\u4E00\u9875</button>\r\n</div>\r\n",
+                template: "<table [nbTreeGrid]=\"shownDataSource\"\r\n       [nbSort]=\"dataSource\"\r\n       (sort)=\"updateSort($event)\">\r\n\r\n    <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef=\"allColumns\"></tr>\r\n    <tr class=\"ipr-row\"\r\n        nbTreeGridRow *nbTreeGridRowDef=\"let row; columns: allColumns\"\r\n        (click)=\"rowClick.emit(row)\"\r\n        [clickToToggle]=\"false\"></tr>\r\n\r\n    <ng-container *ngFor=\"let column of allColumns; let index = index\"\r\n                  [nbTreeGridColumnDef]=\"column\"\r\n                  [showOn]=\"getShowOn(index)\">\r\n        <th nbTreeGridHeaderCell [nbSortHeader]=\"getSortDirection(column)\" *nbTreeGridHeaderCellDef>\r\n            {{tableMap[column]}}\r\n        </th>\r\n        <td nbTreeGridCell *nbTreeGridCellDef=\"let row\" [innerHTML]=\"row.data[column] || '-'\"></td>\r\n    </ng-container>\r\n\r\n</table>\r\n<div class=\"btn-group\">\r\n    <button nbButton (click)=\"lastPage()\" [disabled]=\"page.now_number === 0\">\u4E0A\u4E00\u9875</button>\r\n    <button nbButton (click)=\"nextPage()\" [disabled]=\"page.num + page.step >= dataList.length\">\u4E0B\u4E00\u9875</button>\r\n</div>\r\n",
                 styles: [":host .ipr-row{-webkit-transition:background-color .3s;transition:background-color .3s}:host .ipr-row:hover{background-color:#edf1f7}:host .btn-group{float:right;margin:1rem}:host .btn-group button{margin-right:1rem}"]
             }),
             __metadata("design:paramtypes", [theme.NbTreeGridDataSourceBuilder,
