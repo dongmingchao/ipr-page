@@ -37,6 +37,8 @@ export declare class TableComponent implements DoCheck, OnInit {
     lastPage(): void;
     refreshPage(now_number: any): void;
     updateSort(sortRequest: NbSortRequest): void;
+    updateSearch(searchQuery: string): void;
+    updateShow(): void;
     getSortDirection(column: string): NbSortDirection;
     getShowOn(index: number): number;
     constructor(dataSourceBuilder: NbTreeGridDataSourceBuilder<Patent>, differs: KeyValueDiffers);
