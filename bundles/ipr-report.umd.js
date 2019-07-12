@@ -112817,6 +112817,7 @@
                 this.page.sum = Math.ceil(this.dataList.length / this.page.step) - 1;
                 this.dataSource = this.dataSourceBuilder
                     .create(this.dataList.map(function (e) { return ({ data: e }); }));
+                this.setPage(0);
                 this.afterSetData.emit(this.dataSource);
             },
             enumerable: true,
@@ -112834,8 +112835,15 @@
         TableComponent.prototype.lastPage = function () {
             this.refreshPage(this.page.now_number - 1);
         };
+        /**
+         * 触发换页事件，展示页码中内容，并设定新的相关视图信息
+         * @param now_number 页码
+         */
         TableComponent.prototype.refreshPage = function (now_number) {
             this.whenSwitchPage.emit(now_number);
+            this.setPage(now_number);
+        };
+        TableComponent.prototype.setPage = function (now_number) {
             this.page.num = now_number * this.page.step;
             var left = this.page.num;
             if (left < 0) {
@@ -112861,6 +112869,9 @@
             this.dataSource.filter(searchQuery);
             this.updateShow();
         };
+        /**
+         * 从总数据源取部分数据展示
+         */
         TableComponent.prototype.updateShow = function () {
             var v = new Viewer();
             var data = [];
@@ -112881,10 +112892,11 @@
                 }
             });
             this.dataList = data;
-            this.shownDataSource = this.dataSourceBuilder
-                .create(this.dataList
-                .slice(0, this.page.step)
-                .map(function (e) { return ({ data: e }); }));
+            // this.shownDataSource = this.dataSourceBuilder
+            //     .create(this.dataList
+            //         .slice(0, this.page.step)
+            //         .map(e => ({data: e}))
+            //     );
             this.refreshPage(0);
         };
         TableComponent.prototype.getSortDirection = function (column) {
@@ -112899,7 +112911,6 @@
             return minWithForMultipleColumns + (nextColumnStep * index);
         };
         TableComponent.prototype.ngOnInit = function () {
-            this.refreshPage(0);
             // this.customerDiffer = this.differs.find(this.shownDataSource).create();
         };
         TableComponent.prototype.ngDoCheck = function () {
