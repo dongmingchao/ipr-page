@@ -112725,6 +112725,18 @@ var TableComponent = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    TableComponent.prototype.disableNextPage = function () {
+        if (this.clickNextPage) {
+            return this.clickNextPage();
+        }
+        return this.page.num + this.page.step >= this.dataList.length;
+    };
+    TableComponent.prototype.disableLastPage = function () {
+        if (this.clickLastPage) {
+            return this.clickLastPage();
+        }
+        return this.page.now_number === 0;
+    };
     TableComponent.prototype.nextPage = function () {
         this.refreshPage(this.page.now_number + 1);
     };
@@ -112825,6 +112837,14 @@ var TableComponent = /** @class */ (function () {
     ], TableComponent.prototype, "whenSwitchPage", void 0);
     __decorate([
         Input(),
+        __metadata("design:type", Function)
+    ], TableComponent.prototype, "clickNextPage", void 0);
+    __decorate([
+        Input(),
+        __metadata("design:type", Function)
+    ], TableComponent.prototype, "clickLastPage", void 0);
+    __decorate([
+        Input(),
         __metadata("design:type", Object),
         __metadata("design:paramtypes", [Object])
     ], TableComponent.prototype, "tableHeaderMap", null);
@@ -112836,7 +112856,7 @@ var TableComponent = /** @class */ (function () {
     TableComponent = __decorate([
         Component({
             selector: 'ipr-table',
-            template: "<table [nbTreeGrid]=\"shownDataSource\"\r\n       [nbSort]=\"dataSource\"\r\n       (sort)=\"updateSort($event)\">\r\n\r\n    <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef=\"allColumns\"></tr>\r\n    <tr class=\"ipr-row\"\r\n        nbTreeGridRow *nbTreeGridRowDef=\"let row; columns: allColumns\"\r\n        (click)=\"rowClick.emit(row)\"\r\n        [clickToToggle]=\"false\"></tr>\r\n\r\n    <ng-container *ngFor=\"let column of allColumns; let index = index\"\r\n                  [nbTreeGridColumnDef]=\"column\"\r\n                  [showOn]=\"getShowOn(index)\">\r\n        <th nbTreeGridHeaderCell [nbSortHeader]=\"getSortDirection(column)\" *nbTreeGridHeaderCellDef>\r\n            {{tableMap[column]}}\r\n        </th>\r\n        <td nbTreeGridCell *nbTreeGridCellDef=\"let row\" [innerHTML]=\"row.data[column] || '-'\"></td>\r\n    </ng-container>\r\n\r\n</table>\r\n<div class=\"btn-group\">\r\n    <button nbButton (click)=\"lastPage()\" [disabled]=\"page.now_number === 0\">\u4E0A\u4E00\u9875</button>\r\n    <button nbButton (click)=\"nextPage()\" [disabled]=\"page.num + page.step >= dataList.length\">\u4E0B\u4E00\u9875</button>\r\n</div>\r\n",
+            template: "<table [nbTreeGrid]=\"shownDataSource\"\r\n       [nbSort]=\"dataSource\"\r\n       (sort)=\"updateSort($event)\">\r\n\r\n    <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef=\"allColumns\"></tr>\r\n    <tr class=\"ipr-row\"\r\n        nbTreeGridRow *nbTreeGridRowDef=\"let row; columns: allColumns\"\r\n        (click)=\"rowClick.emit(row)\"\r\n        [clickToToggle]=\"false\"></tr>\r\n\r\n    <ng-container *ngFor=\"let column of allColumns; let index = index\"\r\n                  [nbTreeGridColumnDef]=\"column\"\r\n                  [showOn]=\"getShowOn(index)\">\r\n        <th nbTreeGridHeaderCell [nbSortHeader]=\"getSortDirection(column)\" *nbTreeGridHeaderCellDef>\r\n            {{tableMap[column]}}\r\n        </th>\r\n        <td nbTreeGridCell *nbTreeGridCellDef=\"let row\" [innerHTML]=\"row.data[column] || '-'\"></td>\r\n    </ng-container>\r\n\r\n</table>\r\n<div class=\"btn-group\">\r\n    <button nbButton (click)=\"lastPage()\" [disabled]=\"disableLastPage()\">\u4E0A\u4E00\u9875</button>\r\n    <button nbButton (click)=\"nextPage()\" [disabled]=\"disableNextPage()\">\u4E0B\u4E00\u9875</button>\r\n</div>\r\n",
             styles: [":host .ipr-row{-webkit-transition:background-color .3s;transition:background-color .3s}:host .ipr-row:hover{background-color:#edf1f7}:host .btn-group{float:right;margin:1rem}:host .btn-group button{margin-right:1rem}"]
         }),
         __metadata("design:paramtypes", [NbTreeGridDataSourceBuilder,
