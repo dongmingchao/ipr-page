@@ -54,6 +54,7 @@ export declare class TableComponent implements DoCheck, OnInit {
      */
     refreshPage(now_number: number): void;
     setPage(now_number: number): void;
+    sourceToShow(left: number, right?: number): void;
     updateSort(sortRequest: NbSortRequest): void;
     updateSearch(searchQuery: string): void;
     /**
