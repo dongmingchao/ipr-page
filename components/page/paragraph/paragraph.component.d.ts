@@ -2,6 +2,7 @@ import { AfterViewInit, DoCheck, ElementRef, EventEmitter, KeyValueDiffers, OnCh
 import { Catalog } from '../../../_Classes/Catalog.class';
 import { ReportsService } from '../../../_Services/reports.service';
 import { WidgetClickEvent } from '../../../_Classes/WidgetClickEvent.class';
+import { TableComponent } from '../table/table.component';
 export declare class ParagraphComponent implements OnInit, AfterViewInit, OnChanges, DoCheck {
     private reportsService;
     private differs;
@@ -30,6 +31,8 @@ export declare class ParagraphComponent implements OnInit, AfterViewInit, OnChan
     widgetClick(widgetName: any, event: any): void;
     tableFinalPage(): void;
     tableSwitchPage(): void;
+    tableSort(table: TableComponent): void;
+    tableFilter(table: TableComponent): void;
     constructor(_el: ElementRef, reportsService: ReportsService, differs: KeyValueDiffers);
     ngOnInit(): void;
     ngAfterViewInit(): void;
