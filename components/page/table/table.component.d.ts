@@ -14,6 +14,8 @@ export declare class TableComponent implements DoCheck, OnInit {
     afterSetData: EventEmitter<NbTreeGridDataSource<Patent>>;
     whenFinalPage: EventEmitter<{}>;
     whenSwitchPage: EventEmitter<number>;
+    whenSorted: EventEmitter<{}>;
+    whenFiltered: EventEmitter<{}>;
     clickNextPage: {
         onclick: () => void;
         disable?: () => boolean;
