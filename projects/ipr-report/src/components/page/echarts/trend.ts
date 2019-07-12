@@ -50,16 +50,16 @@ export class TrendChart {
     ];
     series = [
         {
-            name: '专利',
-            type: 'bar',
-        },
-        {
             name: '申请人',
             type: 'line',
         },
         {
             name: '发明人',
             type: 'line',
-        }
+        },
+        {
+            name: '专利',
+            type: 'bar',
+        },
     ];
 }

@@ -1,4 +1,6 @@
-<table [nbTreeGrid]="shownDataSource" [nbSort]="dataSource" (sort)="updateSort($event)">
+<table [nbTreeGrid]="shownDataSource"
+       [nbSort]="dataSource"
+       (sort)="updateSort($event)">
 
     <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef="allColumns"></tr>
     <tr class="ipr-row"
@@ -17,6 +19,8 @@
 
 </table>
 <div class="btn-group">
-    <button nbButton (click)="lastPage()" [disabled]="page.now_number === 0">上一页</button>
-    <button nbButton (click)="nextPage()" [disabled]="page.num + page.step >= dataList.length">下一页</button>
+    <button nbButton (click)="lastPage()" [disabled]="disableLastPage()">上一页</button>
+    <button nbButton disabled>{{page.now_number+1}}</button>
+    <button nbButton (click)="nextPage()" [disabled]="disableNextPage()">下一页</button>
+    <button nbButton [disabled]="page.sum === page.now_number" (click)="refreshPage(page.sum)">...{{page.sum+1}}</button>
 </div>

@@ -68,8 +68,8 @@ export class TechDistribution {
 
     setPieSeries(level: any[]) {
         const series = [];
-        for (const i of level) {
-            series.push(this._flat[i]);
+        for (const l of level) {
+            series.push(this._flat[l]);
         }
         for (let i = 0; i < series.length; i++) {
             series[i].radius = [i * 70, i * 70 + 70];

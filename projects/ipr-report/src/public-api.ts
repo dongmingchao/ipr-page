@@ -8,3 +8,4 @@ export * from './_Classes/Paragraph.class';
 export * from './_Classes/WidgetClickEvent.class';
 export * from './_Services/reports.service';
 export * from './_Interface/backend.service';
+export * from './components/page/table/table.component';

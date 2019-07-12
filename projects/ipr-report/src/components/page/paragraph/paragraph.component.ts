@@ -13,6 +13,7 @@ import {Catalog} from '../../../_Classes/Catalog.class';
 import {ReportsService} from '../../../_Services/reports.service';
 import {IprCharts} from '../echarts/ipr-charts';
 import {WidgetClickEvent} from '../../../_Classes/WidgetClickEvent.class';
+import {TableComponent} from '../table/table.component';
 
 function offset(curEle, parent) {
     let totalLeft = null;
@@ -69,7 +70,7 @@ export class ParagraphComponent implements OnInit, AfterViewInit, OnChanges, DoC
         title: '专利名',
         standard_applicant_str: '申请人',
         application_date: '申请日期',
-        status: '状态',
+        current_legal_status: '状态',
         importance_reason: '重要原因'
     };
 
@@ -135,6 +136,16 @@ export class ParagraphComponent implements OnInit, AfterViewInit, OnChanges, DoC
     tableSwitchPage() {
         const os = offset(this.content._render.ref, this.container);
         this.container.scrollTo(os.left, os.top);
+    }
+
+    tableSort(table: TableComponent) {
+        table.updateShow();
+        table.setPage(0);
+    }
+
+    tableFilter(table: TableComponent) {
+        table.updateShow();
+        table.setPage(0);
     }
 
     constructor(
