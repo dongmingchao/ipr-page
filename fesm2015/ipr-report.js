@@ -112592,6 +112592,7 @@ let TableComponent = class TableComponent {
         this.refreshPage(this.page.now_number - 1);
     }
     refreshPage(now_number) {
+        this.whenSwitchPage.emit(now_number);
         this.page.num = now_number * this.page.step;
         let left = this.page.num;
         if (left < 0) {
@@ -112644,17 +112645,17 @@ let TableComponent = class TableComponent {
         return minWithForMultipleColumns + (nextColumnStep * index);
     }
     ngOnInit() {
-        this.customerDiffer = this.differs.find(this.shownDataSource).create();
+        // this.customerDiffer = this.differs.find(this.shownDataSource).create();
     }
     ngDoCheck() {
-        const contentDiffer = this.customerDiffer.diff(this.shownDataSource);
-        if (contentDiffer) {
-            contentDiffer.forEachChangedItem(r => {
-                if (r.key === 'renderData') {
-                    this.whenSwitchPage.emit(r);
-                }
-            });
-        }
+        // const contentDiffer = this.customerDiffer.diff(this.shownDataSource);
+        // if (contentDiffer) {
+        //     contentDiffer.forEachChangedItem(r => {
+        //         if (r.key === 'renderData') {
+        //             this.whenSwitchPage.emit(r);
+        //         }
+        //     });
+        // }
     }
 };
 __decorate([
