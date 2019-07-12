@@ -112612,11 +112612,17 @@ let TableComponent = class TableComponent {
             right = this.dataList.length;
             this.whenFinalPage.emit();
         }
+        this.sourceToShow(left, right);
+        this.page.now_number = now_number;
+    }
+    sourceToShow(left, right) {
+        if (!right) {
+            right = left + this.page.step;
+        }
         this.shownDataSource = this.dataSourceBuilder
             .create(this.dataList
             .slice(left, right)
             .map(e => ({ data: e })));
-        this.page.now_number = now_number;
     }
     updateSort(sortRequest) {
         this.sortColumn = sortRequest.column;

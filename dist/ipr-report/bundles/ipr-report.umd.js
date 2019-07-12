@@ -112856,11 +112856,17 @@
                 right = this.dataList.length;
                 this.whenFinalPage.emit();
             }
+            this.sourceToShow(left, right);
+            this.page.now_number = now_number;
+        };
+        TableComponent.prototype.sourceToShow = function (left, right) {
+            if (!right) {
+                right = left + this.page.step;
+            }
             this.shownDataSource = this.dataSourceBuilder
                 .create(this.dataList
                 .slice(left, right)
                 .map(function (e) { return ({ data: e }); }));
-            this.page.now_number = now_number;
         };
         TableComponent.prototype.updateSort = function (sortRequest) {
             this.sortColumn = sortRequest.column;
