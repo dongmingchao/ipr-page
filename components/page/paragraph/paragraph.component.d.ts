@@ -20,7 +20,7 @@ export declare class ParagraphComponent implements OnInit, AfterViewInit, OnChan
         title: string;
         standard_applicant_str: string;
         application_date: string;
-        status: string;
+        current_legal_status: string;
         importance_reason: string;
     };
     updatePercent(): void;

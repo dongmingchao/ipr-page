@@ -14,8 +14,14 @@ export declare class TableComponent implements DoCheck, OnInit {
     afterSetData: EventEmitter<NbTreeGridDataSource<Patent>>;
     whenFinalPage: EventEmitter<{}>;
     whenSwitchPage: EventEmitter<{}>;
-    clickNextPage: () => boolean;
-    clickLastPage: () => boolean;
+    clickNextPage: {
+        onclick: () => void;
+        disable: () => boolean;
+    };
+    clickLastPage: {
+        onclick: () => void;
+        disable: () => boolean;
+    };
     tableHeaderMap: {
         [key: string]: string;
     };
@@ -32,6 +38,7 @@ export declare class TableComponent implements DoCheck, OnInit {
         num: number;
         step: number;
         now_number: number;
+        sum: number;
     };
     private customerDiffer;
     data: Response;
