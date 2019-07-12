@@ -16,11 +16,11 @@ export declare class TableComponent implements DoCheck, OnInit {
     whenSwitchPage: EventEmitter<{}>;
     clickNextPage: {
         onclick: () => void;
-        disable: () => boolean;
+        disable?: () => boolean;
     };
     clickLastPage: {
         onclick: () => void;
-        disable: () => boolean;
+        disable?: () => boolean;
     };
     tableHeaderMap: {
         [key: string]: string;

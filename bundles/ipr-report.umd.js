@@ -112783,7 +112783,9 @@
         Object.defineProperty(TableComponent.prototype, "clickNextPage", {
             set: function (val) {
                 this.nextPage = val.onclick;
-                this.disableNextPage = val.disable;
+                if (val.disable) {
+                    this.disableNextPage = val.disable;
+                }
             },
             enumerable: true,
             configurable: true
@@ -112791,7 +112793,9 @@
         Object.defineProperty(TableComponent.prototype, "clickLastPage", {
             set: function (val) {
                 this.lastPage = val.onclick;
-                this.disableLastPage = val.disable;
+                if (val.disable) {
+                    this.disableLastPage = val.disable;
+                }
             },
             enumerable: true,
             configurable: true
@@ -112810,7 +112814,7 @@
                     return;
                 }
                 this.dataList = val.patent_list;
-                this.page.sum = Math.ceil(this.dataList.length / this.page.step);
+                this.page.sum = Math.ceil(this.dataList.length / this.page.step) - 1;
                 this.dataSource = this.dataSourceBuilder
                     .create(this.dataList.map(function (e) { return ({ data: e }); }));
                 this.refreshPage(0);
@@ -112820,7 +112824,7 @@
             configurable: true
         });
         TableComponent.prototype.disableNextPage = function () {
-            return this.page.num + this.page.step >= this.dataList.length;
+            return this.page.now_number === this.page.sum;
         };
         TableComponent.prototype.disableLastPage = function () {
             return this.page.now_number === 0;
@@ -112947,7 +112951,7 @@
         TableComponent = __decorate([
             core.Component({
                 selector: 'ipr-table',
-                template: "<table [nbTreeGrid]=\"shownDataSource\"\r\n       [nbSort]=\"dataSource\"\r\n       (sort)=\"updateSort($event)\">\r\n\r\n    <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef=\"allColumns\"></tr>\r\n    <tr class=\"ipr-row\"\r\n        nbTreeGridRow *nbTreeGridRowDef=\"let row; columns: allColumns\"\r\n        (click)=\"rowClick.emit(row)\"\r\n        [clickToToggle]=\"false\"></tr>\r\n\r\n    <ng-container *ngFor=\"let column of allColumns; let index = index\"\r\n                  [nbTreeGridColumnDef]=\"column\"\r\n                  [showOn]=\"getShowOn(index)\">\r\n        <th nbTreeGridHeaderCell [nbSortHeader]=\"getSortDirection(column)\" *nbTreeGridHeaderCellDef>\r\n            {{tableMap[column]}}\r\n        </th>\r\n        <td nbTreeGridCell *nbTreeGridCellDef=\"let row\" [innerHTML]=\"row.data[column] || '-'\"></td>\r\n    </ng-container>\r\n\r\n</table>\r\n<div class=\"btn-group\">\r\n    <button nbButton (click)=\"lastPage()\" [disabled]=\"disableLastPage()\">\u4E0A\u4E00\u9875</button>\r\n    <button nbButton disabled>{{page.now_number+1}}</button>\r\n    <button nbButton (click)=\"nextPage()\" [disabled]=\"disableNextPage()\">\u4E0B\u4E00\u9875</button>\r\n    <button nbButton [disabled]=\"page.sum === page.now_number+1\" (click)=\"refreshPage(page.sum-1)\">...{{page.sum}}</button>\r\n</div>\r\n",
+                template: "<table [nbTreeGrid]=\"shownDataSource\"\r\n       [nbSort]=\"dataSource\"\r\n       (sort)=\"updateSort($event)\">\r\n\r\n    <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef=\"allColumns\"></tr>\r\n    <tr class=\"ipr-row\"\r\n        nbTreeGridRow *nbTreeGridRowDef=\"let row; columns: allColumns\"\r\n        (click)=\"rowClick.emit(row)\"\r\n        [clickToToggle]=\"false\"></tr>\r\n\r\n    <ng-container *ngFor=\"let column of allColumns; let index = index\"\r\n                  [nbTreeGridColumnDef]=\"column\"\r\n                  [showOn]=\"getShowOn(index)\">\r\n        <th nbTreeGridHeaderCell [nbSortHeader]=\"getSortDirection(column)\" *nbTreeGridHeaderCellDef>\r\n            {{tableMap[column]}}\r\n        </th>\r\n        <td nbTreeGridCell *nbTreeGridCellDef=\"let row\" [innerHTML]=\"row.data[column] || '-'\"></td>\r\n    </ng-container>\r\n\r\n</table>\r\n<div class=\"btn-group\">\r\n    <button nbButton (click)=\"lastPage()\" [disabled]=\"disableLastPage()\">\u4E0A\u4E00\u9875</button>\r\n    <button nbButton disabled>{{page.now_number+1}}</button>\r\n    <button nbButton (click)=\"nextPage()\" [disabled]=\"disableNextPage()\">\u4E0B\u4E00\u9875</button>\r\n    <button nbButton [disabled]=\"page.sum === page.now_number\" (click)=\"refreshPage(page.sum)\">...{{page.sum+1}}</button>\r\n</div>\r\n",
                 styles: [":host .ipr-row{-webkit-transition:background-color .3s;transition:background-color .3s}:host .ipr-row:hover{background-color:#edf1f7}:host .btn-group{float:right;margin:1rem}:host .btn-group button{margin-right:1rem}"]
             }),
             __metadata("design:paramtypes", [theme.NbTreeGridDataSourceBuilder,
