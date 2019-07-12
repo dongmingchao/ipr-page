@@ -46,9 +46,17 @@ export declare class TableComponent implements DoCheck, OnInit {
     disableLastPage(): boolean;
     nextPage(): void;
     lastPage(): void;
+    /**
+     * 触发换页事件，展示页码中内容，并设定新的相关视图信息
+     * @param now_number 页码
+     */
     refreshPage(now_number: number): void;
+    setPage(now_number: number): void;
     updateSort(sortRequest: NbSortRequest): void;
     updateSearch(searchQuery: string): void;
+    /**
+     * 从总数据源取部分数据展示
+     */
     updateShow(): void;
     getSortDirection(column: string): NbSortDirection;
     getShowOn(index: number): number;

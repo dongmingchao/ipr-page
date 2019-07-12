@@ -112576,6 +112576,7 @@ let TableComponent = class TableComponent {
         this.page.sum = Math.ceil(this.dataList.length / this.page.step) - 1;
         this.dataSource = this.dataSourceBuilder
             .create(this.dataList.map(e => ({ data: e })));
+        this.setPage(0);
         this.afterSetData.emit(this.dataSource);
     }
     disableNextPage() {
@@ -112590,8 +112591,15 @@ let TableComponent = class TableComponent {
     lastPage() {
         this.refreshPage(this.page.now_number - 1);
     }
+    /**
+     * 触发换页事件，展示页码中内容，并设定新的相关视图信息
+     * @param now_number 页码
+     */
     refreshPage(now_number) {
         this.whenSwitchPage.emit(now_number);
+        this.setPage(now_number);
+    }
+    setPage(now_number) {
         this.page.num = now_number * this.page.step;
         let left = this.page.num;
         if (left < 0) {
@@ -112617,6 +112625,9 @@ let TableComponent = class TableComponent {
         this.dataSource.filter(searchQuery);
         this.updateShow();
     }
+    /**
+     * 从总数据源取部分数据展示
+     */
     updateShow() {
         const v = new Viewer();
         const data = [];
@@ -112626,10 +112637,11 @@ let TableComponent = class TableComponent {
             }
         });
         this.dataList = data;
-        this.shownDataSource = this.dataSourceBuilder
-            .create(this.dataList
-            .slice(0, this.page.step)
-            .map(e => ({ data: e })));
+        // this.shownDataSource = this.dataSourceBuilder
+        //     .create(this.dataList
+        //         .slice(0, this.page.step)
+        //         .map(e => ({data: e}))
+        //     );
         this.refreshPage(0);
     }
     getSortDirection(column) {
@@ -112644,7 +112656,6 @@ let TableComponent = class TableComponent {
         return minWithForMultipleColumns + (nextColumnStep * index);
     }
     ngOnInit() {
-        this.refreshPage(0);
         // this.customerDiffer = this.differs.find(this.shownDataSource).create();
     }
     ngDoCheck() {
