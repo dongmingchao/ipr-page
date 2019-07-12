@@ -112734,5 +112734,5 @@ class Patent {
     }
 }
 
-export { Catalog, IprReportBackend, IprReportModule, Paragraph, ReportsService, WidgetClickEvent, CosmeticsOutlineBarComponent as ɵa, openClose as ɵb, CosmeticsDetailComponent as ɵc, CosmeticsPageModule as ɵd, ParagraphComponent as ɵe, ParagraphPlaceholderComponent as ɵf, CosmeticsPageComponent as ɵg, TableComponent as ɵh, Patent as ɵi };
+export { Catalog, IprReportBackend, IprReportModule, Paragraph, ReportsService, TableComponent, WidgetClickEvent, CosmeticsOutlineBarComponent as ɵa, openClose as ɵb, CosmeticsDetailComponent as ɵc, CosmeticsPageModule as ɵd, ParagraphComponent as ɵe, ParagraphPlaceholderComponent as ɵf, CosmeticsPageComponent as ɵg, Patent as ɵh };
 //# sourceMappingURL=ipr-report.js.map

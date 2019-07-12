@@ -113001,6 +113001,7 @@
     exports.IprReportModule = IprReportModule;
     exports.Paragraph = Paragraph;
     exports.ReportsService = ReportsService;
+    exports.TableComponent = TableComponent;
     exports.WidgetClickEvent = WidgetClickEvent;
     exports.ɵa = CosmeticsOutlineBarComponent;
     exports.ɵb = openClose;
@@ -113009,8 +113010,7 @@
     exports.ɵe = ParagraphComponent;
     exports.ɵf = ParagraphPlaceholderComponent;
     exports.ɵg = CosmeticsPageComponent;
-    exports.ɵh = TableComponent;
-    exports.ɵi = Patent;
+    exports.ɵh = Patent;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
