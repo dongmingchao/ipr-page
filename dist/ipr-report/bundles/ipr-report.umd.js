@@ -112836,6 +112836,7 @@
             this.refreshPage(this.page.now_number - 1);
         };
         TableComponent.prototype.refreshPage = function (now_number) {
+            this.whenSwitchPage.emit(now_number);
             this.page.num = now_number * this.page.step;
             var left = this.page.num;
             if (left < 0) {
@@ -112899,18 +112900,17 @@
             return minWithForMultipleColumns + (nextColumnStep * index);
         };
         TableComponent.prototype.ngOnInit = function () {
-            this.customerDiffer = this.differs.find(this.shownDataSource).create();
+            // this.customerDiffer = this.differs.find(this.shownDataSource).create();
         };
         TableComponent.prototype.ngDoCheck = function () {
-            var _this = this;
-            var contentDiffer = this.customerDiffer.diff(this.shownDataSource);
-            if (contentDiffer) {
-                contentDiffer.forEachChangedItem(function (r) {
-                    if (r.key === 'renderData') {
-                        _this.whenSwitchPage.emit(r);
-                    }
-                });
-            }
+            // const contentDiffer = this.customerDiffer.diff(this.shownDataSource);
+            // if (contentDiffer) {
+            //     contentDiffer.forEachChangedItem(r => {
+            //         if (r.key === 'renderData') {
+            //             this.whenSwitchPage.emit(r);
+            //         }
+            //     });
+            // }
         };
         __decorate([
             core.Output(),

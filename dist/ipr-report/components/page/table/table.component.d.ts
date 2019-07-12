@@ -13,7 +13,7 @@ export declare class TableComponent implements DoCheck, OnInit {
     rowClick: EventEmitter<NbTreeGridRowComponent>;
     afterSetData: EventEmitter<NbTreeGridDataSource<Patent>>;
     whenFinalPage: EventEmitter<{}>;
-    whenSwitchPage: EventEmitter<{}>;
+    whenSwitchPage: EventEmitter<number>;
     clickNextPage: {
         onclick: () => void;
         disable?: () => boolean;
@@ -46,7 +46,7 @@ export declare class TableComponent implements DoCheck, OnInit {
     disableLastPage(): boolean;
     nextPage(): void;
     lastPage(): void;
-    refreshPage(now_number: any): void;
+    refreshPage(now_number: number): void;
     updateSort(sortRequest: NbSortRequest): void;
     updateSearch(searchQuery: string): void;
     updateShow(): void;
