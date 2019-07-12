@@ -112821,7 +112821,7 @@ var TableComponent = /** @class */ (function () {
         //         .slice(0, this.page.step)
         //         .map(e => ({data: e}))
         //     );
-        this.refreshPage(0);
+        this.setPage(0);
     };
     TableComponent.prototype.getSortDirection = function (column) {
         if (this.sortColumn === column) {

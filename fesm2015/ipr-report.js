@@ -112642,7 +112642,7 @@ let TableComponent = class TableComponent {
         //         .slice(0, this.page.step)
         //         .map(e => ({data: e}))
         //     );
-        this.refreshPage(0);
+        this.setPage(0);
     }
     getSortDirection(column) {
         if (this.sortColumn === column) {
