@@ -112817,7 +112817,6 @@
                 this.page.sum = Math.ceil(this.dataList.length / this.page.step) - 1;
                 this.dataSource = this.dataSourceBuilder
                     .create(this.dataList.map(function (e) { return ({ data: e }); }));
-                this.refreshPage(0);
                 this.afterSetData.emit(this.dataSource);
             },
             enumerable: true,
@@ -112900,6 +112899,7 @@
             return minWithForMultipleColumns + (nextColumnStep * index);
         };
         TableComponent.prototype.ngOnInit = function () {
+            this.refreshPage(0);
             // this.customerDiffer = this.differs.find(this.shownDataSource).create();
         };
         TableComponent.prototype.ngDoCheck = function () {

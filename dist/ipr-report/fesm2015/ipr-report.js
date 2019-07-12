@@ -112576,7 +112576,6 @@ let TableComponent = class TableComponent {
         this.page.sum = Math.ceil(this.dataList.length / this.page.step) - 1;
         this.dataSource = this.dataSourceBuilder
             .create(this.dataList.map(e => ({ data: e })));
-        this.refreshPage(0);
         this.afterSetData.emit(this.dataSource);
     }
     disableNextPage() {
@@ -112645,6 +112644,7 @@ let TableComponent = class TableComponent {
         return minWithForMultipleColumns + (nextColumnStep * index);
     }
     ngOnInit() {
+        this.refreshPage(0);
         // this.customerDiffer = this.differs.find(this.shownDataSource).create();
     }
     ngDoCheck() {
