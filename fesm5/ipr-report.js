@@ -112458,18 +112458,18 @@ var TechDistribution = /** @class */ (function () {
             finally { if (e_2) throw e_2.error; }
         }
         for (var i = 0; i < series.length; i++) {
-            series[i].radius = [i * 70, i * 70 + 70];
-            series[i].label = {
-                normal: {
-                    show: false,
-                    position: 'inner'
-                }
-            };
-            series[i].labelLine = {
-                normal: {
-                    show: false
-                }
-            };
+            series[i].radius = [i * 120, i * 120 + 120];
+            // series[i].label = {
+            //     normal: {
+            //         show: false,
+            //         position: 'inner'
+            //     }
+            // };
+            // series[i].labelLine = {
+            //     normal: {
+            //         show: false
+            //     }
+            // };
         }
         this.series = series;
     };
